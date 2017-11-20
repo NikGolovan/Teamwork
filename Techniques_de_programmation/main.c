@@ -27,25 +27,25 @@ int main(int argc, char const *argv[]) {
   }
 
   do {
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║                                   ║\n");
-    printf("║            MENU ALERTE            ║\n");
-    printf("║                                   ║\n");
-    printf("╠════╦══════════════════════════════╣\n");
-    printf("║    ║                              ║\n");
-    printf("║ 1  ║ Créer une alerte             ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 2  ║ Afficher une alerte          ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 3  ║ Afficher toutes les alertes  ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 4  ║ Modifier une alerte          ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 5  ║ Supprimer une alerte         ║\n");
-    printf("║    ║                              ║\n");
-    printf("╠════╬══════════════════════════════╣\n");
-    printf("║ -1 ║ Quitter                      ║\n");
-    printf("╚════╩══════════════════════════════╝\n");
+    printf("╔════════════════════════════════════════╗\n");
+    printf("║                                        ║\n");
+    printf("║     GESTION GLOBALISEE DES SECOURS     ║\n");
+    printf("║                                        ║\n");
+    printf("╠════╦═══════════════════════════════════╣\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 1  ║ Déclenchement d'une alerte        ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 2  ║ Traitement d'une alerte           ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 3  ║ Creation d'une unité              ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 4  ║ Gestion des unités disponibles    ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 5  ║ Consultation des unités déployées ║\n");
+    printf("║    ║                                   ║\n");
+    printf("╠════╬═══════════════════════════════════╣\n");
+    printf("║ -1 ║ Quitter                           ║\n");
+    printf("╚════╩═══════════════════════════════════╝\n");
 
     scanf("%d%*c", &iChoix);
 
@@ -61,18 +61,72 @@ int main(int argc, char const *argv[]) {
         printf("DEBUG: compteurAlerte après l'ajout : %d\n", iCompteurAlerte);
         break;
       case 2:
-        afficherUneAlerte(&alerte, &iCompteurAlerte);
-        break;
+        do {
+          menuTraitementAlerte();
+
+          scanf("%d%*c", &iChoix);
+
+          switch (iChoix) {
+            case 1:
+              afficherUneAlerte(&alerte, &iCompteurAlerte);
+              break;
+            case 2:
+              modifierAlerte(&alerte, &iCompteurAlerte);
+              break;
+            case 3:
+              afficherToutesAlertes(&alerte, &iCompteurAlerte);
+              break;
+            case 4:
+              supprimerAlerte(&alerte, &iCompteurAlerte);
+              printf("DEBUG: compteurAlerte après la suppression : %d\n", iCompteurAlerte);
+              break;
+            case -2:
+              break;
+            default:
+              printf("La saisie n'est pas correcte.\n");
+              break;
+          }
+        } while(iChoix != -2);
+
       case 3:
-        afficherToutesAlertes(&alerte, &iCompteurAlerte);
+        creerUnite(&unite, &iCompteurUnite);
+        iCompteurUnite++;
+
+        if (iCompteurUnite >= TAILLE_INITIALE_DE_MALLOC_UNITE) {
+          unite = realloc(unite, ((iCompteurUnite+1) * sizeof(Unites)));
+          printf("DEBUG: La mémoire a été realouée\n");
+        }
+
+        printf("DEBUG: compteurAlerte après l'ajout : %d\n", iCompteurUnite);
         break;
       case 4:
-        modifierAlerte(&alerte, &iCompteurAlerte);
-        break;
-      case 5:
-        supprimerAlerte(&alerte, &iCompteurAlerte);
-        printf("DEBUG: compteurAlerte après la suppression : %d\n", iCompteurAlerte);
-        break;
+        do {
+          menuTraitementUnite();
+
+          scanf("%d%*c", &iChoix);
+
+          switch (iChoix) {
+            case 1:
+              afficherUneUnite(&unite, &iCompteurUnite);
+              break;
+            case 2:
+              afficherToutesUnites(&unite, &iCompteurUnite);
+              break;
+            case 3:
+              modifierUnite(&unite, &iCompteurUnite);
+              break;
+            case 4:
+              supprimerUnite(&unite, &iCompteurUnite);
+              printf("DEBUG: compteurUnite après la suppression : %d\n", iCompteurAlerte);
+              break;
+            case -2:
+              break;
+            default:
+              printf("La saisie n'est pas correcte.\n");
+              break;
+          }
+        } while(iChoix != -2);
+
       case -1:
         break;
       default:
@@ -86,46 +140,3 @@ int main(int argc, char const *argv[]) {
 
   return 0;
 }
-
-/*
-printf("╔════════════════════════════════════════╗\n");
-printf("║                                        ║\n");
-printf("║            GESTION DES UNITES          ║\n");
-printf("║                                        ║\n");
-printf("╠════╦═══════════════════════════════════╣\n");
-printf("║    ║                                   ║\n");
-printf("║ 1  ║ Créer une unité                   ║\n");
-printf("║    ║                                   ║\n");
-printf("║ 2  ║ Afficher une unité                ║\n");
-printf("║    ║                                   ║\n");
-printf("║ 3  ║ Afficher toutes les unités        ║\n");
-printf("║    ║                                   ║\n");
-printf("║ 4  ║ Modifier une unité                ║\n");
-printf("║    ║                                   ║\n");
-printf("║ 5  ║ Supprimer une unité               ║\n");
-printf("║    ║                                   ║\n");
-printf("╠════╬═══════════════════════════════════╣\n");
-printf("║ -1 ║ Retourner                         ║\n");
-printf("╚════╩═══════════════════════════════════╝\n");
-
-
-printf("╔════════════════════════════════════════╗\n");
-printf("║                                        ║\n");
-printf("║     GESTION GLOBALISEE DES SECOURS     ║\n");
-printf("║                                        ║\n");
-printf("╠════╦═══════════════════════════════════╣\n");
-printf("║    ║                                   ║\n");
-printf("║ 1  ║ Déclenchement d'une alerte        ║\n");
-printf("║    ║                                   ║\n");
-printf("║ 2  ║ Traitement d'une alerte           ║\n");
-printf("║    ║                                   ║\n");
-printf("║ 3  ║ Creation d'une unité              ║\n");
-printf("║    ║                                   ║\n");
-printf("║ 4  ║ Gestion des unités disponibles    ║\n");
-printf("║    ║                                   ║\n");
-printf("║ 5  ║ Consultation des unités déployées ║\n");
-printf("║    ║                                   ║\n");
-printf("╠════╬═══════════════════════════════════╣\n");
-printf("║ -1 ║ Retourner                         ║\n");
-printf("╚════╩═══════════════════════════════════╝\n");
-*/
