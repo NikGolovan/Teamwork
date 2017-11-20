@@ -36,19 +36,19 @@ char * niveauAlerte() {
   }
 
   do {
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║                                   ║\n");
-    printf("║           NIVEAU ALERTE           ║\n");
-    printf("║                                   ║\n");
-    printf("╠════╦══════════════════════════════╣\n");
-    printf("║    ║                              ║\n");
-    printf("║ 1  ║ NOMINAL                      ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 2  ║ URGENT                       ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 3  ║ URGENCE ABSOLUE              ║\n");
-    printf("║    ║                              ║\n");
-    printf("╚════╩══════════════════════════════╝\n");
+    printf("╔════════════════════════════════════════╗\n");
+    printf("║                                        ║\n");
+    printf("║                 NIVEAU                 ║\n");
+    printf("║                                        ║\n");
+    printf("╠════╦═══════════════════════════════════╣\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 1  ║ NOMINAL                           ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 2  ║ URGENT                            ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 3  ║ URGENCE ABSOLUE                   ║\n");
+    printf("║    ║                                   ║\n");
+    printf("╚════╩═══════════════════════════════════╝\n");
 
     scanf("%d%*c", &iChoix);
 
@@ -83,27 +83,27 @@ char * typeAlerte() {
   }
 
   do {
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║                                   ║\n");
-    printf("║            TYPE ALERTE            ║\n");
-    printf("║                                   ║\n");
-    printf("╠════╦══════════════════════════════╣\n");
-    printf("║    ║                              ║\n");
-    printf("║ 1  ║ INCENDIE                     ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 2  ║ ACCIDENT DE LA ROUTE         ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 3  ║ ACCIDENT EN MER              ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 4  ║ ACCIDENT EN MONTAGNE         ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 5  ║ MALAISE                      ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 6  ║ EXPLOSION                    ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 7  ║ ACCIDENT DE LA VIE           ║\n");
-    printf("║    ║                              ║\n");
-    printf("╚════╩══════════════════════════════╝\n");
+    printf("╔════════════════════════════════════════╗\n");
+    printf("║                                        ║\n");
+    printf("║                  TYPE                  ║\n");
+    printf("║                                        ║\n");
+    printf("╠════╦═══════════════════════════════════╣\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 1  ║ INCENDIE                          ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 2  ║ ACCIDENT DE LA ROUTE              ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 3  ║ ACCIDENT EN MER                   ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 4  ║ ACCIDENT EN MONTAGNE              ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 5  ║ MALAISE                           ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 6  ║ EXPLOSION                         ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 7  ║ ACCIDENT DE LA VIE                ║\n");
+    printf("║    ║                                   ║\n");
+    printf("╚════╩═══════════════════════════════════╝\n");
 
 
     scanf("%d%*c", &iChoix);
@@ -346,19 +346,19 @@ char * moyenDeplacement() {
   }
 
   do {
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║                                   ║\n");
-    printf("║        MOYEN DE DEPLACEMENT       ║\n");
-    printf("║                                   ║\n");
-    printf("╠════╦══════════════════════════════╣\n");
-    printf("║    ║                              ║\n");
-    printf("║ 1  ║ ROUTE                        ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 2  ║ AIR                          ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 3  ║ MER                          ║\n");
-    printf("║    ║                              ║\n");
-    printf("╚════╩══════════════════════════════╝\n");
+    printf("╔════════════════════════════════════════╗\n");
+    printf("║                                        ║\n");
+    printf("║          MOYEN DE DEPLACEMENT          ║\n");
+    printf("║                                        ║\n");
+    printf("╠════╦═══════════════════════════════════╣\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 1  ║ ROUTE                             ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 2  ║ AIR                               ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 3  ║ MER                               ║\n");
+    printf("║    ║                                   ║\n");
+    printf("╚════╩═══════════════════════════════════╝\n");
 
     scanf("%d%*c", &iChoix);
 
@@ -393,19 +393,19 @@ char * niveauDisponibilite() {
   }
 
   do {
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║                                   ║\n");
-    printf("║       NIVEAU DE DISPONIBILITE     ║\n");
-    printf("║                                   ║\n");
-    printf("╠════╦══════════════════════════════╣\n");
-    printf("║    ║                              ║\n");
-    printf("║ 1  ║ ACTIVE                       ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 2  ║ EN REPOS                     ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 3  ║ EN REAPPROVISIONNEMENT       ║\n");
-    printf("║    ║                              ║\n");
-    printf("╚════╩══════════════════════════════╝\n");
+    printf("╔════════════════════════════════════════╗\n");
+    printf("║                                        ║\n");
+    printf("║         NIVEAU DE DISPONIBILITE        ║\n");
+    printf("║                                        ║\n");
+    printf("╠════╦═══════════════════════════════════╣\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 1  ║ ACTIVITE                          ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 2  ║ EN REPOS                          ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 3  ║ EN REAPROVISIONNEMENT             ║\n");
+    printf("║    ║                                   ║\n");
+    printf("╚════╩═══════════════════════════════════╝\n");
 
     scanf("%d%*c", &iChoix);
 
@@ -440,19 +440,19 @@ char * statutUnite() {
   }
 
   do {
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║                                   ║\n");
-    printf("║              STATUT               ║\n");
-    printf("║                                   ║\n");
-    printf("╠════╦══════════════════════════════╣\n");
-    printf("║    ║                              ║\n");
-    printf("║ 1  ║ EN ALERTE                    ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 2  ║ EN ROUTE                     ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 3  ║ SUR OPERATION                ║\n");
-    printf("║    ║                              ║\n");
-    printf("╚════╩══════════════════════════════╝\n");
+    printf("╔════════════════════════════════════════╗\n");
+    printf("║                                        ║\n");
+    printf("║                 STATUT                 ║\n");
+    printf("║                                        ║\n");
+    printf("╠════╦═══════════════════════════════════╣\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 1  ║ EN ALERTE                         ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 2  ║ EN ROUTE                          ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 3  ║ SUR OPERATION                     ║\n");
+    printf("║    ║                                   ║\n");
+    printf("╚════╩═══════════════════════════════════╝\n");
 
     scanf("%d%*c", &iChoix);
 
