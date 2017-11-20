@@ -27,25 +27,25 @@ int main(int argc, char const *argv[]) {
   }
 
   do {
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║                                   ║\n");
-    printf("║            MENU ALERTE            ║\n");
-    printf("║                                   ║\n");
-    printf("╠════╦══════════════════════════════╣\n");
-    printf("║    ║                              ║\n");
-    printf("║ 1  ║ Créer une alerte             ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 2  ║ Afficher une alerte          ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 3  ║ Afficher toutes les alertes  ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 4  ║ Modifier une alerte          ║\n");
-    printf("║    ║                              ║\n");
-    printf("║ 5  ║ Supprimer une alerte         ║\n");
-    printf("║    ║                              ║\n");
-    printf("╠════╬══════════════════════════════╣\n");
-    printf("║ -1 ║ Quitter                      ║\n");
-    printf("╚════╩══════════════════════════════╝\n");
+    printf("╔════════════════════════════════════════╗\n");
+    printf("║                                        ║\n");
+    printf("║           GESTION DES ALERTES          ║\n");
+    printf("║                                        ║\n");
+    printf("╠════╦═══════════════════════════════════╣\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 1  ║ Créer une alerte                  ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 2  ║ Afficher une alerte               ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 3  ║ Afficher toutes les alertes       ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 4  ║ Modifier une alerte               ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 5  ║ Supprimer une alerte              ║\n");
+    printf("║    ║                                   ║\n");
+    printf("╠════╬═══════════════════════════════════╣\n");
+    printf("║ -1 ║ Quitter                           ║\n");
+    printf("╚════╩═══════════════════════════════════╝\n");
 
     scanf("%d%*c", &iChoix);
 
@@ -86,3 +86,46 @@ int main(int argc, char const *argv[]) {
 
   return 0;
 }
+
+/*
+
+printf("╔════════════════════════════════════════╗\n");
+printf("║                                        ║\n");
+printf("║            GESTION DES UNITES          ║\n");
+printf("║                                        ║\n");
+printf("╠════╦═══════════════════════════════════╣\n");
+printf("║    ║                                   ║\n");
+printf("║ 1  ║ Créer une unité                   ║\n");
+printf("║    ║                                   ║\n");
+printf("║ 2  ║ Afficher une unité                ║\n");
+printf("║    ║                                   ║\n");
+printf("║ 3  ║ Afficher toutes les unités        ║\n");
+printf("║    ║                                   ║\n");
+printf("║ 4  ║ Modifier une unité                ║\n");
+printf("║    ║                                   ║\n");
+printf("║ 5  ║ Supprimer une unité               ║\n");
+printf("║    ║                                   ║\n");
+printf("╠════╬═══════════════════════════════════╣\n");
+printf("║ -1 ║ Quitter                           ║\n");
+printf("╚════╩═══════════════════════════════════╝\n");
+
+
+printf("╔════════════════════════════════════════╗\n");
+printf("║                                        ║\n");
+printf("║     GESTION GLOBALISEE DES SECOURS     ║\n");
+printf("║                                        ║\n");
+printf("╠════╦═══════════════════════════════════╣\n");
+printf("║    ║                                   ║\n");
+printf("║ 1  ║ Déclenchement d'une alerte        ║\n");
+printf("║    ║                                   ║\n");
+printf("║ 2  ║ Traitement d'une alerte           ║\n");
+printf("║    ║                                   ║\n");
+printf("║ 3  ║ Gestion des unités disponibles    ║\n");
+printf("║    ║                                   ║\n");
+printf("║ 4  ║ Consultation des unités déployées ║\n");
+printf("║    ║                                   ║\n");
+printf("╠════╬═══════════════════════════════════╣\n");
+printf("║ -1 ║ Quitter                           ║\n");
+printf("╚════╩═══════════════════════════════════╝\n");
+
+*/
