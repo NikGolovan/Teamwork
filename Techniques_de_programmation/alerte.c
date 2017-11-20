@@ -191,7 +191,6 @@ void afficherToutesAlertes(Alerte **alerte, int *iCompteurAlerte) {
     printf("Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
     printf("Description : %s", (*alerte)[i].cDescription);
     printf("DEBUG: i = %d\n", i);
-    //scanf("%*c");
   }
 }
 
@@ -686,7 +685,7 @@ void supprimerUnite(Unites **unite, int *iCompteurUnite) {
 
   iNouvelleTaille = *iCompteurUnite;
 
-  *unite = realloc(*unite, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Unites)));
+  *unite = realloc(*unite, ((TAILLE_INITIALE_DE_MALLOC_UNITE+iNouvelleTaille) * sizeof(Unites)));
 
   if (*unite == NULL && *iCompteurUnite > 0) {
     printf("Erreur de reallocation memoire après la suppression.\n");
@@ -698,6 +697,7 @@ void supprimerUnite(Unites **unite, int *iCompteurUnite) {
   printf("Unité avec le code %d a été bien supprimé\n", iCodeDonne);
 }
 
-void envoyerUniteSurAlerte() {
+void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int *iCompteurUnite) {
+
 
 }
