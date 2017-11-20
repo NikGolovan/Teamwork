@@ -149,25 +149,19 @@ void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
   i = *iCompteurAlerte;
 
   printf("Code d'alerte :\n");
-  //scanf("%d%*c", &tmpNombre);
   iTmpNombre = genererCodeAlerte();
   (*alerte)[i].iCode = iTmpNombre;
 
   printf("Type d'alerte :\n");
-  //fgets(tmpChaine, LIEU_TAILLE, stdin);
-  //scanf("%s%*c", tmpChaine);
   cPtrType = typeAlerte();
   strcpy((*alerte)[i].cType, cPtrType);
 
   printf("Niveau d'alerte :\n");
-  //fgets(tmpChaine, LIEU_TAILLE, stdin);
-  //scanf("%s%*c", tmpChaine);
   cPtrNiveau = niveauAlerte();
   strcpy((*alerte)[i].cNiveau, cPtrNiveau);
 
   printf("Lieu :\n");
   fgets(sBuffer, TAILLE_BUFFER, stdin);
-  //scanf("%s%*c", tmpChaine);
   strcpy((*alerte)[i].cLieu, sBuffer);
 
   printf("Nombre de victimes :\n");
@@ -176,7 +170,6 @@ void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
 
   printf("Description :\n");
   fgets(sBuffer, TAILLE_BUFFER, stdin);
-  //scanf("%s%*c", tmpChaine);
   strcpy((*alerte)[i].cDescription, sBuffer);
 
   printf("Alerte a été bien crée avec le code suivant : %d\n", (*alerte)[i].iCode);
@@ -287,6 +280,7 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int iCodeDonne = 0;
   int i = 0;
   int j = 0;
+  int iNouvelleTaille = 0;
 
   if (*iCompteurAlerte == 0) {
    printf("Aucune alerte n'a été enregistrée\n");
@@ -316,7 +310,9 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
 
   (*iCompteurAlerte)--;
 
-  *alerte = realloc(*alerte, (*iCompteurAlerte * sizeof(Alerte)));
+  iNouvelleTaille = *iCompteurAlerte;
+
+  *alerte = realloc(*alerte, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Alerte)));
 
   if (*alerte == NULL && *iCompteurAlerte > 0) {
     printf("Erreur de reallocation memoire après la suppression.\n");
@@ -620,6 +616,7 @@ void supprimerUnite(Unites **unite, int *iCompteurUnite) {
   int iCodeDonne = 0;
   int i = 0;
   int j = 0;
+  int iNouvelleTaille = 0;
 
   if (*iCompteurUnite == 0) {
    printf("Aucune unité n'a été enregistrée\n");
@@ -649,7 +646,9 @@ void supprimerUnite(Unites **unite, int *iCompteurUnite) {
 
   (*iCompteurUnite)--;
 
-  *unite = realloc(*unite, (*iCompteurUnite * sizeof(Unites)));
+  iNouvelleTaille = *iCompteurAlerte;
+
+  *unite = realloc(*unite, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Unites)));
 
   if (*unite == NULL && *iCompteurUnite > 0) {
     printf("Erreur de reallocation memoire après la suppression.\n");
