@@ -39,9 +39,11 @@ int main(int argc, char const *argv[]) {
     printf("║    ║                                   ║\n");
     printf("║ 3  ║ Creation d'une unité              ║\n");
     printf("║    ║                                   ║\n");
-    printf("║ 4  ║ Gestion des unités disponibles    ║\n");
+    printf("║ 4  ║ Envoyer une unité sur une alerte  ║\n");
     printf("║    ║                                   ║\n");
-    printf("║ 5  ║ Consultation des unités déployées ║\n");
+    printf("║ 5  ║ Gestion des unités disponibles    ║\n");
+    printf("║    ║                                   ║\n");
+    printf("║ 6  ║ Consultation des unités déployées ║\n");
     printf("║    ║                                   ║\n");
     printf("╠════╬═══════════════════════════════════╣\n");
     printf("║ -1 ║ Quitter                           ║\n");
@@ -88,7 +90,6 @@ int main(int argc, char const *argv[]) {
           }
         } while(iChoix != -2);
         break;
-
       case 3:
         creerUnite(&unite, &iCompteurUnite);
         iCompteurUnite++;
@@ -101,6 +102,8 @@ int main(int argc, char const *argv[]) {
         printf("DEBUG: compteurAlerte après l'ajout : %d\n", iCompteurUnite);
         break;
       case 4:
+        break;
+      case 5:
         do {
           menuTraitementUnite();
 
@@ -127,7 +130,10 @@ int main(int argc, char const *argv[]) {
               break;
           }
         } while(iChoix != -2);
+        break;
+      case 6:
 
+        break;
       case -1:
         break;
       default:
