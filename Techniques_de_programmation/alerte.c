@@ -323,7 +323,47 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
   printf("Alerte avec le code %d a été bien supprimé\n", iCodeDonne);
 }
 
+void menuTraitementAlerte() {
+  printf("╔════════════════════════════════════════╗\n");
+  printf("║                                        ║\n");
+  printf("║        TRAITEMENT D'UNE ALERTE         ║\n");
+  printf("║                                        ║\n");
+  printf("╠════╦═══════════════════════════════════╣\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 1  ║ Afficher une alerte               ║\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 2  ║ Modifier une alerte               ║\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 3  ║ Afficher toutes les alertes       ║\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 4  ║ Supprimer une alerte              ║\n");
+  printf("║    ║                                   ║\n");
+  printf("╠════╬═══════════════════════════════════╣\n");
+  printf("║ -2 ║ Retourner                         ║\n");
+  printf("╚════╩═══════════════════════════════════╝\n");
+}
+
 /*  LES UNITES */
+
+void menuTraitementUnite() {
+  printf("╔════════════════════════════════════════╗\n");
+  printf("║                                        ║\n");
+  printf("║            GESTION DES UNITES          ║\n");
+  printf("║                                        ║\n");
+  printf("╠════╦═══════════════════════════════════╣\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 1  ║ Afficher une unité                ║\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 2  ║ Afficher toutes les unités        ║\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 3  ║ Modifier une unité                ║\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 4  ║ Supprimer une unité               ║\n");
+  printf("║    ║                                   ║\n");
+  printf("╠════╬═══════════════════════════════════╣\n");
+  printf("║ -2 ║ Retourner                         ║\n");
+  printf("╚════╩═══════════════════════════════════╝\n");
+}
 
 int genererCodeUnite() {
   int iNombreGenere = 0;
@@ -457,15 +497,15 @@ char * statutUnite() {
 
     switch (iChoix) {
       case 1:
-        cPtrStatutUnite  = "ACTIVE\n";
+        cPtrStatutUnite  = "EN ALERTE\n";
         break;
       case 2:
-        cPtrStatutUnite  = "EN REPOS\n";
+        cPtrStatutUnite  = "EN ROUTE\n";
         break;
-        case 3:
-        cPtrStatutUnite  = "EN REAPPROVISIONNEMENT\n";
+      case 3:
+        cPtrStatutUnite  = "SUR OPERATION\n";
         break;
-        default:
+      default:
         printf("La saisie n'est pas correcte.\n");
         break;
     }
@@ -484,7 +524,6 @@ void creerUnite(Unites **unite, int *iCompteurUnite) {
 
   i = *iCompteurUnite;
 
-  printf("Code d'alerte :\n");
   iTmpNombre = genererCodeUnite();
   (*unite)[i].iCode = iTmpNombre;
 
