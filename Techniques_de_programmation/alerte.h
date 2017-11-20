@@ -6,6 +6,7 @@
 #define TAILLE_INITIALE_DE_MALLOC_ALERTE 3
 #define TAILLE_INITIALE_DE_MALLOC_UNITE 3
 #define TAILLE_BUFFER 150
+#define TAILLE_BUFFER_RETOUR 30
 
 typedef struct {
   int iCode;
