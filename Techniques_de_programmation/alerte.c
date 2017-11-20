@@ -646,7 +646,7 @@ void supprimerUnite(Unites **unite, int *iCompteurUnite) {
 
   (*iCompteurUnite)--;
 
-  iNouvelleTaille = *iCompteurAlerte;
+  iNouvelleTaille = *iCompteurUnite;
 
   *unite = realloc(*unite, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Unites)));
 
