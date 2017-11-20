@@ -2,27 +2,18 @@
 #define ALERTE_H
 #include <stdio.h>
 
-#define LIEU_TAILLE 150
 #define DESCRIPTION_TAILLE 150
-#define TAILLE_TYPE 21
-#define TAILLE_NIVEAU 21
 #define TAILLE_INITIALE_DE_MALLOC_ALERTE 3
 #define TAILLE_INITIALE_DE_MALLOC_UNITE 3
 #define TAILLE_BUFFER 150
 
-#define TAILLE_MOYEN_DEPLACEMENT 21
-#define TAILLE_NIVEAU_DISPONIBILITE 21
-#define TAILLE_STATUT 21
-#define TAILLE_BASE 50
-#define TAILLE_NOM_UNITE 30
-
 typedef struct {
   int iCode;
-  char cType[TAILLE_TYPE];
-  char cNiveau[TAILLE_NIVEAU];
-  char cLieu[LIEU_TAILLE];
+  char cType[TAILLE_BUFFER];
+  char cNiveau[TAILLE_BUFFER];
+  char cLieu[TAILLE_BUFFER];
   int iNombreVictimes;
-  char cDescription[DESCRIPTION_TAILLE];
+  char cDescription[TAILLE_BUFFER];
 } Alerte;
 
 void ajouterAlerte(Alerte **alerte, int *compteurAlerte);
@@ -36,11 +27,11 @@ int genererCodeAlerte(/*Alerte **alerte, int *compteurAlerte*/);
 
 typedef struct {
   int iCode;
-  char cNom[TAILLE_NOM_UNITE];
-  char cMoyenDeplacement[TAILLE_MOYEN_DEPLACEMENT];
-  char cNiveauDisponibilite[TAILLE_NIVEAU_DISPONIBILITE];
-  char cStatut[TAILLE_STATUT];
-  char cBase[TAILLE_BASE];
+  char cNom[TAILLE_BUFFER];
+  char cMoyenDeplacement[TAILLE_BUFFER];
+  char cNiveauDisponibilite[TAILLE_BUFFER];
+  char cStatut[TAILLE_BUFFER];
+  char cBase[TAILLE_BUFFER];
 } Unites;
 
 void creerUnite(Unites **unite, int *compteurUnite);
