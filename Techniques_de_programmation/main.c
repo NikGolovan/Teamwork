@@ -35,11 +35,11 @@ int main(int argc, char const *argv[]) {
     printf("║    ║                                   ║\n");
     printf("║ 1  ║ Déclenchement d'une alerte        ║\n");
     printf("║    ║                                   ║\n");
-    printf("║ 2  ║ Traitement d'une alerte           ║\n");
+    printf("║ 2  ║ Nouvelle alerte                   ║\n");
     printf("║    ║                                   ║\n");
-    printf("║ 3  ║ Creation d'une unité              ║\n");
+    printf("║ 3  ║ Créer une unité                   ║\n");
     printf("║    ║                                   ║\n");
-    printf("║ 4  ║ Envoyer une unité sur une alerte  ║\n");
+    printf("║ 4  ║ Traitement des alertes            ║\n");
     printf("║    ║                                   ║\n");
     printf("║ 5  ║ Gestion des unités disponibles    ║\n");
     printf("║    ║                                   ║\n");
@@ -53,6 +53,9 @@ int main(int argc, char const *argv[]) {
 
     switch (iChoix) {
       case 1:
+        declancherAlerte(&alerte, &unite, &iCompteurAlerte, &iCompteurUnite);
+        break;
+      case 2:
         ajouterAlerte(&alerte, &iCompteurAlerte);
         iCompteurAlerte++;
 
@@ -60,9 +63,17 @@ int main(int argc, char const *argv[]) {
           alerte = realloc(alerte, ((iCompteurAlerte+1) * sizeof(Alerte)));
           printf("DEBUG: La mémoire a été realouée\n");
         }
-        printf("DEBUG: compteurAlerte après l'ajout : %d\n", iCompteurAlerte);
         break;
-      case 2:
+      case 3:
+        creerUnite(&unite, &iCompteurUnite);
+        iCompteurUnite++;
+
+        if (iCompteurUnite >= TAILLE_INITIALE_DE_MALLOC_UNITE) {
+          unite = realloc(unite, ((iCompteurUnite+1) * sizeof(Unites)));
+          printf("DEBUG: La mémoire a été realouée\n");
+        }
+        break;
+      case 4:
         do {
           menuTraitementAlerte();
 
@@ -90,49 +101,36 @@ int main(int argc, char const *argv[]) {
           }
         } while(iChoix != -2);
         break;
-      case 3:
-        creerUnite(&unite, &iCompteurUnite);
-        iCompteurUnite++;
-
-        if (iCompteurUnite >= TAILLE_INITIALE_DE_MALLOC_UNITE) {
-          unite = realloc(unite, ((iCompteurUnite+1) * sizeof(Unites)));
-          printf("DEBUG: La mémoire a été realouée\n");
-        }
-
-        printf("DEBUG: compteurAlerte après l'ajout : %d\n", iCompteurUnite);
-        break;
-      case 4:
-        break;
       case 5:
-        do {
-          menuTraitementUnite();
+      do {
+        menuTraitementUnite();
 
-          scanf("%d%*c", &iChoix);
+        scanf("%d%*c", &iChoix);
 
-          switch (iChoix) {
-            case 1:
-              afficherUneUnite(&unite, &iCompteurUnite);
-              break;
-            case 2:
-              afficherToutesUnites(&unite, &iCompteurUnite);
-              break;
-            case 3:
-              modifierUnite(&unite, &iCompteurUnite);
-              break;
-            case 4:
-              supprimerUnite(&unite, &iCompteurUnite);
-              printf("DEBUG: compteurUnite après la suppression : %d\n", iCompteurAlerte);
-              break;
-            case -2:
-              break;
-            default:
-              printf("La saisie n'est pas correcte.\n");
-              break;
-          }
-        } while(iChoix != -2);
+        switch (iChoix) {
+          case 1:
+            afficherUneUnite(&unite, &iCompteurUnite);
+            break;
+          case 2:
+            afficherToutesUnites(&unite, &iCompteurUnite);
+            break;
+          case 3:
+            modifierUnite(&unite, &iCompteurUnite);
+            break;
+          case 4:
+            supprimerUnite(&unite, &iCompteurUnite);
+            printf("DEBUG: compteurUnite après la suppression : %d\n", iCompteurAlerte);
+            break;
+          case -2:
+            break;
+          default:
+            printf("La saisie n'est pas correcte.\n");
+            break;
+        }
+      } while(iChoix != -2);
         break;
       case 6:
-
+        printf("Ici le traitement des unités deployées\n");
         break;
       case -1:
         break;
