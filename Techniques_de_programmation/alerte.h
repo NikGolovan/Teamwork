@@ -15,6 +15,8 @@ typedef struct {
   char cLieu[TAILLE_BUFFER];
   int iNombreVictimes;
   char cDescription[TAILLE_BUFFER];
+  int iEstTraiteParUnite;
+  int iCodeUniteQuiTraite;
 } Alerte;
 
 void ajouterAlerte(Alerte **alerte, int *compteurAlerte);
@@ -34,6 +36,9 @@ typedef struct {
   char cNiveauDisponibilite[TAILLE_BUFFER];
   char cStatut[TAILLE_BUFFER];
   char cBase[TAILLE_BUFFER];
+  int iEstEnRepos;
+  int iUniteDisponible;
+  int iDeployeeSurAlerte;
 } Unites;
 
 void creerUnite(Unites **unite, int *compteurUnite);
