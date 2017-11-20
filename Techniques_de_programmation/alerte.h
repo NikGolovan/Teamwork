@@ -25,6 +25,7 @@ void supprimerAlerte(Alerte **alerte, int *compteurAlerte);
 char * typeAlerte();
 char * niveauAlerte();
 int genererCodeAlerte(/*Alerte **alerte, int *compteurAlerte*/);
+void menuTraitementAlerte();
 
 typedef struct {
   int iCode;
@@ -44,5 +45,6 @@ char * moyenDeplacement();
 char * niveauDisponibilite();
 char * statutUnite();
 int genererCodeUnite(/*Unites **unite, int *compteurUnite*/);
+void menuTraitementUnite();
 
 #endif
