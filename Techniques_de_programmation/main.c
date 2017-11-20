@@ -87,6 +87,7 @@ int main(int argc, char const *argv[]) {
               break;
           }
         } while(iChoix != -2);
+        break;
 
       case 3:
         creerUnite(&unite, &iCompteurUnite);
