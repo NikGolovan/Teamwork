@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "alerte.c"
+#include "alerte.h"
 
 int main(int argc, char const *argv[]) {
   int iChoix = 0;
@@ -27,25 +27,25 @@ int main(int argc, char const *argv[]) {
   }
 
   do {
-    printf("╔════════════════════════════════════════╗\n");
-    printf("║                                        ║\n");
-    printf("║           GESTION DES ALERTES          ║\n");
-    printf("║                                        ║\n");
-    printf("╠════╦═══════════════════════════════════╣\n");
-    printf("║    ║                                   ║\n");
-    printf("║ 1  ║ Créer une alerte                  ║\n");
-    printf("║    ║                                   ║\n");
-    printf("║ 2  ║ Afficher une alerte               ║\n");
-    printf("║    ║                                   ║\n");
-    printf("║ 3  ║ Afficher toutes les alertes       ║\n");
-    printf("║    ║                                   ║\n");
-    printf("║ 4  ║ Modifier une alerte               ║\n");
-    printf("║    ║                                   ║\n");
-    printf("║ 5  ║ Supprimer une alerte              ║\n");
-    printf("║    ║                                   ║\n");
-    printf("╠════╬═══════════════════════════════════╣\n");
-    printf("║ -1 ║ Quitter                           ║\n");
-    printf("╚════╩═══════════════════════════════════╝\n");
+    printf("╔═══════════════════════════════════╗\n");
+    printf("║                                   ║\n");
+    printf("║            MENU ALERTE            ║\n");
+    printf("║                                   ║\n");
+    printf("╠════╦══════════════════════════════╣\n");
+    printf("║    ║                              ║\n");
+    printf("║ 1  ║ Créer une alerte             ║\n");
+    printf("║    ║                              ║\n");
+    printf("║ 2  ║ Afficher une alerte          ║\n");
+    printf("║    ║                              ║\n");
+    printf("║ 3  ║ Afficher toutes les alertes  ║\n");
+    printf("║    ║                              ║\n");
+    printf("║ 4  ║ Modifier une alerte          ║\n");
+    printf("║    ║                              ║\n");
+    printf("║ 5  ║ Supprimer une alerte         ║\n");
+    printf("║    ║                              ║\n");
+    printf("╠════╬══════════════════════════════╣\n");
+    printf("║ -1 ║ Quitter                      ║\n");
+    printf("╚════╩══════════════════════════════╝\n");
 
     scanf("%d%*c", &iChoix);
 
@@ -55,7 +55,7 @@ int main(int argc, char const *argv[]) {
         iCompteurAlerte++;
 
         if (iCompteurAlerte >= TAILLE_INITIALE_DE_MALLOC_ALERTE) {
-          alerte = realloc(alerte, (iCompteurAlerte * sizeof(Alerte)));
+          alerte = realloc(alerte, ((iCompteurAlerte+1) * sizeof(Alerte)));
           printf("DEBUG: La mémoire a été realouée\n");
         }
         printf("DEBUG: compteurAlerte après l'ajout : %d\n", iCompteurAlerte);
@@ -88,7 +88,6 @@ int main(int argc, char const *argv[]) {
 }
 
 /*
-
 printf("╔════════════════════════════════════════╗\n");
 printf("║                                        ║\n");
 printf("║            GESTION DES UNITES          ║\n");
@@ -106,7 +105,7 @@ printf("║    ║                                   ║\n");
 printf("║ 5  ║ Supprimer une unité               ║\n");
 printf("║    ║                                   ║\n");
 printf("╠════╬═══════════════════════════════════╣\n");
-printf("║ -1 ║ Quitter                           ║\n");
+printf("║ -1 ║ Retourner                         ║\n");
 printf("╚════╩═══════════════════════════════════╝\n");
 
 
@@ -120,12 +119,13 @@ printf("║ 1  ║ Déclenchement d'une alerte        ║\n");
 printf("║    ║                                   ║\n");
 printf("║ 2  ║ Traitement d'une alerte           ║\n");
 printf("║    ║                                   ║\n");
-printf("║ 3  ║ Gestion des unités disponibles    ║\n");
+printf("║ 3  ║ Creation d'une unité              ║\n");
 printf("║    ║                                   ║\n");
-printf("║ 4  ║ Consultation des unités déployées ║\n");
+printf("║ 4  ║ Gestion des unités disponibles    ║\n");
+printf("║    ║                                   ║\n");
+printf("║ 5  ║ Consultation des unités déployées ║\n");
 printf("║    ║                                   ║\n");
 printf("╠════╬═══════════════════════════════════╣\n");
-printf("║ -1 ║ Quitter                           ║\n");
+printf("║ -1 ║ Retourner                         ║\n");
 printf("╚════╩═══════════════════════════════════╝\n");
-
 */
