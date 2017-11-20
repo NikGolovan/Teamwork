@@ -27,6 +27,8 @@ char * niveauAlerte();
 int genererCodeAlerte(/*Alerte **alerte, int *compteurAlerte*/);
 void menuTraitementAlerte();
 
+void envoyerUniteSurAlerte();
+
 typedef struct {
   int iCode;
   char cNom[TAILLE_BUFFER];
