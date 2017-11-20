@@ -535,8 +535,8 @@ void creerUnite(Unites **unite, int *iCompteurUnite) {
   cPtrMoyenDeplacement = moyenDeplacement();
   strcpy((*unite)[i].cMoyenDeplacement, cPtrMoyenDeplacement);
 
-  printf("Niveau de disponobilité :\n");
-  cPtrNiveauDisponibilite = moyenDeplacement();
+  printf("Niveau de disponibilité :\n");
+  cPtrNiveauDisponibilite = niveauDisponibilite();
   strcpy((*unite)[i].cNiveauDisponibilite, cPtrNiveauDisponibilite);
 
   printf("Statut :\n");
@@ -569,7 +569,7 @@ void afficherUneUnite(Unites **unite, int *iCompteurUnite) {
       printf("Code d'unité : %d\n", (*unite)[i].iCode);
       printf("Nom d'unité : %s", (*unite)[i].cNom);
       printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
-      printf("Disponobilité : %s", (*unite)[i].cNiveauDisponibilite);
+      printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
       printf("Satut : %s\n", (*unite)[i].cStatut);
       printf("Base : %s", (*unite)[i].cBase);
       iExisteUnite = 1;
@@ -592,7 +592,7 @@ void afficherToutesUnites(Unites **unite, int *iCompteurUnite) {
     printf("Code d'unité : %d\n", (*unite)[i].iCode);
     printf("Nom d'unité : %s", (*unite)[i].cNom);
     printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
-    printf("Disponobilité : %s", (*unite)[i].cNiveauDisponibilite);
+    printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
     printf("Statut : %s\n", (*unite)[i].cStatut);
     printf("Base : %s", (*unite)[i].cBase);
   }
@@ -628,7 +628,7 @@ void modifierUnite(Unites **unite, int *iCompteurUnite) {
       cPtrMoyenDeplacement = moyenDeplacement();
       strcpy((*unite)[i].cMoyenDeplacement, cPtrMoyenDeplacement);
 
-      printf("Disponobilité :\n");
+      printf("Disponibilité :\n");
       cPtrNiveauDisponibilite = niveauDisponibilite();
       strcpy((*unite)[i].cNiveauDisponibilite, cPtrNiveauDisponibilite);
 
