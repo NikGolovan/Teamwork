@@ -825,17 +825,24 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   (*alerte)[iTmpPositionAlerte].iCodeUniteQuiTraite = iCodeDonneUnite;
   (*alerte)[iTmpPositionAlerte].iEstTraiteParUnite = 1;
   (*unite)[iTmpPositionUnite].iCompteurRepos += 1;
+  strcpy((*unite)[iTmpPositionUnite].cNiveauDisponibilite, "ACTIVITE\n");
+  strcpy((*unite)[iTmpPositionUnite].cStatut, "EN ALERTE\n");
   (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = iCodeDonneAlerte;
   (*unite)[iTmpPositionUnite].iUniteDisponible = 0;
 }
 
 void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite) {
   int i = 0;
+  int iChangementsEffectuees = 0;
 
   for (i = 0; i < *iCompteurUnite; i++) {
     if ((*unite)[i].iCompteurRepos >= 3) {
       strcpy((*unite)[i].cNiveauDisponibilite, "EN REPOS\n");
+      (*unite)[i].iDeployeeSurAlerte = 0;
+      iChangementsEffectuees = 1;
     }
   }
-  printf("Certains unités ont été mises en repos car elles étaient deployées 3 fois.\n");
+
+  if (iChangementsEffectuees)
+    printf("Certains unités ont été mises en repos car elles étaient deployées 3 fois.\n");
 }
