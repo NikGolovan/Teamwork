@@ -54,6 +54,7 @@ int main(int argc, char const *argv[]) {
     switch (iChoix) {
       case 1:
         declancherAlerte(&alerte, &unite, &iCompteurAlerte, &iCompteurUnite);
+        mettreUniteEnRepos(&unite, &iCompteurUnite);
         break;
       case 2:
         ajouterAlerte(&alerte, &iCompteurAlerte);
