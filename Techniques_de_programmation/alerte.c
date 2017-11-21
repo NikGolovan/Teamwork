@@ -775,6 +775,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
         for (i = 0; i < *iCompteurUnite; i++) {
           if (strcmp((*unite)[i].cNiveauDisponibilite, cUniteEnRepos) != 1) {
             printf("Aucune unités est en repos\n");
+            return;
           } else {
             printf("\n");
             printf("Code d'unité : %d\n", (*unite)[i].iCode);
@@ -811,7 +812,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
     return;
   }
 
-  printf("Donnez code d'unité a envoyer : \n");
+  printf("Donnez code d'unité à envoyer : \n");
   scanf("%d%*c", &iCodeDonneUnite);
 
   while (iTmpPositionUnite < *iCompteurUnite && iCodeDonneUnite != (*unite)[iTmpPositionUnite].iCode) {
