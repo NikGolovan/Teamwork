@@ -833,7 +833,7 @@ void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite) {
   int i = 0;
 
   for (i = 0; i < *iCompteurUnite; i++) {
-    if ((*unite)[i].iCompteurRepos >= 1) {
+    if ((*unite)[i].iCompteurRepos >= 3) {
       strcpy((*unite)[i].cNiveauDisponibilite, "EN REPOS\n");
     }
   }
