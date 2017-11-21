@@ -553,10 +553,10 @@ void creerUnite(Unites **unite, int *iCompteurUnite) {
   printf("Base :\n");
   fgets(sBuffer, TAILLE_BUFFER, stdin);
   strcpy((*unite)[i].cBase, sBuffer);
-  
+
   (*unite)[i].iUniteDisponible = 1;
   (*unite)[i].iDeployeeSurAlerte = 0;
-  
+
   printf("Unité a été bien crée avec le code suivant : %d\n", (*unite)[i].iCode);
 }
 
@@ -719,11 +719,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   int iBoucleCompteurAlerte = 0;
   int iBoucleCompteurUnite = 0;
   int iChoix = 0;
-
-  if (*iCompteurAlerte == 0) {
-    printf("Aucune alerte n'a pas été enregistrée\n");
-    return;
-  }
+  char cUniteEnRepos[TAILLE_BUFFER] = "Disponibilité : EN REPOS";
 
   printf("Les alertes non traitées :\n");
   for (i = 0; i < *iCompteurAlerte; i++) {
@@ -736,12 +732,10 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
     printf("Lieu : %s", (*alerte)[i].cLieu);
     printf("Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
     printf("Description : %s", (*alerte)[i].cDescription);
-    //printf("Alerte est traitée par une unité : ");
-    //((*alerte)[i].iEstTraiteParUnite) == 0 ? printf("NON\n") : printf("OUI\n");
     printf("Les unités deployés : %d\n", (*alerte)[i].iCodeUniteQuiTraite);
     iBoucleCompteurAlerte++;
   }
-  
+
   if (iBoucleCompteurAlerte == 0) {
     printf("Toutes les alertes sont traitées par les unités\n");
     return;
@@ -771,61 +765,62 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
 
   if (iBoucleCompteurUnite == 0) {
     printf("Toutes les unités sont occuppées.\n");
-    printf("CAS DE FORCE MAJEUR\n");
+    printf("CAS DE FORCE MAJEURE\n");
     printf("1. Faire intervenir les unités en repos ou -2 pour retourner\n");
     scanf("%d%*c", &iChoix);
-    
-    do {
-      switch(iChoix) {
-        case 1:
-          for (i = 0; i < *iCompteurUnite; i++) {
-            if ((*unite)[i].iEstEnRepos == 1) {
-              printf("\n");
-              printf("Code d'unité : %d\n", (*unite)[i].iCode);
-              printf("Nom d'unité : %s", (*unite)[i].cNom);
-              printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
-              printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
-              printf("Statut : %s", (*unite)[i].cStatut);
-              printf("Base : %s", (*unite)[i].cBase);
-              printf("Deployée sur les alertes : %d\n", (*unite)[i].iDeployeeSurAlerte);
-            }
+
+    switch(iChoix) {
+      case 1:
+        for (i = 0; i < *iCompteurUnite; i++) {
+          if (strcmp((*unite)[i].cNiveauDisponibilite, cUniteEnRepos) != 1) {
+            printf("Aucune unités est en repos\n");
+          } else {
+            printf("\n");
+            printf("Code d'unité : %d\n", (*unite)[i].iCode);
+            printf("Nom d'unité : %s", (*unite)[i].cNom);
+            printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
+            printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
+            printf("Statut : %s", (*unite)[i].cStatut);
+            printf("Base : %s", (*unite)[i].cBase);
+            printf("Deployée sur les alertes : %d\n", (*unite)[i].iDeployeeSurAlerte);
           }
-          break;
-        case -2:
-          return;
-          break;
-        default:
-          printf("La saisie n'est pas correcte.\n");
-          break;
-      }
-  } while (iChoix != -2);
+        }
+        break;
+     case -2:
+       return;
+       break;
+     default:
+       printf("La saisie n'est pas correcte.\n");
+       return;
+       break;
+    }
 }
 
   printf("\n\n");
-  
+
   printf("Donnez le code d'alerte :\n");
   scanf("%d%*c", &iCodeDonneAlerte);
 
   while (iTmpPositionAlerte < *iCompteurAlerte && iCodeDonneAlerte != (*alerte)[iTmpPositionAlerte].iCode) {
     iTmpPositionAlerte++;
   }
-  
+
   if (iTmpPositionAlerte == *iCompteurAlerte) {
     printf("Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonneAlerte);
     return;
-  } 
-  
+  }
+
   printf("Donnez code d'unité a envoyer : \n");
   scanf("%d%*c", &iCodeDonneUnite);
 
   while (iTmpPositionUnite < *iCompteurUnite && iCodeDonneUnite != (*unite)[iTmpPositionUnite].iCode) {
       iTmpPositionUnite++;
    }
-  
+
   if (iTmpPositionUnite == *iCompteurUnite) {
     printf("Unité avec le code %d n'a pas été trouvée.\n", iCodeDonneUnite);
     return;
-  } 
+  }
   (*alerte)[iTmpPositionAlerte].iCodeUniteQuiTraite = iCodeDonneUnite;
   (*alerte)[iTmpPositionAlerte].iEstTraiteParUnite = 1;
   (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = iCodeDonneAlerte;
