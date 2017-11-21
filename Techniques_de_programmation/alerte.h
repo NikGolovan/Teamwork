@@ -36,6 +36,7 @@ typedef struct {
   char cNiveauDisponibilite[TAILLE_BUFFER];
   char cStatut[TAILLE_BUFFER];
   char cBase[TAILLE_BUFFER];
+  int iCompteurRepos;
   int iEstEnRepos;
   int iUniteDisponible;
   int iDeployeeSurAlerte;
@@ -51,6 +52,7 @@ char * niveauDisponibilite();
 char * statutUnite();
 int genererCodeUnite(/*Unites **unite, int *compteurUnite*/);
 void menuTraitementUnite();
+void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite);
 
 void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int *iCompteurUnite);
 
