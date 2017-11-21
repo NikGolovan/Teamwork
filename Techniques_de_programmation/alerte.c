@@ -21,7 +21,7 @@ int genererCodeAlerte(/* Alerte **alerte, int *iCompteurAlerte */) {
     }
   }while (existeAlerte); */
 
-  return iNombreGenere;
+  return(iNombreGenere);
 }
 
 char * niveauAlerte() {
@@ -68,7 +68,7 @@ char * niveauAlerte() {
     }
   } while (iChoix > 3);
 
-  return cPtrNiveau;
+  return(cPtrNiveau);
 }
 
 char * typeAlerte() {
@@ -223,7 +223,7 @@ void afficherUneAlerte(Alerte **alerte, int *iCompteurAlerte) {
       printf("Description : %s", (*alerte)[i].cDescription);
       //printf("Alerte est traitée par une unité : %d", (*alerte)[i].iNombreVictimes);
       //((*alerte)[i].iNombreVictimes) == 0 ? printf("NON\n") : printf("OUI\n");
-      printf("Les unités deployés : %d", (*alerte)[i].iCodeUniteQuiTraite);
+      printf("Les unités deployés : %d\n", (*alerte)[i].iCodeUniteQuiTraite);
       existeAlerte = 1;
     }
   }
@@ -377,7 +377,7 @@ int genererCodeUnite() {
 
   iNombreGenere = rand() % 50002 + 50001;
 
-  return iNombreGenere;
+  return(iNombreGenere);
 }
 
 char * moyenDeplacement() {
@@ -424,7 +424,7 @@ char * moyenDeplacement() {
     }
   } while (iChoix > 3);
 
-  return ptrMoyenDeplacement;
+  return(ptrMoyenDeplacement);
 }
 
 char * niveauDisponibilite() {
@@ -471,7 +471,7 @@ char * niveauDisponibilite() {
     }
   } while (iChoix > 3);
 
-  return cPtrNiveauDisponibilite;
+  return(cPtrNiveauDisponibilite);
 }
 
 char * statutUnite() {
@@ -518,7 +518,7 @@ char * statutUnite() {
     }
   } while (iChoix > 3);
 
-  return cPtrStatutUnite ;
+  return(cPtrStatutUnite);
 }
 
 void creerUnite(Unites **unite, int *iCompteurUnite) {
@@ -554,6 +554,7 @@ void creerUnite(Unites **unite, int *iCompteurUnite) {
   fgets(sBuffer, TAILLE_BUFFER, stdin);
   strcpy((*unite)[i].cBase, sBuffer);
 
+  (*unite)[i].iCompteurRepos = 0;
   (*unite)[i].iUniteDisponible = 1;
   (*unite)[i].iDeployeeSurAlerte = 0;
 
@@ -766,7 +767,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   if (iBoucleCompteurUnite == 0) {
     printf("Toutes les unités sont occuppées.\n");
     printf("CAS DE FORCE MAJEURE\n");
-    printf("1. Faire intervenir les unités en repos ou -2 pour retourner\n");
+    printf("1. Faire intervenir les unités en repos ou en reapprovisionnement -2 pour retourner\n");
     scanf("%d%*c", &iChoix);
 
     switch(iChoix) {
@@ -823,6 +824,18 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   }
   (*alerte)[iTmpPositionAlerte].iCodeUniteQuiTraite = iCodeDonneUnite;
   (*alerte)[iTmpPositionAlerte].iEstTraiteParUnite = 1;
+  (*unite)[iTmpPositionUnite].iCompteurRepos += 1;
   (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = iCodeDonneAlerte;
   (*unite)[iTmpPositionUnite].iUniteDisponible = 0;
+}
+
+void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite) {
+  int i = 0;
+
+  for (i = 0; i < *iCompteurUnite; i++) {
+    if ((*unite)[i].iCompteurRepos >= 1) {
+      strcpy((*unite)[i].cNiveauDisponibilite, "EN REPOS\n");
+    }
+  }
+  printf("Certains unités ont été mises en repos car elles étaient deployées 3 fois.\n");
 }
