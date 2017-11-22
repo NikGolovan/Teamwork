@@ -4,7 +4,6 @@
 #include <time.h>
 
 #include "alerte.h"
-#include "menu.c"
 
 int genererCodeAlerte(/* Alerte **alerte, int *iCompteurAlerte */) {
   int iNombreGenere = 0;
