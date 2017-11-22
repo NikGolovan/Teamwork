@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "alerte.h"
+#include "unite.h"
 #include "menu.c"
 
 int main(int argc, char const *argv[]) {
