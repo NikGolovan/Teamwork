@@ -1,15 +1,16 @@
-all  : Secours
+#all  : Secours
 
+Secours : ./obj/alerte.o ./obj/unite.o ./obj/menu.o ./obj/main.o
+		cc -o Secours ./obj/main.o ./obj/menu.o ./obj/unite.o ./obj/alerte.o
 
+./obj/alerte.o : ./header/alerte.h ./src/alerte.c
+	cc -c ./src/alerte.c
 
-alerte.o : alerte.h alerte.c
-	cc -c alerte.c
+./obj/unite.o : ./header/unite.h ./src/unite.c
+	cc -c ./src/unite.c
 
-unite.o : unite.h unite.c
-	cc -c unite.c
+./obj/main.o : ./header/alerte.h ./header/unite.h ./src/main.c
+	cc -c ./src/main.c
 
-main.o : alerte.h unite.h main.c
-	cc -c main.c
-
-Secours : alerte.o unite.o main.o
-		cc -o Secours main.o unite.o alerte.o
+./obj/menu.o : ./header/alerte.h ./header/unite.h ./src/menu.c
+	cc -c ./src/menu.c
