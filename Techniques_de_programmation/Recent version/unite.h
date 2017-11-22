@@ -2,8 +2,7 @@
 #define UNITE_H
 #include <stdio.h>
 
-#define DESCRIPTION_TAILLE 150
-#define TAILLE_INITIALE_DE_MALLOC_ALERTE 3
+#define TAILLE_INITIALE_DE_MALLOC_UNITE 3
 #define TAILLE_INITIALE_DE_MALLOC_UNITE 3
 #define TAILLE_BUFFER 150
 #define TAILLE_BUFFER_RETOUR 30
@@ -30,9 +29,7 @@ char * moyenDeplacement();
 char * niveauDisponibilite();
 char * statutUnite();
 int genererCodeUnite(/*Unites **unite, int *compteurUnite*/);
-void menuTraitementUnite();
 void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite);
 
-void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int *iCompteurUnite);
 
 #endif
