@@ -584,5 +584,5 @@ void imprimerLesUnites(Unites **unite, int *iCompteurUnite) {
     fprintf(file, "Deployée sur les alertes : %d\n\n", (*unite)[i].iDeployeeSurAlerte);
  }
   fclose(file);
-  printf("Les unités ont été bien sauvegardée dans le fichier unites.txt\n");
+  printf("NOTIFICATION : Les unités ont été bien sauvegardée dans le fichier unites.txt\n");
 }
