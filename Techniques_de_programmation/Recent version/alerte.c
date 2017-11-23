@@ -5,21 +5,10 @@
 
 #include "alerte.h"
 
-int genererCodeAlerte(/* Alerte **alerte, int *iCompteurAlerte */) {
+int genererCodeAlerte() {
   int iNombreGenere = 0;
-  //int iExisteAlerte = 0;
-  // int i = 0;
 
   iNombreGenere = rand() % 50001;
-
-  /* do {
-    nombreGenere = rand() % 3;
-    for (i = 0; i < (*iCompteurAlerte); i++) {
-      if (nombreGenere == (*alerte)[i].iCode) {
-        existeAlerte = 1;
-      }
-    }
-  }while (existeAlerte); */
 
   return(iNombreGenere);
 }
@@ -51,7 +40,7 @@ char * niveauAlerte() {
         cPtrNiveau = "URGENCE ABSOLUE\n";
         break;
         default:
-        printf("La saisie n'est pas correcte.\n");
+        printf("NOTIFICATION : La saisie n'est pas correcte.\n");
         break;
     }
   } while (iChoix > 3);
@@ -72,7 +61,6 @@ char * typeAlerte() {
 
   do {
     menuTypeAlerte();
-
 
     scanf("%d%*c", &iChoix);
 
@@ -99,7 +87,7 @@ char * typeAlerte() {
         cPtrType = "ACCIDENT DE LA VIE\n";
         break;
       default:
-        printf("La saisie n'est pas correcte.\n");
+        printf("NOTIFICATION : La saisie n'est pas correcte.\n");
         break;
     }
   } while (iChoix > 7);
@@ -142,7 +130,7 @@ void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
   (*alerte)[i].iEstTraiteParUnite = 0;
   (*alerte)[i].iCodeUniteQuiTraite = 0;
 
-  printf("Alerte a été bien crée avec le code suivant : %d\n", (*alerte)[i].iCode);
+  printf("NOTIFICATION : Alerte a été bien crée avec le code suivant : %d\n", (*alerte)[i].iCode);
 }
 
 void afficherToutesAlertes(Alerte **alerte, int *iCompteurAlerte) {
@@ -173,7 +161,7 @@ void afficherUneAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int existeAlerte = 0;
 
   if (*iCompteurAlerte == 0) {
-    printf("Aucune alerte n'a été enregistrée\n");
+    printf("NOTIFICATION : Aucune alerte n'a été enregistrée\n");
     return;
   }
 
@@ -196,7 +184,7 @@ void afficherUneAlerte(Alerte **alerte, int *iCompteurAlerte) {
     }
   }
   if (!existeAlerte)
-    printf("Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonne);
+    printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonne);
 }
 
 void modifierAlerte(Alerte **alerte, int *iCompteurAlerte) {
@@ -209,7 +197,7 @@ void modifierAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int iTmpNombre = 0;
 
    if (*iCompteurAlerte == 0) {
-    printf("Aucune alerte n'a été enregistrée\n");
+    printf("NOTIFICATION : Aucune alerte n'a été enregistrée\n");
     return;
   }
 
@@ -244,9 +232,9 @@ void modifierAlerte(Alerte **alerte, int *iCompteurAlerte) {
     }
   }
   if (!iExisteAlerte) {
-    printf("Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonne);
+    printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonne);
   } else {
-    printf("Alerte avec le code %d a été bien modifiée.\n", iCodeDonne);
+    printf("NOTIFICATION : Alerte avec le code %d a été bien modifiée.\n", iCodeDonne);
   }
 }
 
@@ -257,7 +245,7 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int iNouvelleTaille = 0;
 
   if (*iCompteurAlerte == 0) {
-   printf("Aucune alerte n'a été enregistrée\n");
+   printf("NOTIFICATION : Aucune alerte n'a été enregistrée\n");
    return;
   }
 
@@ -269,7 +257,7 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
   }
 
   if (i == *iCompteurAlerte) {
-    printf("alerte n'a pas été trouvée.\n");
+    printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonne);
     return;
   } else {
     for (j = i; j < (*iCompteurAlerte); j++) {
@@ -279,6 +267,9 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
         strcpy((*alerte)[j].cLieu, (*alerte)[j+1].cLieu);
         (*alerte)[j].iNombreVictimes = (*alerte)[j+1].iNombreVictimes;
         strcpy((*alerte)[j].cDescription, (*alerte)[j+1].cDescription);
+        // si la suppression a les bugs, supprimmer ces 2 deriniers lignes
+        (*alerte)[j].iEstTraiteParUnite = (*alerte)[j+1].iEstTraiteParUnite;
+        (*alerte)[j].iCodeUniteQuiTraite = (*alerte)[j+1].iCodeUniteQuiTraite;
     }
   }
 
@@ -295,5 +286,94 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
 
   printf("DEBUG: La mémoire a été realouée après la suppression\n");
 
-  printf("Alerte avec le code %d a été bien supprimé\n", iCodeDonne);
+  printf("NOTIFICATION : Alerte avec le code %d a été bien supprimé\n", iCodeDonne);
+}
+
+void alertesStatiques(Alerte **alerte, int *iCompteurAlerte) {
+  int i = 0;
+
+  i = *iCompteurAlerte;
+
+  (*alerte)[i].iCode = 12895;
+  strcpy((*alerte)[i].cType, "URGENCE\n");
+  strcpy((*alerte)[i].cNiveau, "INCENDIE\n");
+  strcpy((*alerte)[i].cLieu, "Paris\n");
+  (*alerte)[i].iNombreVictimes = 2;
+  strcpy((*alerte)[i].cDescription, "Une incendie du Batiment SF au 5-éme arrondissement.\n");
+  (*alerte)[i].iEstTraiteParUnite = 0;
+  (*alerte)[i].iCodeUniteQuiTraite = 0;
+  (*iCompteurAlerte)++;
+  i++;
+  (*alerte)[i].iCode = 826;
+  strcpy((*alerte)[i].cType, "NOMINAL\n");
+  strcpy((*alerte)[i].cNiveau, "MALAISE\n");
+  strcpy((*alerte)[i].cLieu, "Bayonne\n");
+  (*alerte)[i].iNombreVictimes = 1;
+  strcpy((*alerte)[i].cDescription, "Une personne a perdue connaissance à cause du chaleur.\n");
+  (*alerte)[i].iEstTraiteParUnite = 0;
+  (*alerte)[i].iCodeUniteQuiTraite = 0;
+  (*iCompteurAlerte)++;
+  i++;
+}
+
+void supprimerAlerteApresTraitement(Alerte **alerte, int *iCompteurAlerte) {
+  int i = 0;
+  int j = 0;
+  int iNouvelleTaille = 0;
+
+  printf("DEBUG : codeUniteMiseEnRepos() = %d\n", codeUniteMiseEnRepos());
+
+  while (i < *iCompteurAlerte && 87222 != (*alerte)[i].iCodeUniteQuiTraite) {
+    i++;
+  }
+
+  if (i == *iCompteurAlerte) {
+    printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", codeUniteMiseEnRepos());
+    return;
+  } else {
+    for (j = i; j < (*iCompteurAlerte); j++) {
+        (*alerte)[j].iCode = (*alerte)[j+1].iCode;
+        strcpy((*alerte)[j].cType, (*alerte)[j+1].cType);
+        strcpy((*alerte)[j].cNiveau, (*alerte)[j+1].cNiveau);
+        strcpy((*alerte)[j].cLieu, (*alerte)[j+1].cLieu);
+        (*alerte)[j].iNombreVictimes = (*alerte)[j+1].iNombreVictimes;
+        strcpy((*alerte)[j].cDescription, (*alerte)[j+1].cDescription);
+        // si la suppression a les bug, supprimmer ces 2 deriniers lignes
+        (*alerte)[j].iEstTraiteParUnite = (*alerte)[j+1].iEstTraiteParUnite;
+        (*alerte)[j].iCodeUniteQuiTraite = (*alerte)[j+1].iCodeUniteQuiTraite;
+    }
+  }
+
+  (*iCompteurAlerte)--;
+
+  iNouvelleTaille = *iCompteurAlerte;
+
+  *alerte = realloc(*alerte, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Alerte)));
+
+  if (*alerte == NULL && *iCompteurAlerte > 0) {
+    printf("Erreur de reallocation memoire après la suppression.\n");
+    exit(EXIT_FAILURE);
+  }
+}
+
+void imprimerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
+  FILE *file = fopen(NOM_DE_FICHIER_ALERTES, "w");
+  int i = 0;
+
+  if (file == NULL) {
+    printf("Erreur d'ouverture de fichier\n");
+    exit(-1);
+  }
+
+  fprintf(file, "LES ALERTES :\n\n");
+  for (i = 0; i < *iCompteurAlerte; i++) {
+   fprintf(file, "Code d'alerte : %d\n", (*alerte)[i].iCode);
+   fprintf(file, "Type d'alerte : %s", (*alerte)[i].cType);
+   fprintf(file, "Niveau d'alerte : %s", (*alerte)[i].cNiveau);
+   fprintf(file, "Lieu : %s", (*alerte)[i].cLieu);
+   fprintf(file, "Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
+   fprintf(file, "Description : %s", (*alerte)[i].cDescription);
+   fprintf(file, "Les unités deployés : %d\n\n", (*alerte)[i].iCodeUniteQuiTraite);
+ }
+  fclose(file);
 }
