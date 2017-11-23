@@ -13,12 +13,19 @@ int main(int argc, char const *argv[]) {
 
   srand(time(NULL));
 
+  if (strcmp("EN REPOS\n", "EN REPOS\n") == 0)
+    printf("Les chaines sont identiques\n");
+  else
+    printf("Les chaines ne sont pas identiques\n");
+
   alerte = malloc(TAILLE_INITIALE_DE_MALLOC_ALERTE  * sizeof(Alerte));
 
   if (alerte == NULL) {
     printf("Erreur d'allocation mémoire pour alerte\n");
     return(-1);
   }
+
+  alertesStatiques(&alerte, &iCompteurAlerte);
 
   unite = malloc(TAILLE_INITIALE_DE_MALLOC_UNITE * sizeof(Unites));
 
@@ -27,6 +34,7 @@ int main(int argc, char const *argv[]) {
     return(-1);
   }
 
+  unitesStatiques(&unite, &iCompteurUnite);
 
   do {
     menuGlobal();
@@ -79,7 +87,7 @@ int main(int argc, char const *argv[]) {
             case -2:
               break;
             default:
-              printf("La saisie n'est pas correcte.\n");
+              printf("NOTIFICATION : La saisie n'est pas correcte.\n");
               break;
           }
         } while(iChoix != -2);
@@ -107,24 +115,40 @@ int main(int argc, char const *argv[]) {
           case -2:
             break;
           default:
-            printf("La saisie n'est pas correcte.\n");
+            printf("NOTIFICATION : La saisie n'est pas correcte.\n");
             break;
         }
       } while(iChoix != -2);
         break;
       case 6:
-        printf("Ici le traitement des unités deployées\n");
+        consulterUnitesDeployees(&unite, &iCompteurUnite);
+
+        printf("DEBUG : uniteMiseEnRepos() = %d\n", uniteMiseEnRepos());
+
+        //printf("DEBUG : iCodeDonneUnite = %d\n", codeUniteMiseEnRepos());
+
+        if (uniteMiseEnRepos)
+          supprimerAlerteApresTraitement(&alerte, &iCompteurAlerte);
+
+        break;
+      case 7:
+        imprimerLesAlertes(&alerte, &iCompteurAlerte);
+        imprimerLesUnites(&unite, &iCompteurUnite);
+        printf("Les alertes ont été imprimées.\n");
         break;
       case -1:
         break;
       default:
-        printf("La saisie n'est pas correcte.\n");
+        printf("NOTIFICATION : La saisie n'est pas correcte.\n");
         break;
     }
   } while(iChoix != -1);
 
   free(alerte);
   free(unite);
+
+  alerte = NULL;
+  unite = NULL;
 
   return 0;
 }
