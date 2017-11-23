@@ -84,6 +84,9 @@ int main(int argc, char const *argv[]) {
               supprimerAlerte(&alerte, &iCompteurAlerte);
               printf("DEBUG: compteurAlerte après la suppression : %d\n", iCompteurAlerte);
               break;
+            case 5:
+              imprimerLesAlertes(&alerte, &iCompteurAlerte);
+              break;
             case -2:
               break;
             default:
@@ -112,6 +115,9 @@ int main(int argc, char const *argv[]) {
             supprimerUnite(&unite, &iCompteurUnite);
             printf("DEBUG: compteurUnite après la suppression : %d\n", iCompteurAlerte);
             break;
+          case 5:
+            imprimerLesUnites(&unite, &iCompteurUnite);
+            break;
           case -2:
             break;
           default:
@@ -130,11 +136,6 @@ int main(int argc, char const *argv[]) {
         if (uniteMiseEnRepos)
           supprimerAlerteApresTraitement(&alerte, &iCompteurAlerte);
 
-        break;
-      case 7:
-        imprimerLesAlertes(&alerte, &iCompteurAlerte);
-        imprimerLesUnites(&unite, &iCompteurUnite);
-        printf("Les alertes ont été imprimées.\n");
         break;
       case -1:
         break;
