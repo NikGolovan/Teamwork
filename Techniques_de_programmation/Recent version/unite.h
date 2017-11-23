@@ -3,9 +3,8 @@
 #include <stdio.h>
 
 #define TAILLE_INITIALE_DE_MALLOC_UNITE 3
-#define TAILLE_INITIALE_DE_MALLOC_UNITE 3
-#define TAILLE_BUFFER 150
-#define TAILLE_BUFFER_RETOUR 30
+#define UNITE_EN_REPOS "Disponibilité : EN REPOS"
+#define NOM_DE_FICHIER_UNITES "unites.txt"
 
 typedef struct {
   int iCode;
@@ -28,8 +27,12 @@ void supprimerUnite(Unites **unite, int *compteurUnite);
 char * moyenDeplacement();
 char * niveauDisponibilite();
 char * statutUnite();
-int genererCodeUnite(/*Unites **unite, int *compteurUnite*/);
+int genererCodeUnite();
 void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite);
-
+void unitesStatiques(Unites **unite, int *iCompteurUnite);
+void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite);
+int uniteMiseEnRepos();
+int codeUniteMiseEnRepos(int iCodeDonneUnite);
+void imprimerLesUnites(Unites **unite, int *iCompteurUnite);
 
 #endif
