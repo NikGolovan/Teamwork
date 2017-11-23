@@ -299,10 +299,10 @@ void supprimerUnite(Unites **unite, int *iCompteurUnite) {
         strcpy((*unite)[j].cStatut, (*unite)[j+1].cStatut);
         strcpy((*unite)[j].cBase, (*unite)[j+1].cBase);
         // si la suppression bug, supprimmer ces 4 deriniers lignes
-        (*unite)[j].iCode = (*unite)[j+1].iCompteurRepos;
-        (*unite)[j].iCode = (*unite)[j+1].iEstEnRepos;
-        (*unite)[j].iCode = (*unite)[j+1].iUniteDisponible;
-        (*unite)[j].iCode = (*unite)[j+1].iDeployeeSurAlerte;
+        //(*unite)[j].iCode = (*unite)[j+1].iCompteurRepos;
+        //(*unite)[j].iCode = (*unite)[j+1].iEstEnRepos;
+        //(*unite)[j].iCode = (*unite)[j+1].iUniteDisponible;
+        //(*unite)[j].iCode = (*unite)[j+1].iDeployeeSurAlerte;
     }
   }
 
@@ -458,6 +458,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   strcpy((*unite)[iTmpPositionUnite].cStatut, "EN ALERTE\n");
   (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = iCodeDonneAlerte;
   (*unite)[iTmpPositionUnite].iUniteDisponible = 0;
+  printf("Les unités ont été bien envoyée\n");
 }
 
 void unitesStatiques(Unites **unite, int *iCompteurUnite) {
@@ -562,8 +563,10 @@ int codeUniteMiseEnRepos(int iCodeDonneUnite) {
 }
 
 void imprimerLesUnites(Unites **unite, int *iCompteurUnite) {
-  FILE *file = fopen(NOM_DE_FICHIER_UNITES, "w");
+  FILE *file = NULL;
   int i = 0;
+
+  file = fopen(NOM_DE_FICHIER_UNITES, "w");
 
   if (file == NULL) {
     printf("Erreur d'ouverture de fichier\n");
@@ -581,4 +584,5 @@ void imprimerLesUnites(Unites **unite, int *iCompteurUnite) {
     fprintf(file, "Deployée sur les alertes : %d\n\n", (*unite)[i].iDeployeeSurAlerte);
  }
   fclose(file);
+  printf("Les unités ont été bien sauvegardée dans le fichier unites.txt\n");
 }
