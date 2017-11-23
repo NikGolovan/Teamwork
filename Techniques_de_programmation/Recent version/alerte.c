@@ -357,8 +357,10 @@ void supprimerAlerteApresTraitement(Alerte **alerte, int *iCompteurAlerte) {
 }
 
 void imprimerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
-  FILE *file = fopen(NOM_DE_FICHIER_ALERTES, "w");
+  FILE *file = NULL;
   int i = 0;
+
+  file = fopen(NOM_DE_FICHIER_ALERTES, "w");
 
   if (file == NULL) {
     printf("Erreur d'ouverture de fichier\n");
@@ -376,4 +378,5 @@ void imprimerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
    fprintf(file, "Les unités deployés : %d\n\n", (*alerte)[i].iCodeUniteQuiTraite);
  }
   fclose(file);
+  printf("Les alertes ont été bien sauvegardée dans le fichier alertes.txt\n");
 }
