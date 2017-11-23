@@ -378,5 +378,5 @@ void imprimerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
    fprintf(file, "Les unités deployés : %d\n\n", (*alerte)[i].iCodeUniteQuiTraite);
  }
   fclose(file);
-  printf("Les alertes ont été bien sauvegardée dans le fichier alertes.txt\n");
+  printf("NOTIFICATION : Les alertes ont été bien sauvegardée dans le fichier alertes.txt\n");
 }
