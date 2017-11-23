@@ -45,6 +45,8 @@ void menuTraitementAlerte() {
   printf("║    ║                                   ║\n");
   printf("║ 4  ║ Supprimer une alerte              ║\n");
   printf("║    ║                                   ║\n");
+  printf("║ 5  ║ Sauvegarder les données           ║\n");
+  printf("║    ║                                   ║\n");
   printf("╠════╬═══════════════════════════════════╣\n");
   printf("║ -2 ║ Retourner                         ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
@@ -90,8 +92,6 @@ void menuTypeAlerte() {
   printf("╚════╩═══════════════════════════════════╝\n");
 }
 
-
-
 void menuTraitementUnite() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -106,6 +106,8 @@ void menuTraitementUnite() {
   printf("║ 3  ║ Modifier une unité                ║\n");
   printf("║    ║                                   ║\n");
   printf("║ 4  ║ Supprimer une unité               ║\n");
+  printf("║    ║                                   ║\n");
+  printf("║ 5  ║ Sauvegarder les données           ║\n");
   printf("║    ║                                   ║\n");
   printf("╠════╬═══════════════════════════════════╣\n");
   printf("║ -2 ║ Retourner                         ║\n");
