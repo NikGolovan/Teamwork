@@ -13,11 +13,6 @@ int main(int argc, char const *argv[]) {
 
   srand(time(NULL));
 
-  if (strcmp("EN REPOS\n", "EN REPOS\n") == 0)
-    printf("Les chaines sont identiques\n");
-  else
-    printf("Les chaines ne sont pas identiques\n");
-
   alerte = malloc(TAILLE_INITIALE_DE_MALLOC_ALERTE  * sizeof(Alerte));
 
   if (alerte == NULL) {
@@ -50,19 +45,15 @@ int main(int argc, char const *argv[]) {
         ajouterAlerte(&alerte, &iCompteurAlerte);
         iCompteurAlerte++;
 
-        if (iCompteurAlerte >= TAILLE_INITIALE_DE_MALLOC_ALERTE) {
+        if (iCompteurAlerte >= TAILLE_INITIALE_DE_MALLOC_ALERTE)
           alerte = realloc(alerte, ((iCompteurAlerte+1) * sizeof(Alerte)));
-          printf("DEBUG: La mémoire a été realouée\n");
-        }
         break;
       case 3:
         creerUnite(&unite, &iCompteurUnite);
         iCompteurUnite++;
 
-        if (iCompteurUnite >= TAILLE_INITIALE_DE_MALLOC_UNITE) {
+        if (iCompteurUnite >= TAILLE_INITIALE_DE_MALLOC_UNITE)
           unite = realloc(unite, ((iCompteurUnite+1) * sizeof(Unites)));
-          printf("DEBUG: La mémoire a été realouée\n");
-        }
         break;
       case 4:
         do {
@@ -82,10 +73,12 @@ int main(int argc, char const *argv[]) {
               break;
             case 4:
               supprimerAlerte(&alerte, &iCompteurAlerte);
-              printf("DEBUG: compteurAlerte après la suppression : %d\n", iCompteurAlerte);
               break;
             case 5:
               imprimerLesAlertes(&alerte, &iCompteurAlerte);
+              break;
+            case 6:
+              chargerLesAlertes(&alerte, &iCompteurAlerte);
               break;
             case -2:
               break;
@@ -113,10 +106,12 @@ int main(int argc, char const *argv[]) {
             break;
           case 4:
             supprimerUnite(&unite, &iCompteurUnite);
-            printf("DEBUG: compteurUnite après la suppression : %d\n", iCompteurAlerte);
             break;
           case 5:
             imprimerLesUnites(&unite, &iCompteurUnite);
+            break;
+          case 6:
+            chargerLesUnites(&unite, &iCompteurUnite);
             break;
           case -2:
             break;
@@ -128,14 +123,6 @@ int main(int argc, char const *argv[]) {
         break;
       case 6:
         consulterUnitesDeployees(&unite, &iCompteurUnite);
-
-        printf("DEBUG : uniteMiseEnRepos() = %d\n", uniteMiseEnRepos());
-
-        //printf("DEBUG : iCodeDonneUnite = %d\n", codeUniteMiseEnRepos());
-
-        if (uniteMiseEnRepos)
-          supprimerAlerteApresTraitement(&alerte, &iCompteurAlerte);
-
         break;
       case -1:
         break;
