@@ -1,3 +1,7 @@
+/*
+  Le module unite.c sert pour la gestion des unités.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,14 +10,21 @@
 #include "alerte.h"
 #include "unite.h"
 
+/*
+  La fonction genererCodeUnite(); génére le code aléatoire entre 50,001 et
+  100,000 pour chaque unité qui a été crée.
+  @params: aucun
+  retourne: int
+*/
 int genererCodeUnite() {
-  int iNombreGenere = 0;
-
-  iNombreGenere = rand() % 50002 + 50001;
-
-  return(iNombreGenere);
+  return(rand() % 50002 + 50001);
 }
-
+/*
+  La fonction *moyenDeplacement(); retourne un pointeur de type de chaîne de caractères
+  selon la choix de l'utilisateur.
+  @params: aucun
+  retourne: une chaîne de caractères
+*/
 char * moyenDeplacement() {
   char *ptrMoyenDeplacement = NULL;
   int iChoix = 0;
@@ -48,7 +59,12 @@ char * moyenDeplacement() {
 
   return(ptrMoyenDeplacement);
 }
-
+/*
+  La fonction *niveauDisponibilite(); retourne un pointeur de type de chaîne de caractères
+  selon la choix de l'utilisateur.
+  @params: aucun
+  retourne: une chaîne de caractères
+*/
 char * niveauDisponibilite() {
   char *cPtrNiveauDisponibilite = NULL;
   int iChoix = 0;
@@ -83,7 +99,12 @@ char * niveauDisponibilite() {
 
   return(cPtrNiveauDisponibilite);
 }
-
+/*
+  La fonction *statutUnite(); retourne un pointeur de type de chaîne de caractères
+  selon la choix de l'utilisateur.
+  @params: aucun
+  retourne: une chaîne de caractères
+*/
 char * statutUnite() {
   char *cPtrStatutUnite = NULL;
   int iChoix = 0;
@@ -118,7 +139,14 @@ char * statutUnite() {
 
   return(cPtrStatutUnite);
 }
-
+/*
+  La fonction creerUnite(); permet de créer nouvelle unité.
+  L'utilisateur saisie les donées qui permet de décrire une unité
+  et ensuite elles sont sauvegardé dans la structure Untes.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
 void creerUnite(Unites **unite, int *iCompteurUnite) {
   char sBuffer[TAILLE_BUFFER];
   int iTmpNombre = 0;
@@ -158,7 +186,13 @@ void creerUnite(Unites **unite, int *iCompteurUnite) {
 
   printf("NOTIFICATION : Unité a été bien crée avec le code suivant : %d\n", (*unite)[i].iCode);
 }
-
+/*
+  La fonction afficherUneUnite(); parcours le tableau de structure d'Unites
+  et affiche à l'utilisateur toutes les alertes qui ont été enregistrées.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
 void afficherUneUnite(Unites **unite, int *iCompteurUnite) {
   int i = 0;
   int iCodeDonne = 0;
@@ -188,7 +222,15 @@ void afficherUneUnite(Unites **unite, int *iCompteurUnite) {
   if (!iExisteUnite)
     printf("Unité avec le code %d n'a pas été trouvée.\n", iCodeDonne);
 }
-
+/*
+  La fonction afficherToutesUnites(); parcours le tableau de structure d'Unites
+  et affiche à l'utilisateur qu'une seule unité selon le code que l'utilisateur
+  a donné. Si le code est faux ou unité n'existe pas, la fonction affiche une
+  notification d'erreur à l'écran.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
 void afficherToutesUnites(Unites **unite, int *iCompteurUnite) {
   int i = 0;
 
@@ -208,7 +250,16 @@ void afficherToutesUnites(Unites **unite, int *iCompteurUnite) {
     printf("Deployée sur les alertes : %d\n", (*unite)[i].iDeployeeSurAlerte);
   }
 }
-
+/*
+  La fonction modifierUnite(); parcours le tableau de structure d'Unites
+  et affiche à l'utilisateur unité selon le code qu'il a saisi. Si le code est
+  faux ou unité n'existe pas, la fonction affiche une notification d'erreur à l'écran.
+  Sinon, l'utilisateur saisie les nouvelles donnée de l'unité sauf le code qui
+  a été généré automatiquement. Ce-dernière reste le même malgré les modifications.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
 void modifierUnite(Unites **unite, int *iCompteurUnite) {
   int i = 0;
   int iExisteUnite = 0;
@@ -268,7 +319,17 @@ void modifierUnite(Unites **unite, int *iCompteurUnite) {
     printf("NOTIFICATION : Unité avec le code %d a été bien modifiée.\n", iCodeDonne);
   }
 }
-
+/*
+  La fonction supprimerUnite(); parcours le tableau de structure d'Unites
+  et affiche à l'utilisateur unité selon le code qu'il a saisi. Si le code est
+  faux ou unité n'existe pas, la fonction affiche une notification d'erreur à l'écran.
+  Sinon, unité sera supprimmée de la structure d'Unites. Apès la suppression
+  tous les éléments de la structure d'Unites sont bougé pour éviter les trous.
+  La mémoire est realouée et le iCompteurUnite est diminué de 1.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
 void supprimerUnite(Unites **unite, int *iCompteurUnite) {
   int iCodeDonne = 0;
   int i = 0;
@@ -307,28 +368,30 @@ void supprimerUnite(Unites **unite, int *iCompteurUnite) {
   }
 
   (*iCompteurUnite)--;
-
   iNouvelleTaille = *iCompteurUnite;
-
   *unite = realloc(*unite, ((TAILLE_INITIALE_DE_MALLOC_UNITE+iNouvelleTaille) * sizeof(Unites)));
 
   if (*unite == NULL && *iCompteurUnite > 0) {
     printf("Erreur de reallocation memoire après la suppression.\n");
     exit(EXIT_FAILURE);
   }
-
-  printf("DEBUG: La mémoire a été realouée après la suppression\n");
-
   printf("NOTIFICATION : Unité avec le code %d a été bien supprimé\n", iCodeDonne);
 }
-
-
+/*
+  La fonction mettreUniteEnRepos(); permet de mettre une unité en repos après
+  ses 3 intervations sur les alertes. La fonction parcours la structure d'Unites
+  et en trouvant chaque unité qui a iCompteurRepos == 3, elle affecte le valeur
+  "EN REPOS" pour le nivequ de disponibilité.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
 void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite) {
   int i = 0;
   int iChangementsEffectuees = 0;
 
   for (i = 0; i < *iCompteurUnite; i++) {
-    if ((*unite)[i].iCompteurRepos >= 3) {
+    if ((*unite)[i].iCompteurRepos == 3) {
       strcpy((*unite)[i].cNiveauDisponibilite, "EN REPOS\n");
       (*unite)[i].iDeployeeSurAlerte = 0;
       iChangementsEffectuees = 1;
@@ -338,8 +401,25 @@ void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite) {
   if (iChangementsEffectuees)
     printf("NOTIFICATION : Certains unités ont été mises en repos car elles étaient deployées 3 fois.\n");
 }
-
-
+/*
+  La fonction declancherAlerte(); affiche toutes les alertes non traitées et toutes
+  les unités disponiblées. S'il y a aucune alerte non traitées, le message correspondant
+  va être affiche à l'écran pour l'utilisateur. La même chose, s'il n'y a aucune
+  unité disponible sauf les cas de force majeure. Ce-dernière permet à l'utilisateur
+  de faire intervenir les unités qui sont en repos.
+  Utilisateur saisie le code d'alerte qu'il veut traiter et le code d'unités qu'il
+  veut envoyer pour le traitement de l'alerte saisie. Si le code est faux ou l'alerte ou bien
+  unité n'exite pas, le message d'erreur sera affiche à l'écran. Sinon, un parcours
+  sera réalisé dans la structure d'Alerte et structure d'Unité et puis affectation
+  de l'unité saisi à l'alerte saisi. Le code des unités deployées sur alerte sera affiche
+  sur alerte et le code d'alerte traitées par l'unité sera affiche sur unité. Apès cette
+  procedure, les alertes en cours de traitement et les unités deployées ne seront
+  plus affiche dans le menu de declanchement d'alerte.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite, pointeur de pointeur de la stuct Alerte, pointeur d'entier
+  de compteur d'alerte
+  retourne: void
+*/
 void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int *iCompteurUnite) {
   int i = 0;
   int iCodeDonneAlerte = 0;
@@ -394,7 +474,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
 
   if (iBoucleCompteurUnite == 0) {
     printf("NOTIFICATION : Toutes les unités sont occuppées.\n\n");
-    printf("CAS DE FORCE MAJEURE\n");
+    printf("--CAS DE FORCE MAJEURE--\n");
     printf("1. Faire intervenir les unités en repos -2 pour retourner\n");
     scanf("%d%*c", &iChoix);
 
@@ -460,7 +540,14 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   (*unite)[iTmpPositionUnite].iUniteDisponible = 0;
   printf("Les unités ont été bien envoyée\n");
 }
-
+/*
+  La fonction unitesStatiques(); crée les unités statiques dès que le programme
+  est lancé. Permet de faire des testes directs et éviter de taper les nouvelles
+  alertes à chaque chargement du programme.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
 void unitesStatiques(Unites **unite, int *iCompteurUnite) {
   int i;
 
@@ -540,8 +627,7 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
         (*unite)[iTmpPositionUnite].iUniteDisponible = 1;
         (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = 0;
 
-        uniteMiseEnRepos();
-        codeUniteMiseEnRepos(iCodeDonneUnite);
+        //supprimerAlerteApresTraitement(&alerte, &iCompteurAlerte, &iCodeDonneUnite);
 
         printf("NOTIFICATION : L'unité avec le code %d a été bien mise en repos\n", iCodeDonneUnite);
         break;
@@ -551,17 +637,13 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
     }
   } while(iChoix != -2);
 }
-
-int uniteMiseEnRepos() {
-  return(1);
-}
-
-int codeUniteMiseEnRepos(int iCodeDonneUnite) {
-  int iTmp = iCodeDonneUnite;
-
-  return(iTmp);
-}
-
+/*
+  La fonction imprimerLesUnites(); cette fonction crée un fichier qui s'appelle
+  unites.txt et imprime toutes les unités qui existent dans la structure d'Unites.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
 void imprimerLesUnites(Unites **unite, int *iCompteurUnite) {
   FILE *file = NULL;
   int i = 0;
@@ -585,4 +667,35 @@ void imprimerLesUnites(Unites **unite, int *iCompteurUnite) {
  }
   fclose(file);
   printf("NOTIFICATION : Les unités ont été bien sauvegardée dans le fichier unites.txt\n");
+}
+/*
+  La fonction chargerLesUnites(); lit un fichier donnée par l'utilisateur. Si
+  le fichier n'existe pas ou le nom de fichier n'est pas correct, la fonction
+  affiche une notification d'erreur à l'écran. Sinon, toutes les données seront
+  affichées au-dessus de menu principal.
+  @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
+  compteur d'unite
+  retourne: void
+*/
+void chargerLesUnites(Unites **unite, int *iCompteurUnite) {
+  FILE *file = NULL;
+  int i = 0;
+  char sBuffer[TAILLE_BUFFER];
+
+  printf("Donnez le nom du fichier avec son extantion (ex: exemple.txt)\n");
+  scanf("%s%*c",sBuffer);
+
+  file = fopen(sBuffer, "r");
+
+  if (file == NULL) {
+    printf("Erreur d'ouverture de fichier. Vérifiez que le fichier existe.\n");
+    return;
+   }
+
+ printf("Les unités chargées du fichier :\n");
+ while(!feof(file)) {
+    fgets(sBuffer, TAILLE_BUFFER, file);
+    printf("%s", sBuffer);
+  }
+ fclose(file);
 }
