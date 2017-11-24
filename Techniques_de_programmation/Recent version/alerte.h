@@ -6,6 +6,9 @@
 #define TAILLE_BUFFER 150
 #define TAILLE_BUFFER_RETOUR 30
 #define NOM_DE_FICHIER_ALERTES "alertes.txt"
+#define TAILLE_DE_CODE_GENERE_50001 50001
+#define CHOIX_MAX_NIVEAU_ALERTE 3
+#define CHOIX_MAX_TYPE_ALERTE 7
 
 typedef struct {
   int iCode;
