@@ -17,7 +17,7 @@
   retourne: int
 */
 int genererCodeUnite() {
-  return(rand() % 50002 + 50001);
+  return(rand() % TAILLE_DE_CODE_GENERE_50002 + TAILLE_DE_CODE_GENERE_50001);
 }
 /*
   La fonction *moyenDeplacement(); retourne un pointeur de type de chaîne de caractères
@@ -55,7 +55,7 @@ char * moyenDeplacement() {
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
         break;
     }
-  } while (iChoix > 3);
+  } while (iChoix > CHOIX_MAX_MOYEN_DEPLACEMENT);
 
   return(ptrMoyenDeplacement);
 }
@@ -95,7 +95,7 @@ char * niveauDisponibilite() {
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
         break;
     }
-  } while (iChoix > 3);
+  } while (iChoix > CHOIX_MAX_NIVEAU_DISPONIBILITE);
 
   return(cPtrNiveauDisponibilite);
 }
@@ -135,7 +135,7 @@ char * statutUnite() {
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
         break;
     }
-  } while (iChoix > 3);
+  } while (iChoix > CHOIX_MAX_STATUT_UNITE);
 
   return(cPtrStatutUnite);
 }
@@ -534,7 +534,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   (*alerte)[iTmpPositionAlerte].iCodeUniteQuiTraite = iCodeDonneUnite;
   (*alerte)[iTmpPositionAlerte].iEstTraiteParUnite = 1;
   (*unite)[iTmpPositionUnite].iCompteurRepos += 1;
-  strcpy((*unite)[iTmpPositionUnite].cNiveauDisponibilite, "ACTIVITE\n");
+  strcpy((*unite)[iTmpPositionUnite].cNiveauDisponibilite, "ACTIVE\n");
   strcpy((*unite)[iTmpPositionUnite].cStatut, "EN ALERTE\n");
   (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = iCodeDonneAlerte;
   (*unite)[iTmpPositionUnite].iUniteDisponible = 0;
@@ -556,7 +556,7 @@ void unitesStatiques(Unites **unite, int *iCompteurUnite) {
   (*unite)[i].iCode = 51789;
   strcpy((*unite)[i].cNom, "Ambulance\n");
   strcpy((*unite)[i].cMoyenDeplacement, "ROUTE\n");
-  strcpy((*unite)[i].cNiveauDisponibilite, "ACTIVITE\n");
+  strcpy((*unite)[i].cNiveauDisponibilite, "ACTIVE\n");
   strcpy((*unite)[i].cStatut, "EN REPOS\n");
   strcpy((*unite)[i].cBase, "Bayonne\n");
   (*unite)[i].iCompteurRepos = 0;
@@ -567,7 +567,7 @@ void unitesStatiques(Unites **unite, int *iCompteurUnite) {
   (*unite)[i].iCode = 87222;
   strcpy((*unite)[i].cNom, "Pompiers\n");
   strcpy((*unite)[i].cMoyenDeplacement, "ROUTE\n");
-  strcpy((*unite)[i].cNiveauDisponibilite, "ACTIVITE\n");
+  strcpy((*unite)[i].cNiveauDisponibilite, "ACTIVE\n");
   strcpy((*unite)[i].cStatut, "EN REPOS\n");
   strcpy((*unite)[i].cBase, "Paris\n");
   (*unite)[i].iCompteurRepos = 0;
