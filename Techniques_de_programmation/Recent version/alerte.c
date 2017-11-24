@@ -424,4 +424,3 @@ void chargerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
   }
  fclose(file);
 }
-/*"Coucou"*/
