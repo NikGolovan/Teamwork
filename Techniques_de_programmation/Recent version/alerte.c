@@ -121,7 +121,7 @@ void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int iTmpNombre = 0;
   char *cPtrType = NULL;
   char *cPtrNiveau = NULL;
-  int i;
+  int i = 0;
 
   i = *iCompteurAlerte;
 
@@ -293,6 +293,7 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int i = 0;
   int j = 0;
   int iNouvelleTaille = 0;
+  int iCodeUniteQuiTraite = 0;
 
   if (*iCompteurAlerte == 0) {
    printf("NOTIFICATION : Aucune alerte n'a été enregistrée\n");
@@ -310,6 +311,8 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
     printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonne);
     return;
   } else {
+    iCodeUniteQuiTraite = (*alerte)[i].iCodeUniteQuiTraite;
+    printf("DEBUG : iCodeUniteQuiTraite = %d\n", iCodeUniteQuiTraite);
     for (j = i; j < (*iCompteurAlerte); j++) {
         (*alerte)[j].iCode = (*alerte)[j+1].iCode;
         strcpy((*alerte)[j].cType, (*alerte)[j+1].cType);
@@ -406,7 +409,7 @@ void chargerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
   int i = 0;
   char sBuffer[TAILLE_BUFFER];
 
-  printf("Donnez le nom du fichier avec son extantion (ex: exemple.txt)\n");
+  printf("Donnez le nom du fichier avec son extantion (ex: exemple.txt) : \n");
   scanf("%s%*c",sBuffer);
 
   file = fopen(sBuffer, "r");
