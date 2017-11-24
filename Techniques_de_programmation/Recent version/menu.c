@@ -1,3 +1,6 @@
+/*
+  Le module menu.c contient tous les menus du programme.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,7 +8,11 @@
 
 #include "alerte.h"
 #include "unite.h"
-
+/*
+  La fonction menuGlobal(); sert pour l'affichage de menu principal.
+  @params: aucun
+  retourne: void
+*/
 void menuGlobal(){
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -29,7 +36,11 @@ void menuGlobal(){
   printf("║ -1 ║ Quitter                           ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/*
+  La fonction menuTraitementAlerte(); sert pour l'affichage de sous-menu de gestion d'alertes.
+  @params: aucun
+  retourne: void
+*/
 void menuTraitementAlerte() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -47,11 +58,18 @@ void menuTraitementAlerte() {
   printf("║    ║                                   ║\n");
   printf("║ 5  ║ Sauvegarder les données           ║\n");
   printf("║    ║                                   ║\n");
+  printf("║ 6  ║ Charger les données du fichier    ║\n");
+  printf("║    ║                                   ║\n");
   printf("╠════╬═══════════════════════════════════╣\n");
   printf("║ -2 ║ Retourner                         ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/*
+  La fonction menuNiveauAlerte(); sert pour l'affichage du choix du niveau d'alerte
+  à l'utilisateur pour la saisie.
+  @params: aucun
+  retourne: void
+*/
 void menuNiveauAlerte() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -67,7 +85,12 @@ void menuNiveauAlerte() {
   printf("║    ║                                   ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/*
+  La fonction menuTypeAlerte(); sert pour l'affichage du choix du niveau d'alerte
+  à l'utilisateur pour la saisie.
+  @params: aucun
+  retourne: void
+*/
 void menuTypeAlerte() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -91,7 +114,12 @@ void menuTypeAlerte() {
   printf("║    ║                                   ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/*
+  La fonction menuTraitementUnite(); sert pour l'affichage de sous-menu de gestion
+  des unités.
+  @params: aucun
+  retourne: void
+*/
 void menuTraitementUnite() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -109,11 +137,18 @@ void menuTraitementUnite() {
   printf("║    ║                                   ║\n");
   printf("║ 5  ║ Sauvegarder les données           ║\n");
   printf("║    ║                                   ║\n");
+  printf("║ 6  ║ Charger les données du fichier    ║\n");
+  printf("║    ║                                   ║\n");
   printf("╠════╬═══════════════════════════════════╣\n");
   printf("║ -2 ║ Retourner                         ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/*
+  La fonction menuDeplacementUnite(); sert pour l'affichage du choix du moyen
+  de deplacement d'une unité à l'utilisateur pour la saisie.
+  @params: aucun
+  retourne: void
+*/
 void menuDeplacementUnite() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -129,7 +164,12 @@ void menuDeplacementUnite() {
   printf("║    ║                                   ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/*
+  La fonction menuDisponibiliteUnite(); sert pour l'affichage du choix du niveau
+  de disponibilité d'une unité à l'utilisateur pour la saisie.
+  @params: aucun
+  retourne: void
+*/
 void menuDisponibiliteUnite() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -145,7 +185,12 @@ void menuDisponibiliteUnite() {
   printf("║    ║                                   ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/*
+  La fonction menuStatutUnite(); sert pour l'affichage du choix du statut d'une
+  unité à l'utilisateur pour la saisie.
+  @params: aucun
+  retourne: void
+*/
 void menuStatutUnite() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -161,7 +206,12 @@ void menuStatutUnite() {
   printf("║    ║                                   ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/*
+  La fonction menuGestionUniteDeployee(); sert pour l'affichage du choix
+  pour la gestion des unités deployées à l'utilisateur pour la saisie.
+  @params: aucun
+  retourne: void
+*/
 void menuGestionUniteDeployee() {
   printf("╔════════════════════════════════════════╗\n");
   printf("║                                        ║\n");
@@ -174,4 +224,43 @@ void menuGestionUniteDeployee() {
   printf("╠════╬═══════════════════════════════════╣\n");
   printf("║ -2 ║ Retourner                         ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
+}
+
+void supprimerAlerteApresTraitement(Alerte **alerte, int *iCompteurAlerte, int *iCodeDonneUnite) {
+  int i = 0;
+  int j = 0;
+  int iNouvelleTaille = 0;
+
+  while (i < *iCompteurAlerte && *iCodeDonneUnite != (*alerte)[i].iCodeUniteQuiTraite) {
+    i++;
+  }
+
+  if (i == *iCompteurAlerte) {
+    printf("NOTIFICATION : Alerte avec le code n'a pas été trouvée.\n");
+    return;
+  } else {
+    for (j = i; j < (*iCompteurAlerte); j++) {
+        (*alerte)[j].iCode = (*alerte)[j+1].iCode;
+        strcpy((*alerte)[j].cType, (*alerte)[j+1].cType);
+        strcpy((*alerte)[j].cNiveau, (*alerte)[j+1].cNiveau);
+        strcpy((*alerte)[j].cLieu, (*alerte)[j+1].cLieu);
+        (*alerte)[j].iNombreVictimes = (*alerte)[j+1].iNombreVictimes;
+        strcpy((*alerte)[j].cDescription, (*alerte)[j+1].cDescription);
+        // si la suppression a les bug, supprimmer ces 2 deriniers lignes
+        (*alerte)[j].iEstTraiteParUnite = (*alerte)[j+1].iEstTraiteParUnite;
+        (*alerte)[j].iCodeUniteQuiTraite = (*alerte)[j+1].iCodeUniteQuiTraite;
+    }
+  }
+
+  (*iCompteurAlerte)--;
+
+  iNouvelleTaille = *iCompteurAlerte;
+
+  *alerte = realloc(*alerte, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Alerte)));
+
+  if (*alerte == NULL && *iCompteurAlerte > 0) {
+    printf("Erreur de reallocation memoire après la suppression.\n");
+    exit(EXIT_FAILURE);
+  }
+  printf("DEBUG : alerte après la mise d'unité en repos a été bien supprimée\n");
 }
