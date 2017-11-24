@@ -5,6 +5,10 @@
 #define TAILLE_INITIALE_DE_MALLOC_UNITE 3
 #define UNITE_EN_REPOS "Disponibilité : EN REPOS"
 #define NOM_DE_FICHIER_UNITES "unites.txt"
+#define TAILLE_DE_CODE_GENERE_50002 50002
+#define CHOIX_MAX_MOYEN_DEPLACEMENT 3
+#define CHOIX_MAX_NIVEAU_DISPONIBILITE 3
+#define CHOIX_MAX_STATUT_UNITE 3
 
 typedef struct {
   int iCode;
