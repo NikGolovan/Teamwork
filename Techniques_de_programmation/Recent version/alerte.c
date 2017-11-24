@@ -8,7 +8,6 @@
 #include <time.h>
 
 #include "alerte.h"
-
 /*
   La fonction genererCodeAlerte(); génére le code aléatoire entre 0 et
   50,000 pour chaque alerte qui a été crée.
@@ -16,7 +15,7 @@
   retourne: int
 */
 int genererCodeAlerte() {
-  return(rand() % 50001);
+  return(rand() % TAILLE_DE_CODE_GENERE_50001);
 }
 /*
   La fonction *niveauAlerte(); retourne un pointeur de type de chaîne de caractères
@@ -53,7 +52,7 @@ char * niveauAlerte() {
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
         break;
     }
-  } while (iChoix > 3);
+  } while (iChoix > CHOIX_MAX_NIVEAU_ALERTE);
 
   return(cPtrNiveau);
 }
@@ -105,7 +104,7 @@ char * typeAlerte() {
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
         break;
     }
-  } while (iChoix > 7);
+  } while (iChoix > CHOIX_MAX_TYPE_ALERTE);
 
   return(cPtrType);
 }
@@ -348,7 +347,7 @@ void alertesStatiques(Alerte **alerte, int *iCompteurAlerte) {
   strcpy((*alerte)[0].cNiveau, "INCENDIE\n");
   strcpy((*alerte)[0].cLieu, "Paris\n");
   (*alerte)[0].iNombreVictimes = 2;
-  strcpy((*alerte)[0].cDescription, "Une incendie du Batiment SF au 5-éme arrondissement.\n");
+  strcpy((*alerte)[0].cDescription, "Un incendie du Batiment SF au 5-éme arrondissement.\n");
   (*alerte)[0].iEstTraiteParUnite = 0;
   (*alerte)[0].iCodeUniteQuiTraite = 0;
   (*iCompteurAlerte)++;
@@ -357,7 +356,7 @@ void alertesStatiques(Alerte **alerte, int *iCompteurAlerte) {
   strcpy((*alerte)[1].cNiveau, "MALAISE\n");
   strcpy((*alerte)[1].cLieu, "Bayonne\n");
   (*alerte)[1].iNombreVictimes = 1;
-  strcpy((*alerte)[1].cDescription, "Une personne a perdue connaissance à cause du chaleur.\n");
+  strcpy((*alerte)[1].cDescription, "Une personne a perdue connaissance à cause de la chaleur.\n");
   (*alerte)[1].iEstTraiteParUnite = 0;
   (*alerte)[1].iCodeUniteQuiTraite = 0;
   (*iCompteurAlerte)++;
