@@ -1,3 +1,7 @@
+/*
+  Le module alerte.c sert pour la gestion des alertes.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,14 +9,21 @@
 
 #include "alerte.h"
 
+/*
+  La fonction genererCodeAlerte(); génére le code aléatoire entre 0 et
+  50,000 pour chaque alerte qui a été crée.
+  @params: aucun
+  retourne: int
+*/
 int genererCodeAlerte() {
-  int iNombreGenere = 0;
-
-  iNombreGenere = rand() % 50001;
-
-  return(iNombreGenere);
+  return(rand() % 50001);
 }
-
+/*
+  La fonction *niveauAlerte(); retourne un pointeur de type de chaîne de caractères
+  selon la choix de l'utilisateur.
+  @params: aucun
+  retourne: une chaîne de caractères
+*/
 char * niveauAlerte() {
   char *cPtrNiveau = NULL;
   int iChoix = 0;
@@ -26,7 +37,6 @@ char * niveauAlerte() {
 
   do {
     menuNiveauAlerte();
-
     scanf("%d%*c", &iChoix);
 
     switch (iChoix) {
@@ -47,7 +57,12 @@ char * niveauAlerte() {
 
   return(cPtrNiveau);
 }
-
+/*
+  La fonction *typeAlerte() retourne un pointeur de type de chaîne de caractères
+  selon la choix de l'utilisateur.
+  @params: aucun
+  retourne: une chaîne de caractères
+*/
 char * typeAlerte() {
   char *cPtrType = NULL;
   int iChoix = 0;
@@ -94,7 +109,14 @@ char * typeAlerte() {
 
   return(cPtrType);
 }
-
+/*
+  La fonction ajouterAlerte(); permet de créer nouvelle alerte.
+  L'utilisateur saisie les donées qui permet de décrire une alerte
+  et ensuite elles sont sauvegardé dans la structure Alerte.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
 void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
   char sBuffer[TAILLE_BUFFER];
   int iTmpNombre = 0;
@@ -132,7 +154,13 @@ void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
 
   printf("NOTIFICATION : Alerte a été bien crée avec le code suivant : %d\n", (*alerte)[i].iCode);
 }
-
+/*
+  La fonction afficherToutesAlertes(); parcours le tableau de structure d'Alerte
+  et affiche à l'utilisateur toutes les alertes qui ont été enregistrées.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
 void afficherToutesAlertes(Alerte **alerte, int *iCompteurAlerte) {
   int i = 0;
 
@@ -149,12 +177,18 @@ void afficherToutesAlertes(Alerte **alerte, int *iCompteurAlerte) {
     printf("Lieu : %s", (*alerte)[i].cLieu);
     printf("Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
     printf("Description : %s", (*alerte)[i].cDescription);
-    //printf("Alerte est traitée par une unité : ");
-    //((*alerte)[i].iEstTraiteParUnite) == 0 ? printf("NON\n") : printf("OUI\n");
     printf("Les unités deployés : %d\n", (*alerte)[i].iCodeUniteQuiTraite);
   }
 }
-
+/*
+  La fonction afficherUneAlerte(); parcours le tableau de structure d'Alerte
+  et affiche à l'utilisateur qu'une seule alerte selon le code que l'utilisateur
+  a donné. Si le code est faux ou alerte n'existe pas, la fonction affiche une
+  notification d'erreur à l'écran.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
 void afficherUneAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int i = 0;
   int iCodeDonne = 0;
@@ -177,8 +211,6 @@ void afficherUneAlerte(Alerte **alerte, int *iCompteurAlerte) {
       printf("Lieu : %s", (*alerte)[i].cLieu);
       printf("Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
       printf("Description : %s", (*alerte)[i].cDescription);
-      //printf("Alerte est traitée par une unité : %d", (*alerte)[i].iNombreVictimes);
-      //((*alerte)[i].iNombreVictimes) == 0 ? printf("NON\n") : printf("OUI\n");
       printf("Les unités deployés : %d\n", (*alerte)[i].iCodeUniteQuiTraite);
       existeAlerte = 1;
     }
@@ -186,7 +218,16 @@ void afficherUneAlerte(Alerte **alerte, int *iCompteurAlerte) {
   if (!existeAlerte)
     printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonne);
 }
-
+/*
+  La fonction modifierAlerte(); parcours le tableau de structure d'Alerte
+  et affiche à l'utilisateur alerte selon le code qu'il a saisi. Si le code est
+  faux ou alerte n'existe pas, la fonction affiche une notification d'erreur à l'écran.
+  Sinon, l'utilisateur saisie les nouvelles donnée de l'alerte sauf le code qui
+  a été généré automatiquement. Ce-dernière reste le même malgré les modifications.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
 void modifierAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int i = 0;
   int iExisteAlerte = 0;
@@ -237,7 +278,17 @@ void modifierAlerte(Alerte **alerte, int *iCompteurAlerte) {
     printf("NOTIFICATION : Alerte avec le code %d a été bien modifiée.\n", iCodeDonne);
   }
 }
-
+/*
+  La fonction supprimerAlerte(); parcours le tableau de structure d'Alerte
+  et affiche à l'utilisateur alerte selon le code qu'il a saisi. Si le code est
+  faux ou alerte n'existe pas, la fonction affiche une notification d'erreur à l'écran.
+  Sinon, alerte sera supprimmée de la structure d'Alerte. Apès la suppression
+  tous les éléments de la structure d'Alerte sont bougé pour éviter les trous.
+  La mémoire est realouée et le iCompteurAlerte est diminué de 1.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
 void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int iCodeDonne = 0;
   int i = 0;
@@ -274,88 +325,50 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
   }
 
   (*iCompteurAlerte)--;
-
   iNouvelleTaille = *iCompteurAlerte;
-
   *alerte = realloc(*alerte, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Alerte)));
 
   if (*alerte == NULL && *iCompteurAlerte > 0) {
     printf("Erreur de reallocation memoire après la suppression.\n");
     exit(EXIT_FAILURE);
   }
-
-  printf("DEBUG: La mémoire a été realouée après la suppression\n");
-
   printf("NOTIFICATION : Alerte avec le code %d a été bien supprimé\n", iCodeDonne);
 }
-
+/*
+  La fonction alertesStatiques(); crée les alertes statiques dès que le programme
+  est lancé. Permet de faire des testes directs et éviter de taper les nouvelles
+  alertes à chaque chargement du programme.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
 void alertesStatiques(Alerte **alerte, int *iCompteurAlerte) {
-  int i = 0;
-
-  i = *iCompteurAlerte;
-
-  (*alerte)[i].iCode = 12895;
-  strcpy((*alerte)[i].cType, "URGENCE\n");
-  strcpy((*alerte)[i].cNiveau, "INCENDIE\n");
-  strcpy((*alerte)[i].cLieu, "Paris\n");
-  (*alerte)[i].iNombreVictimes = 2;
-  strcpy((*alerte)[i].cDescription, "Une incendie du Batiment SF au 5-éme arrondissement.\n");
-  (*alerte)[i].iEstTraiteParUnite = 0;
-  (*alerte)[i].iCodeUniteQuiTraite = 0;
+  (*alerte)[0].iCode = 12895;
+  strcpy((*alerte)[0].cType, "URGENCE\n");
+  strcpy((*alerte)[0].cNiveau, "INCENDIE\n");
+  strcpy((*alerte)[0].cLieu, "Paris\n");
+  (*alerte)[0].iNombreVictimes = 2;
+  strcpy((*alerte)[0].cDescription, "Une incendie du Batiment SF au 5-éme arrondissement.\n");
+  (*alerte)[0].iEstTraiteParUnite = 0;
+  (*alerte)[0].iCodeUniteQuiTraite = 0;
   (*iCompteurAlerte)++;
-  i++;
-  (*alerte)[i].iCode = 826;
-  strcpy((*alerte)[i].cType, "NOMINAL\n");
-  strcpy((*alerte)[i].cNiveau, "MALAISE\n");
-  strcpy((*alerte)[i].cLieu, "Bayonne\n");
-  (*alerte)[i].iNombreVictimes = 1;
-  strcpy((*alerte)[i].cDescription, "Une personne a perdue connaissance à cause du chaleur.\n");
-  (*alerte)[i].iEstTraiteParUnite = 0;
-  (*alerte)[i].iCodeUniteQuiTraite = 0;
+  (*alerte)[1].iCode = 826;
+  strcpy((*alerte)[1].cType, "NOMINAL\n");
+  strcpy((*alerte)[1].cNiveau, "MALAISE\n");
+  strcpy((*alerte)[1].cLieu, "Bayonne\n");
+  (*alerte)[1].iNombreVictimes = 1;
+  strcpy((*alerte)[1].cDescription, "Une personne a perdue connaissance à cause du chaleur.\n");
+  (*alerte)[1].iEstTraiteParUnite = 0;
+  (*alerte)[1].iCodeUniteQuiTraite = 0;
   (*iCompteurAlerte)++;
-  i++;
 }
-
-void supprimerAlerteApresTraitement(Alerte **alerte, int *iCompteurAlerte) {
-  int i = 0;
-  int j = 0;
-  int iNouvelleTaille = 0;
-
-  printf("DEBUG : codeUniteMiseEnRepos() = %d\n", codeUniteMiseEnRepos());
-
-  while (i < *iCompteurAlerte && 87222 != (*alerte)[i].iCodeUniteQuiTraite) {
-    i++;
-  }
-
-  if (i == *iCompteurAlerte) {
-    printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", codeUniteMiseEnRepos());
-    return;
-  } else {
-    for (j = i; j < (*iCompteurAlerte); j++) {
-        (*alerte)[j].iCode = (*alerte)[j+1].iCode;
-        strcpy((*alerte)[j].cType, (*alerte)[j+1].cType);
-        strcpy((*alerte)[j].cNiveau, (*alerte)[j+1].cNiveau);
-        strcpy((*alerte)[j].cLieu, (*alerte)[j+1].cLieu);
-        (*alerte)[j].iNombreVictimes = (*alerte)[j+1].iNombreVictimes;
-        strcpy((*alerte)[j].cDescription, (*alerte)[j+1].cDescription);
-        // si la suppression a les bug, supprimmer ces 2 deriniers lignes
-        (*alerte)[j].iEstTraiteParUnite = (*alerte)[j+1].iEstTraiteParUnite;
-        (*alerte)[j].iCodeUniteQuiTraite = (*alerte)[j+1].iCodeUniteQuiTraite;
-    }
-  }
-
-  (*iCompteurAlerte)--;
-
-  iNouvelleTaille = *iCompteurAlerte;
-
-  *alerte = realloc(*alerte, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Alerte)));
-
-  if (*alerte == NULL && *iCompteurAlerte > 0) {
-    printf("Erreur de reallocation memoire après la suppression.\n");
-    exit(EXIT_FAILURE);
-  }
-}
-
+/*
+  La fonction imprimerLesAlertes(); cette fonction crée un fichier qui s'appelle
+  alertes.txt et imprime toutes les alertes qui existent dans la structure d'Alerte.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
 void imprimerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
   FILE *file = NULL;
   int i = 0;
@@ -379,4 +392,35 @@ void imprimerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
  }
   fclose(file);
   printf("NOTIFICATION : Les alertes ont été bien sauvegardée dans le fichier alertes.txt\n");
+}
+/*
+  La fonction chargerLesAlertes(); lit un fichier donnée par l'utilisateur. Si
+  le fichier n'existe pas ou le nom de fichier n'est pas correct, la fonction
+  affiche une notification d'erreur à l'écran. Sinon, toutes les données seront
+  affichées au-dessus de menu principal.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
+void chargerLesAlertes(Alerte **alerte, int *iCompteurAlerte) {
+  FILE *file = NULL;
+  int i = 0;
+  char sBuffer[TAILLE_BUFFER];
+
+  printf("Donnez le nom du fichier avec son extantion (ex: exemple.txt)\n");
+  scanf("%s%*c",sBuffer);
+
+  file = fopen(sBuffer, "r");
+
+  if (file == NULL) {
+    printf("Erreur d'ouverture de fichier. Vérifiez que le fichier existe.\n");
+    return;
+   }
+
+ printf("Les alertes chargées du fichier :\n");
+ while(!feof(file)) {
+    fgets(sBuffer, TAILLE_BUFFER, file);
+    printf("%s", sBuffer);
+  }
+ fclose(file);
 }
