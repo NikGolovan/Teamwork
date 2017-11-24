@@ -253,9 +253,7 @@ void supprimerAlerteApresTraitement(Alerte **alerte, int *iCompteurAlerte, int *
   }
 
   (*iCompteurAlerte)--;
-
   iNouvelleTaille = *iCompteurAlerte;
-
   *alerte = realloc(*alerte, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Alerte)));
 
   if (*alerte == NULL && *iCompteurAlerte > 0) {
