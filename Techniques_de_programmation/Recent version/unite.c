@@ -380,7 +380,7 @@ void supprimerUnite(Unites **unite, int *iCompteurUnite) {
 /*
   La fonction mettreUniteEnRepos(); permet de mettre une unité en repos après
   ses 3 intervations sur les alertes. La fonction parcours la structure d'Unites
-  et en trouvant chaque unité qui a iCompteurRepos == 3, elle affecte le valeur
+  et en trouvant chaque unité qui a iCompteurRepos >= 3, elle affecte le valeur
   "EN REPOS" pour le nivequ de disponibilité.
   @params: pointeur de pointeur de la struct Unites, pointeur d'entier de
   compteur d'unite
@@ -391,9 +391,10 @@ void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite) {
   int iChangementsEffectuees = 0;
 
   for (i = 0; i < *iCompteurUnite; i++) {
-    if ((*unite)[i].iCompteurRepos == 3) {
+    if ((*unite)[i].iCompteurRepos >= 3) {
       strcpy((*unite)[i].cNiveauDisponibilite, "EN REPOS\n");
       (*unite)[i].iDeployeeSurAlerte = 0;
+      (*unite)[i].iCompteurRepos = 0;
       iChangementsEffectuees = 1;
     }
   }
@@ -557,7 +558,7 @@ void unitesStatiques(Unites **unite, int *iCompteurUnite) {
   strcpy((*unite)[i].cNom, "Ambulance\n");
   strcpy((*unite)[i].cMoyenDeplacement, "ROUTE\n");
   strcpy((*unite)[i].cNiveauDisponibilite, "ACTIVE\n");
-  strcpy((*unite)[i].cStatut, "EN REPOS\n");
+  strcpy((*unite)[i].cStatut, "EN ALERTE\n");
   strcpy((*unite)[i].cBase, "Bayonne\n");
   (*unite)[i].iCompteurRepos = 0;
   (*unite)[i].iUniteDisponible = 1;
@@ -568,7 +569,7 @@ void unitesStatiques(Unites **unite, int *iCompteurUnite) {
   strcpy((*unite)[i].cNom, "Pompiers\n");
   strcpy((*unite)[i].cMoyenDeplacement, "ROUTE\n");
   strcpy((*unite)[i].cNiveauDisponibilite, "ACTIVE\n");
-  strcpy((*unite)[i].cStatut, "EN REPOS\n");
+  strcpy((*unite)[i].cStatut, "EN ALERTE\n");
   strcpy((*unite)[i].cBase, "Paris\n");
   (*unite)[i].iCompteurRepos = 0;
   (*unite)[i].iUniteDisponible = 1;
@@ -610,7 +611,7 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
 
     switch (iChoix) {
       case 1:
-        printf("Donnez le code d'unité pour mettre en repos :\n");
+        printf("Donnez le code d'unité pour mettre en reapprovisionnement :\n");
         scanf("%d%*c", &iCodeDonneUnite);
 
         while (iTmpPositionUnite < *iCompteurUnite && iCodeDonneUnite != (*unite)[iTmpPositionUnite].iCode) {
@@ -622,8 +623,8 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
           return;
         }
 
-        strcpy((*unite)[iTmpPositionUnite].cStatut, "EN REPOS\n");
-        (*unite)[iTmpPositionUnite].iCompteurRepos = 0;
+        strcpy((*unite)[iTmpPositionUnite].cNiveauDisponibilite, "EN REAPPROVISIONNEMENT\n");
+        (*unite)[iTmpPositionUnite].iCompteurRepos += 1;
         (*unite)[iTmpPositionUnite].iUniteDisponible = 1;
         (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = 0;
 
