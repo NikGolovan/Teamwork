@@ -21,7 +21,6 @@ typedef struct {
   int iCodeUniteQuiTraite;
 } Alerte;
 
-
 void ajouterAlerte(Alerte **alerte, int *compteurAlerte);
 void afficherUneAlerte(Alerte **alerte, int *compteurAlerte);
 void afficherToutesAlertes(Alerte **alerte, int *compteurAlerte);
