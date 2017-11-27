@@ -26,10 +26,10 @@ int genererCodeUnite() {
   retourne: une chaîne de caractères
 */
 char * moyenDeplacement() {
-  char *ptrMoyenDeplacement = NULL;
+  char *cpMoyenDeplacement = NULL;
   int iChoix = 0;
 
-  ptrMoyenDeplacement = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
+  cpMoyenDeplacement = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
 
   if (moyenDeplacement == NULL) {
     printf("Erreur d'allocation memoire pour le moyen de deplacement\n");
@@ -43,13 +43,13 @@ char * moyenDeplacement() {
 
     switch (iChoix) {
       case 1:
-        ptrMoyenDeplacement = "ROUTE\n";
+        cpMoyenDeplacement = "ROUTE\n";
         break;
       case 2:
-        ptrMoyenDeplacement = "AIR\n";
+        cpMoyenDeplacement = "AIR\n";
         break;
         case 3:
-        ptrMoyenDeplacement = "MER\n";
+        cpMoyenDeplacement = "MER\n";
         break;
         default:
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
@@ -57,7 +57,7 @@ char * moyenDeplacement() {
     }
   } while (iChoix > CHOIX_MAX_MOYEN_DEPLACEMENT);
 
-  return(ptrMoyenDeplacement);
+  return(cpMoyenDeplacement);
 }
 /*
   La fonction *niveauDisponibilite(); retourne un pointeur de type de chaîne de caractères
@@ -66,12 +66,12 @@ char * moyenDeplacement() {
   retourne: une chaîne de caractères
 */
 char * niveauDisponibilite() {
-  char *cPtrNiveauDisponibilite = NULL;
+  char *cpNiveauDisponibilite = NULL;
   int iChoix = 0;
 
-  cPtrNiveauDisponibilite = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
+  cpNiveauDisponibilite = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
 
-  if (cPtrNiveauDisponibilite == NULL) {
+  if (cpNiveauDisponibilite == NULL) {
     printf("Erreur d'allocation memoire pour le niveau de dispinibilite\n");
     exit(EXIT_FAILURE);
   }
@@ -83,13 +83,13 @@ char * niveauDisponibilite() {
 
     switch (iChoix) {
       case 1:
-        cPtrNiveauDisponibilite = "ACTIVE\n";
+        cpNiveauDisponibilite = DISPONIBILITE_ACTIVE;
         break;
       case 2:
-        cPtrNiveauDisponibilite = "EN REPOS\n";
+        cpNiveauDisponibilite = DISPONIBILITE_EN_REPOS;
         break;
         case 3:
-        cPtrNiveauDisponibilite = "EN REAPPROVISIONNEMENT\n";
+        cpNiveauDisponibilite = DISPONIBILITE_EN_REAPPROVISIONNEMENT;
         break;
         default:
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
@@ -97,7 +97,7 @@ char * niveauDisponibilite() {
     }
   } while (iChoix > CHOIX_MAX_NIVEAU_DISPONIBILITE);
 
-  return(cPtrNiveauDisponibilite);
+  return(cpNiveauDisponibilite);
 }
 /*
   La fonction *statutUnite(); retourne un pointeur de type de chaîne de caractères
@@ -106,12 +106,12 @@ char * niveauDisponibilite() {
   retourne: une chaîne de caractères
 */
 char * statutUnite() {
-  char *cPtrStatutUnite = NULL;
+  char *cpStatutUnite = NULL;
   int iChoix = 0;
 
-  cPtrStatutUnite  = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
+  cpStatutUnite  = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
 
-  if (cPtrStatutUnite  == NULL) {
+  if (cpStatutUnite  == NULL) {
     printf("Erreur d'allocation memoire pour le statu unite\n");
     exit(EXIT_FAILURE);
   }
@@ -123,13 +123,13 @@ char * statutUnite() {
 
     switch (iChoix) {
       case 1:
-        cPtrStatutUnite  = "EN ALERTE\n";
+        cpStatutUnite  = STATUT_EN_ALERTE;
         break;
       case 2:
-        cPtrStatutUnite  = "EN ROUTE\n";
+        cpStatutUnite  = STATUT_EN_ROUTE;
         break;
       case 3:
-        cPtrStatutUnite  = "SUR OPERATION\n";
+        cpStatutUnite  = STATUT_SUR_OPERATION;
         break;
       default:
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
@@ -137,7 +137,7 @@ char * statutUnite() {
     }
   } while (iChoix > CHOIX_MAX_STATUT_UNITE);
 
-  return(cPtrStatutUnite);
+  return(cpStatutUnite);
 }
 /*
   La fonction creerUnite(); permet de créer nouvelle unité.
@@ -150,9 +150,9 @@ char * statutUnite() {
 void creerUnite(Unites **unite, int *iCompteurUnite) {
   char sBuffer[TAILLE_BUFFER];
   int iTmpNombre = 0;
-  char *cPtrStatutUnite = NULL;
-  char *cPtrMoyenDeplacement = NULL;
-  char *cPtrNiveauDisponibilite = NULL;
+  char *cpStatutUnite = NULL;
+  char *ccpMoyenDeplacement = NULL;
+  char *cpNiveauDisponibilite = NULL;
   int i;
 
   i = *iCompteurUnite;
@@ -165,16 +165,16 @@ void creerUnite(Unites **unite, int *iCompteurUnite) {
   strcpy((*unite)[i].cNom, sBuffer);
 
   printf("Moyen de deplacement :\n");
-  cPtrMoyenDeplacement = moyenDeplacement();
-  strcpy((*unite)[i].cMoyenDeplacement, cPtrMoyenDeplacement);
+  ccpMoyenDeplacement = moyenDeplacement();
+  strcpy((*unite)[i].cMoyenDeplacement, ccpMoyenDeplacement);
 
   printf("Niveau de disponibilité :\n");
-  cPtrNiveauDisponibilite = niveauDisponibilite();
-  strcpy((*unite)[i].cNiveauDisponibilite, cPtrNiveauDisponibilite);
+  cpNiveauDisponibilite = niveauDisponibilite();
+  strcpy((*unite)[i].cNiveauDisponibilite, cpNiveauDisponibilite);
 
   printf("Statut :\n");
-  cPtrStatutUnite = statutUnite();
-  strcpy((*unite)[i].cStatut, cPtrStatutUnite);
+  cpStatutUnite = statutUnite();
+  strcpy((*unite)[i].cStatut, cpStatutUnite);
 
   printf("Base :\n");
   fgets(sBuffer, TAILLE_BUFFER, stdin);
@@ -263,9 +263,9 @@ void afficherToutesUnites(Unites **unite, int *iCompteurUnite) {
 void modifierUnite(Unites **unite, int *iCompteurUnite) {
   int i = 0;
   int iExisteUnite = 0;
-  char *cPtrStatutUnite = NULL;
-  char *cPtrMoyenDeplacement = NULL;
-  char *cPtrNiveauDisponibilite = NULL;
+  char *cpStatutUnite = NULL;
+  char *ccpMoyenDeplacement = NULL;
+  char *cpNiveauDisponibilite = NULL;
   char sBuffer[TAILLE_BUFFER];
   int iCodeDonne = 0;
   int iTmpNombre = 0;
@@ -287,24 +287,24 @@ void modifierUnite(Unites **unite, int *iCompteurUnite) {
       strcpy((*unite)[i].cNom, sBuffer);
 
       printf("Moyen de deplacement :\n");
-      cPtrMoyenDeplacement = moyenDeplacement();
-      strcpy((*unite)[i].cMoyenDeplacement, cPtrMoyenDeplacement);
+      ccpMoyenDeplacement = moyenDeplacement();
+      strcpy((*unite)[i].cMoyenDeplacement, ccpMoyenDeplacement);
 
       printf("Disponibilité :\n");
-      cPtrNiveauDisponibilite = niveauDisponibilite();
-      strcpy((*unite)[i].cNiveauDisponibilite, cPtrNiveauDisponibilite);
+      cpNiveauDisponibilite = niveauDisponibilite();
+      strcpy((*unite)[i].cNiveauDisponibilite, cpNiveauDisponibilite);
 
       printf("DEBUG : (*unite)[i].cNiveauDisponibilite = %s\n", (*unite)[i].cNiveauDisponibilite);
 
-      if (strcmp(cPtrNiveauDisponibilite, "EN REPOS\n") == 0) {
+      if (strcmp(cpNiveauDisponibilite, "EN REPOS\n") == 0) {
         (*unite)[i].iCompteurRepos = 0;
         (*unite)[i].iUniteDisponible = 1;
         (*unite)[i].iDeployeeSurAlerte = 0;
       }
 
       printf("Statut :\n");
-      cPtrStatutUnite = statutUnite();
-      strcpy((*unite)[i].cStatut, cPtrStatutUnite);
+      cpStatutUnite = statutUnite();
+      strcpy((*unite)[i].cStatut, cpStatutUnite);
 
       printf("Base :\n");
       fgets(sBuffer, TAILLE_BUFFER, stdin);
@@ -630,7 +630,7 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
 
         //supprimerAlerteApresTraitement(&alerte, &iCompteurAlerte, &iCodeDonneUnite);
 
-        printf("NOTIFICATION : L'unité avec le code %d a été bien mise en repos\n", iCodeDonneUnite);
+        printf("NOTIFICATION : L'unité avec le code %d a été bien mise en reapprovisionnement\n", iCodeDonneUnite);
         break;
       default:
         printf("La saisie n'est pas correcte\n");
