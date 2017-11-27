@@ -206,6 +206,16 @@ void menuStatutUnite() {
   printf("║    ║                                   ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
+
+void menuCaseForceMajeur() {
+  printf("╔════════════════════════════════════════╗\n");
+  printf("║         CAS DE FORCE MAJEURE           ║\n");
+  printf("╠════╦═══════════════════════════════════╣\n");
+  printf("║ 1  ║ FAIRE INTERVENIR UNITES EN REPOS  ║\n");
+  printf("╠════╬═══════════════════════════════════╣\n");
+  printf("║ -2 ║ Retourner                         ║\n");
+  printf("╚════╩═══════════════════════════════════╝\n");
+}
 /*
   La fonction menuGestionUniteDeployee(); sert pour l'affichage du choix
   pour la gestion des unités deployées à l'utilisateur pour la saisie.
