@@ -24,12 +24,12 @@ int genererCodeAlerte() {
   retourne: une chaîne de caractères
 */
 char * niveauAlerte() {
-  char *cPtrNiveau = NULL;
+  char *cpNiveau = NULL;
   int iChoix = 0;
 
-  cPtrNiveau = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
+  cpNiveau = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
 
-  if (cPtrNiveau == NULL) {
+  if (cpNiveau == NULL) {
     printf("Erreur d'allocation memoire pour le niveau d'alerte\n");
     exit(EXIT_FAILURE);
   }
@@ -40,13 +40,13 @@ char * niveauAlerte() {
 
     switch (iChoix) {
       case 1:
-        cPtrNiveau = "NOMINAL\n";
+        cpNiveau = NIVAU_NOMINAL;
         break;
       case 2:
-        cPtrNiveau = "URGENT\n";
+        cpNiveau = NIVAU_URGENT;
         break;
         case 3:
-        cPtrNiveau = "URGENCE ABSOLUE\n";
+        cpNiveau = NIVAU_URGENCE_ABSOLUE;
         break;
         default:
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
@@ -54,7 +54,7 @@ char * niveauAlerte() {
     }
   } while (iChoix > CHOIX_MAX_NIVEAU_ALERTE);
 
-  return(cPtrNiveau);
+  return(cpNiveau);
 }
 /*
   La fonction *typeAlerte() retourne un pointeur de type de chaîne de caractères
@@ -63,12 +63,12 @@ char * niveauAlerte() {
   retourne: une chaîne de caractères
 */
 char * typeAlerte() {
-  char *cPtrType = NULL;
+  char *cpType = NULL;
   int iChoix = 0;
 
-  cPtrType = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
+  cpType = malloc(TAILLE_BUFFER_RETOUR * sizeof(char));
 
-  if (cPtrType == NULL) {
+  if (cpType == NULL) {
     printf("Erreur d'allocation memoire pour le type d'alerte\n");
     exit(EXIT_FAILURE);
   }
@@ -80,25 +80,25 @@ char * typeAlerte() {
 
     switch (iChoix) {
       case 1:
-        cPtrType = "INCENDIE\n";
+        cpType = TYPE_INCENDIE;
         break;
       case 2:
-        cPtrType = "ACCIDENT ROUTE\n";
+        cpType = TYPE_ACCIDENT_ROUTE;
         break;
       case 3:
-        cPtrType = "ACCIDENT MER\n";
+        cpType = TYPE_ACCIDENT_MER;
         break;
       case 4:
-        cPtrType = "ACCIDENT MONTAGNE\n";
+        cpType = TYPE_ACCIDENT_MONTAGNE;
         break;
       case 5:
-        cPtrType = "MALAISE\n";
+        cpType = TYPE_MALAISE;
         break;
       case 6:
-        cPtrType = "EXPLOSION\n";
+        cpType = TYPE_EXPLOSION;
         break;
       case 7:
-        cPtrType = "ACCIDENT DE LA VIE\n";
+        cpType = TYPE_ACCIDENT_DE_LA_VIE;
         break;
       default:
         printf("NOTIFICATION : La saisie n'est pas correcte.\n");
@@ -106,7 +106,7 @@ char * typeAlerte() {
     }
   } while (iChoix > CHOIX_MAX_TYPE_ALERTE);
 
-  return(cPtrType);
+  return(cpType);
 }
 /*
   La fonction ajouterAlerte(); permet de créer nouvelle alerte.
@@ -119,8 +119,8 @@ char * typeAlerte() {
 void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
   char sBuffer[TAILLE_BUFFER];
   int iTmpNombre = 0;
-  char *cPtrType = NULL;
-  char *cPtrNiveau = NULL;
+  char *cpType = NULL;
+  char *cpNiveau = NULL;
   int i = 0;
 
   i = *iCompteurAlerte;
@@ -129,12 +129,12 @@ void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
   (*alerte)[i].iCode = iTmpNombre;
 
   printf("Type d'alerte :\n");
-  cPtrType = typeAlerte();
-  strcpy((*alerte)[i].cType, cPtrType);
+  cpType = typeAlerte();
+  strcpy((*alerte)[i].cType, cpType);
 
   printf("Niveau d'alerte :\n");
-  cPtrNiveau = niveauAlerte();
-  strcpy((*alerte)[i].cNiveau, cPtrNiveau);
+  cpNiveau = niveauAlerte();
+  strcpy((*alerte)[i].cNiveau, cpNiveau);
 
   printf("Lieu :\n");
   fgets(sBuffer, TAILLE_BUFFER, stdin);
@@ -230,8 +230,8 @@ void afficherUneAlerte(Alerte **alerte, int *iCompteurAlerte) {
 void modifierAlerte(Alerte **alerte, int *iCompteurAlerte) {
   int i = 0;
   int iExisteAlerte = 0;
-  char *cPtrType = NULL;
-  char *cPtrNiveau = NULL;
+  char *cpType = NULL;
+  char *cpNiveau = NULL;
   int iCodeDonne = 0;
   char sBuffer[TAILLE_BUFFER];
   int iTmpNombre = 0;
@@ -249,12 +249,12 @@ void modifierAlerte(Alerte **alerte, int *iCompteurAlerte) {
       printf("Code d'alerte à modifier: %d\n", (*alerte)[i].iCode);
 
       printf("Type d'alerte :\n");
-      cPtrType = typeAlerte();
-      strcpy((*alerte)[i].cType, cPtrType);
+      cpType = typeAlerte();
+      strcpy((*alerte)[i].cType, cpType);
 
       printf("Niveau d'alerte :\n");
-      cPtrNiveau = niveauAlerte();
-      strcpy((*alerte)[i].cNiveau, cPtrNiveau);
+      cpNiveau = niveauAlerte();
+      strcpy((*alerte)[i].cNiveau, cpNiveau);
 
       printf("Lieu :\n");
       fgets(sBuffer, TAILLE_BUFFER, stdin);
