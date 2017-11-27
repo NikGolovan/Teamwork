@@ -530,7 +530,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   (*alerte)[iTmpPositionAlerte].iEstTraiteParUnite = 1;
   (*unite)[iTmpPositionUnite].iCompteurRepos += 1;
   strcpy((*unite)[iTmpPositionUnite].cNiveauDisponibilite, DISPONIBILITE_ACTIVE);
-  strcpy((*unite)[iTmpPositionUnite].cStatut, STATUT_EN_ALERTE);
+  strcpy((*unite)[iTmpPositionUnite].cStatut, STATUT_SUR_OPERATION);
   (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = iCodeDonneAlerte;
   (*unite)[iTmpPositionUnite].iUniteDisponible = 0;
   printf("Les unités ont été bien envoyée\n");
@@ -581,7 +581,7 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
 
   printf("Les unités deployées :\n");
     for (i = 0; i < *iCompteurUnite; i++) {
-      if ((*unite)[i].iUniteDisponible == 1)
+      if ((*unite)[i].iUniteDisponible == 1 || (*unite)[i].iEstEnRepos == 1)
         continue;
       printf("\n");
       printf("Code d'unité : %d\n", (*unite)[i].iCode);
@@ -617,7 +617,9 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
           return;
         }
 
-        strcpy((*unite)[iTmpPositionUnite].cNiveauDisponibilite, "EN REAPPROVISIONNEMENT\n");
+        strcpy((*unite)[iTmpPositionUnite].cNiveauDisponibilite, DISPONIBILITE_EN_REAPPROVISIONNEMENT);
+        strcpy((*unite)[iTmpPositionUnite].cStatut, STATUT_EN_ALERTE);
+
         (*unite)[iTmpPositionUnite].iCompteurRepos += 1;
         (*unite)[iTmpPositionUnite].iUniteDisponible = 1;
         (*unite)[iTmpPositionUnite].iDeployeeSurAlerte = 0;
@@ -625,6 +627,7 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
         //supprimerAlerteApresTraitement(&alerte, &iCompteurAlerte, &iCodeDonneUnite);
 
         printf("NOTIFICATION : L'unité avec le code %d a été bien mise en reapprovisionnement\n", iCodeDonneUnite);
+        menu();
         break;
       case -2:
         break;
