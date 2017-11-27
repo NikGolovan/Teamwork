@@ -627,7 +627,7 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
         //supprimerAlerteApresTraitement(&alerte, &iCompteurAlerte, &iCodeDonneUnite);
 
         printf("NOTIFICATION : L'unité avec le code %d a été bien mise en reapprovisionnement\n", iCodeDonneUnite);
-        menu();
+        main();
         break;
       case -2:
         break;
