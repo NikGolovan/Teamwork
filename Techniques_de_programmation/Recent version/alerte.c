@@ -118,9 +118,9 @@ char * typeAlerte() {
 */
 void ajouterAlerte(Alerte **alerte, int *iCompteurAlerte) {
   char sBuffer[TAILLE_BUFFER];
-  int iTmpNombre = 0;
   char *cpType = NULL;
   char *cpNiveau = NULL;
+  int iTmpNombre = 0;
   int i = 0;
 
   i = *iCompteurAlerte;
