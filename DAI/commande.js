@@ -25,23 +25,22 @@ window.addEventListener("load", function() {
 function fabriqueInterfaceGraphique(articles, tarifs) {
   let dirImages = "./images/";
 
-  let poivronPhoto = articles[15].photos[0];
-  let poivronsElt = document.getElementsByClassName('article')[1];
-  let poivronImgStyle = poivronsElt.getElementsByClassName('img')[0].style;
-  poivronImgStyle.backgroundImage = "url('" + dirImages + poivronPhoto.url + "')";
-  poivronImgStyle.backgroundPositionX = -poivronPhoto.x + "px";
-  poivronImgStyle.backgroundPositionY = -poivronPhoto.y + "px";
-  poivronImgStyle.width = poivronPhoto.w + "px";
-  poivronImgStyle.height = poivronPhoto.h + "px";
-
-  let fraisePhoto = articles[29].photos[0];
-  let fraisesElt = document.getElementsByClassName('article')[2];
-  let fraiseImgStyle = fraisesElt.getElementsByClassName('img')[0].style;
-  fraiseImgStyle.backgroundImage = "url('" + dirImages + fraisePhoto.url + "')";
-  fraiseImgStyle.backgroundPositionX = -fraisePhoto.x + "px";
-  fraiseImgStyle.backgroundPositionY = -fraisePhoto.y + "px";
-  fraiseImgStyle.width = fraisePhoto.w + "px";
-  fraiseImgStyle.height = fraisePhoto.h + "px";
+  for (i = 0; i < 31; i++) {
+    let articleElt = document.getElementsByClassName('articles')[0];
+    let nouvelArticleElt = articleElt.children[0].cloneNode();
+    nouvelArticleElt.innerHTML = articleElt.children[0].innerHTML;
+    let nouvelArticlePhoto = articles[i].photos[0];
+    let nouvelArticleImgStyle = nouvelArticleElt.getElementsByClassName('img')[0].style;
+    let nouvelArticleName = document.getElementsByClassName('nom')[0].style;
+    nouvelArticleImgStyle.backgroundImage = "url('" + dirImages + nouvelArticlePhoto.url + "')";
+    nouvelArticleImgStyle.backgroundPositionX = -nouvelArticlePhoto.x + "px";
+    nouvelArticleImgStyle.backgroundPositionY = -nouvelArticlePhoto.y + "px";
+    nouvelArticleImgStyle.width = nouvelArticlePhoto.w + "px";
+    nouvelArticleImgStyle.height = nouvelArticlePhoto.h + "px";
+    nouvelArticleName = articles[i].nom;
+    articleElt.appendChild(nouvelArticleElt);
+  }
+}
 }
 
 function envoyerCommande() {
