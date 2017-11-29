@@ -1,5 +1,5 @@
 Secours : alerte.o unite.o menu.o main.o
-	cc -o Secours main.o menu.o unite.o alerte.o
+	cc -o Secours *.o
 
 alerte.o : alerte.h alerte.c
 	cc -c alerte.c
