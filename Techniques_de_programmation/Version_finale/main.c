@@ -8,6 +8,8 @@ int main(int argc, char const *argv[]) {
   int iChoix = 0;
   int iCompteurAlerte = 0;
   int iCompteurUnite = 0;
+  int iLesAlertesDefinis = 0; /* booleen qui sert pour éviter la definition miltiple des alertes statiques */
+  int iLesUnitesDefinis = 0; /* booleen qui sert pour éviter la definition miltiple des unites statiques */
   Alerte *alerte = NULL;
   Unites *unite = NULL;
 
@@ -20,7 +22,10 @@ int main(int argc, char const *argv[]) {
     return(-1);
   }
 
-  alertesStatiques(&alerte, &iCompteurAlerte);
+  /* vérification si les alertes ont été definies */
+  if (!iLesAlertesDefinis) {
+    alertesStatiques(&alerte, &iCompteurAlerte, &iLesAlertesDefinis);
+  }
 
   unite = malloc(TAILLE_INITIALE_DE_MALLOC_UNITE * sizeof(Unites));
 
@@ -29,7 +34,9 @@ int main(int argc, char const *argv[]) {
     return(-1);
   }
 
-  unitesStatiques(&unite, &iCompteurUnite);
+  /* vérification si les unités ont été definies */
+  if(!iLesUnitesDefinis)
+    unitesStatiques(&unite, &iCompteurUnite, &iLesUnitesDefinis);
 
   do {
     menuGlobal();
@@ -79,6 +86,9 @@ int main(int argc, char const *argv[]) {
             case 6:
               chargerLesAlertes(&alerte, &iCompteurAlerte);
               break;
+            case 7:
+              lesAlertesTraitee(&alerte, &iCompteurAlerte);
+              break;
             case -2:
               break;
             default:
@@ -123,9 +133,6 @@ int main(int argc, char const *argv[]) {
       case 6:
         consulterUnitesDeployees(&unite, &iCompteurUnite);
         mettreUniteEnRepos(&unite, &iCompteurUnite);
-        break;
-      case 7:
-        //alertesEnCoursTraitement();
         break;
       case -1:
         break;
