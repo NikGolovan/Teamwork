@@ -294,3 +294,31 @@ void supprimerAlerteApresTraitement(Alerte **alerte, int *iCompteurAlerte, int *
   printf("DEBUG : alerte après la mise d'unité en repos a été bien supprimée\n");
 }
 */
+void afficherAlerte(Alerte alerte) {
+  int i = 0;
+  printf("\n");
+  printf("Code d'alerte : %d\n", alerte.iCode);
+  printf("Type d'alerte : %s", alerte.cType);
+  printf("Niveau d'alerte : %s", alerte.cNiveau);
+  printf("Lieu : %s", alerte.cLieu);
+  printf("Nombre de victimes : %d\n", alerte.iNombreVictimes);
+  printf("Description : %s", alerte.cDescription);
+  printf("Les unités deployés : %d\n", alerte.iNbUniteQuiTraite);
+  if (alerte.iNbUniteQuiTraite != 0) {
+      for (i = 0; i < alerte.iNbUniteQuiTraite; i++) {
+        printf("%d\n", alerte.iCodeUniteQuiTraite[i]);
+      }
+  }
+}
+
+void afficherUnite(Unites unite) {
+  int i = 0;
+  printf("\n");
+  printf("Code d'unité : %d\n", unite.iCode);
+  printf("Nom d'unité : %s", unite.cNom);
+  printf("Moyen de deplacement : %s", unite.cMoyenDeplacement);
+  printf("Disponibilité : %s", unite.cNiveauDisponibilite);
+  printf("Statut : %s", unite.cStatut);
+  printf("Base : %s", unite.cBase);
+  printf("Deployée sur les alertes : %d\n", unite.iDeployeeSurAlerte);
+}
