@@ -45,7 +45,7 @@ char * niveauDisponibilite();
 char * statutUnite();
 int genererCodeUnite();
 void mettreUniteEnRepos(Unites **unite, int *iCompteurUnite);
-void unitesStatiques(Unites **unite, int *iCompteurUnite);
+int unitesStatiques(Unites **unite, int *iCompteurUnite, int *iLesUnitesDefinis);
 void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite);
 void imprimerLesUnites(Unites **unite, int *iCompteurUnite);
 void chargerLesUnites(Unites **unite, int *iCompteurUnite);
