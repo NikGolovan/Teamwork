@@ -524,7 +524,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
 
    while (iTmpPositionAlerte < *iCompteurAlerte && iCodeDonneAlerte != (*alerte)[iTmpPositionAlerte].iCode) {
     iTmpPositionAlerte++;
-  } 
+  }
 
   if (iTmpPositionAlerte == *iCompteurAlerte) {
     printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonneAlerte);
@@ -536,8 +536,8 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
 
    while (iTmpPositionUnite < *iCompteurUnite && iCodeDonneUnite != (*unite)[iTmpPositionUnite].iCode) {
       iTmpPositionUnite++;
-   } 
-   
+   }
+
   if (iTmpPositionUnite == *iCompteurUnite) {
     printf("NOTIFICATION : Unité avec le code %d n'a pas été trouvée.\n", iCodeDonneUnite);
     return;
@@ -560,7 +560,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   compteur d'unite
   retourne: void
 */
-void unitesStatiques(Unites **unite, int *iCompteurUnite) {
+int unitesStatiques(Unites **unite, int *iCompteurUnite, int *iLesUnitesDefinis) {
   (*unite)[0].iCode = 51789;
   strcpy((*unite)[0].cNom, "Ambulance\n");
   strcpy((*unite)[0].cMoyenDeplacement, "ROUTE\n");
@@ -581,6 +581,9 @@ void unitesStatiques(Unites **unite, int *iCompteurUnite) {
   (*unite)[1].iUniteDisponible = 1;
   (*unite)[1].iDeployeeSurAlerte = 0;
   (*iCompteurUnite)++;
+  (*iLesUnitesDefinis) = 1;
+
+  return(*iLesUnitesDefinis);
 }
 
 void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
