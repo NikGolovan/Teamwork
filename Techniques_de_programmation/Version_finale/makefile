@@ -15,5 +15,6 @@ menu.o : alerte.h unite.h menu.c
 	
 clean:
 	rm -rf *.o
+	
 mrproper:
 	rm -rf Secours
