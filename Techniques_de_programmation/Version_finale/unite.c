@@ -221,14 +221,7 @@ void afficherUneUnite(Unites **unite, int *iCompteurUnite) {
 
   for (i = 0; i < (*iCompteurUnite); i++) {
     if (iCodeDonne == (*unite)[i].iCode) {
-      printf("\n");
-      printf("Code d'unité : %d\n", (*unite)[i].iCode);
-      printf("Nom d'unité : %s", (*unite)[i].cNom);
-      printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
-      printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
-      printf("Satut : %s\n", (*unite)[i].cStatut);
-      printf("Base : %s", (*unite)[i].cBase);
-      printf("Deployée sur les alertes : %d\n", (*unite)[i].iDeployeeSurAlerte);
+      afficherUnite((*unite)[i]);
       iExisteUnite = 1;
     }
   }
@@ -253,14 +246,7 @@ void afficherToutesUnites(Unites **unite, int *iCompteurUnite) {
   }
 
    for (i = 0; i < *iCompteurUnite; i++) {
-    printf("\n");
-    printf("Code d'unité : %d\n", (*unite)[i].iCode);
-    printf("Nom d'unité : %s", (*unite)[i].cNom);
-    printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
-    printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
-    printf("Statut : %s", (*unite)[i].cStatut);
-    printf("Base : %s", (*unite)[i].cBase);
-    printf("Deployée sur les alertes : %d\n", (*unite)[i].iDeployeeSurAlerte);
+      afficherUnite((*unite)[i]);
   }
 }
 /*
@@ -448,14 +434,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
   for (i = 0; i < *iCompteurAlerte; i++) {
     if ((*alerte)[i].iEstTraiteParUnite == 1)
       continue;
-    printf("\n");
-    printf("Code d'alerte : %d\n", (*alerte)[i].iCode);
-    printf("Type d'alerte : %s", (*alerte)[i].cType);
-    printf("Niveau d'alerte : %s", (*alerte)[i].cNiveau);
-    printf("Lieu : %s", (*alerte)[i].cLieu);
-    printf("Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
-    printf("Description : %s", (*alerte)[i].cDescription);
-    printf("Les unités deployés : %d\n", (*alerte)[i].iCodeUniteQuiTraite);
+    afficherAlerte((*alerte)[i]);
     iBoucleCompteurAlerte++;
   }
 
@@ -475,14 +454,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
     for (i = 0; i < *iCompteurUnite; i++) {
       if ((*unite)[i].iUniteDisponible == 0 || (*unite)[i].iEstEnRepos == 1)
         continue;
-      printf("\n");
-      printf("Code d'unité : %d\n", (*unite)[i].iCode);
-      printf("Nom d'unité : %s", (*unite)[i].cNom);
-      printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
-      printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
-      printf("Statut : %s", (*unite)[i].cStatut);
-      printf("Base : %s", (*unite)[i].cBase);
-      printf("Deployée sur les alertes : %d\n", (*unite)[i].iDeployeeSurAlerte);
+      afficherUnite((*unite)[i]);
       iBoucleCompteurUnite++;
   }
 
@@ -496,14 +468,7 @@ void declancherAlerte(Alerte **alerte, Unites **unite, int *iCompteurAlerte, int
         printf("Toutes les unités trouvées en repos : \n");
         for (i = 0; i < *iCompteurUnite; i++) {
           if ((*unite)[i].iEstEnRepos == 1) {
-            printf("\n");
-            printf("Code d'unité : %d\n", (*unite)[i].iCode);
-            printf("Nom d'unité : %s", (*unite)[i].cNom);
-            printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
-            printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
-            printf("Statut : %s", (*unite)[i].cStatut);
-            printf("Base : %s", (*unite)[i].cBase);
-            printf("Deployée sur les alertes : %d\n", (*unite)[i].iDeployeeSurAlerte);
+            afficherUnite((*unite)[i]);
           }
         }
         break;
@@ -597,14 +562,7 @@ void consulterUnitesDeployees(Unites **unite, int *iCompteurUnite) {
     for (i = 0; i < *iCompteurUnite; i++) {
       if ((*unite)[i].iUniteDisponible == 1 || (*unite)[i].iEstEnRepos == 1)
         continue;
-      printf("\n");
-      printf("Code d'unité : %d\n", (*unite)[i].iCode);
-      printf("Nom d'unité : %s", (*unite)[i].cNom);
-      printf("Moyen de deplacement : %s", (*unite)[i].cMoyenDeplacement);
-      printf("Disponibilité : %s", (*unite)[i].cNiveauDisponibilite);
-      printf("Statut : %s", (*unite)[i].cStatut);
-      printf("Base : %s", (*unite)[i].cBase);
-      printf("Deployée sur les alertes : %d\n", (*unite)[i].iDeployeeSurAlerte);
+      afficherUnite((*unite)[i]);
       iCompteurBoucle++;
   }
 
