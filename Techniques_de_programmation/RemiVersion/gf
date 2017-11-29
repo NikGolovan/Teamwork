@@ -1,1 +1,53 @@
 
+void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
+  int iCodeDonne = 0;
+  int i = 0;
+  int j = 0;
+  int k = 0;
+  int iNouvelleTaille = 0; /* sert pour redimentionner le tableau de structure */
+  int iNbUniteQuiTraite = 0; /* affecte le code d'unité donnée par l'utilisateur */
+
+  if (*iCompteurAlerte == 0) {
+   printf("NOTIFICATION : Aucune alerte n'a été enregistrée\n");
+   return;
+  }
+
+  printf("Donnez le code d'alerte pour la suppression :\n");
+  scanf("%d%*c", &iCodeDonne);
+
+  while (i < *iCompteurAlerte && iCodeDonne != (*alerte)[i].iCode) {
+    i++;
+  }
+
+  if (i == *iCompteurAlerte) {
+    printf("NOTIFICATION : Alerte avec le code %d n'a pas été trouvée.\n", iCodeDonne);
+    return;
+  } else {
+    iNbUniteQuiTraite = (*alerte)[i].iNbUniteQuiTraite;
+    for (j = i; j < (*iCompteurAlerte); j++) {
+      (*alerte)[j].iCode = (*alerte)[j+1].iCode;
+      strcpy((*alerte)[j].cType, (*alerte)[j+1].cType);
+      strcpy((*alerte)[j].cNiveau, (*alerte)[j+1].cNiveau);
+      strcpy((*alerte)[j].cLieu, (*alerte)[j+1].cLieu);
+      (*alerte)[j].iNombreVictimes = (*alerte)[j+1].iNombreVictimes;
+      strcpy((*alerte)[j].cDescription, (*alerte)[j+1].cDescription);
+      // si la suppression a les bugs, supprimmer ces 2 deriniers lignes
+      (*alerte)[j].iEstTraiteParUnite = (*alerte)[j+1].iEstTraiteParUnite;
+      (*alerte)[j].iNbUniteQuiTraite = (*alerte)[j+1].iNbUniteQuiTraite;
+      for (k = 0; k < (*alerte)[j+1].iNbUniteQuiTraite; k++) {
+        (*alerte)[j].iCodeUniteQuiTraite[k] = (*alerte)[j+1].iCodeUniteQuiTraite[k];
+      }
+    }
+  }
+
+/* rédimention la taille du tableau de la structure d'Alerte après la suppression  */
+  (*iCompteurAlerte)--;
+  iNouvelleTaille = *iCompteurAlerte;
+  *alerte = realloc(*alerte, ((TAILLE_INITIALE_DE_MALLOC_ALERTE+iNouvelleTaille) * sizeof(Alerte)));
+
+  if (*alerte == NULL && *iCompteurAlerte > 0) {
+    printf("Erreur de reallocation memoire après la suppression.\n");
+    exit(EXIT_FAILURE);
+  }
+  printf("NOTIFICATION : Alerte avec le code %d a été bien supprimé\n", iCodeDonne);
+}
