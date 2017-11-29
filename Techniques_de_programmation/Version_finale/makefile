@@ -12,6 +12,7 @@ main.o : alerte.h unite.h main.c
 
 menu.o : alerte.h unite.h menu.c
 	cc -c menu.c
+	
 clean:
 	rm -rf *.o
 mrproper:
