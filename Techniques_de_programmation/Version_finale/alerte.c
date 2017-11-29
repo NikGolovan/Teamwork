@@ -347,7 +347,7 @@ void supprimerAlerte(Alerte **alerte, int *iCompteurAlerte) {
   compteur d'alerte
   retourne: void
 */
-void alertesStatiques(Alerte **alerte, int *iCompteurAlerte) {
+int alertesStatiques(Alerte **alerte, int *iCompteurAlerte, int *iLesAlertesDefinis) {
   (*alerte)[0].iCode = 12895;
   strcpy((*alerte)[0].cType, "URGENCE\n");
   strcpy((*alerte)[0].cNiveau, "INCENDIE\n");
@@ -366,6 +366,36 @@ void alertesStatiques(Alerte **alerte, int *iCompteurAlerte) {
   (*alerte)[1].iEstTraiteParUnite = 0;
   (*alerte)[1].iCodeUniteQuiTraite = 0;
   (*iCompteurAlerte)++;
+  (*iLesAlertesDefinis) = 1;
+
+  return(*iLesAlertesDefinis);
+}
+/*
+  La fonction lesAlertesTraitee(); affiche toutes les alertes qui sont traitées pqr les unités.
+  @params: pointeur de pointeur de la struct Alerte, pointeur d'entier de
+  compteur d'alerte
+  retourne: void
+*/
+void lesAlertesTraitee(Alerte **alerte, int *iCompteurAlerte) {
+  int i = 0;
+  int iCompteurBoucle = 0;
+
+  printf("Les alertes en en cours de traitement : \n");
+  for (i = 0; i < *iCompteurAlerte; i++) {
+    if((*alerte)[i].iEstTraiteParUnite == 0)
+      continue;
+    printf("\n");
+    printf("Code d'alerte : %d\n", (*alerte)[i].iCode);
+    printf("Type d'alerte : %s", (*alerte)[i].cType);
+    printf("Niveau d'alerte : %s", (*alerte)[i].cNiveau);
+    printf("Lieu : %s", (*alerte)[i].cLieu);
+    printf("Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
+    printf("Description : %s", (*alerte)[i].cDescription);
+    printf("Les unités deployés : %d\n", (*alerte)[i].iCodeUniteQuiTraite);
+    iCompteurBoucle++;
+  }
+  if (iCompteurBoucle == 0)
+    printf("NOTIFICATION : Aucune alerte ne traitée par les unités.\n");
 }
 /*
   La fonction imprimerLesAlertes(); cette fonction crée un fichier qui s'appelle
