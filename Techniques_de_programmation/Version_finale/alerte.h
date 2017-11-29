@@ -41,8 +41,9 @@ void supprimerAlerte(Alerte **alerte, int *compteurAlerte);
 char * typeAlerte();
 char * niveauAlerte();
 int genererCodeAlerte(/*Alerte **alerte, int *compteurAlerte*/);
-void alertesStatiques(Alerte **alerte, int *iCompteurAlerte);
+int alertesStatiques(Alerte **alerte, int *iCompteurAlerte, int *iLesAlertesDefinis);
 void imprimerLesAlertes(Alerte **alerte, int *iCompteurAlerte);
 void chargerLesAlertes(Alerte **alerte, int *iCompteurAlerte);
+void lesAlertesTraitee(Alerte **alerte, int *iCompteurAlerte);
 
 #endif
