@@ -60,6 +60,8 @@ void menuTraitementAlerte() {
   printf("║    ║                                   ║\n");
   printf("║ 6  ║ Charger les données du fichier    ║\n");
   printf("║    ║                                   ║\n");
+  printf("║ 7  ║ Les alertes traitées par unités   ║\n");
+  printf("║    ║                                   ║\n");
   printf("╠════╬═══════════════════════════════════╣\n");
   printf("║ -2 ║ Retourner                         ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
@@ -235,15 +237,19 @@ void menuGestionUniteDeployee() {
   printf("║ -2 ║ Retourner                         ║\n");
   printf("╚════╩═══════════════════════════════════╝\n");
 }
-
+/* La fonction libererMemoireAlerte(); libere la memoire de la structure Alerte.
+  @params: aucun
+  retourne: void */
 void libererMemoireAlerte(Alerte **alerte) {
   if ((*alerte) != NULL) {
     free((*alerte));
     (*alerte) = NULL;
   }
 }
-
-void libererMemoireUnite(Alerte **unite) {
+/* La fonction libererMemoireAlerte(); libere la memoire de la structure Unite.
+  @params: aucun
+  retourne: void */
+void libererMemoireUnite(Unites **unite) {
   if ((*unite) != NULL) {
     free((*unite));
     (*unite) = NULL;
