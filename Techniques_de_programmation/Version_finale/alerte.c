@@ -170,14 +170,7 @@ void afficherToutesAlertes(Alerte **alerte, int *iCompteurAlerte) {
   }
 
    for (i = 0; i < *iCompteurAlerte; i++) {
-    printf("\n");
-    printf("Code d'alerte : %d\n", (*alerte)[i].iCode);
-    printf("Type d'alerte : %s", (*alerte)[i].cType);
-    printf("Niveau d'alerte : %s", (*alerte)[i].cNiveau);
-    printf("Lieu : %s", (*alerte)[i].cLieu);
-    printf("Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
-    printf("Description : %s", (*alerte)[i].cDescription);
-    printf("Les unités deployés : %d\n", (*alerte)[i].iCodeUniteQuiTraite);
+    afficherAlerte((*alerte)[i]);
   }
 }
 /*
@@ -204,14 +197,7 @@ void afficherUneAlerte(Alerte **alerte, int *iCompteurAlerte) {
 
   for (i = 0; i < (*iCompteurAlerte); i++) {
     if (iCodeDonne == (*alerte)[i].iCode) {
-      printf("\n");
-      printf("Code d'alerte : %d\n", (*alerte)[i].iCode);
-      printf("Type d'alerte : %s", (*alerte)[i].cType);
-      printf("Niveau d'alerte : %s", (*alerte)[i].cNiveau);
-      printf("Lieu : %s", (*alerte)[i].cLieu);
-      printf("Nombre de victimes : %d\n", (*alerte)[i].iNombreVictimes);
-      printf("Description : %s", (*alerte)[i].cDescription);
-      printf("Les unités deployés : %d\n", (*alerte)[i].iCodeUniteQuiTraite);
+      afficherAlerte((*alerte)[i]);
       existeAlerte = 1;
     }
   }
