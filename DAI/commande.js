@@ -32,9 +32,9 @@ function fabriqueInterfaceGraphique(articles, tarifs) {
     let nouvelArticleImgStyle = nouvelArticleElt.getElementsByClassName('img')[0].style;
     let nouvelArticleName = nouvelArticleElt.getElementsByClassName('nom')[0];
     let nouvelArticleOrigin = nouvelArticleElt.getElementsByClassName('origine')[0];
-//    let nouvelArticlePrix = nouvelArticleElt.getElementById('prixUnitaire')[0];
-//    console.log(nouvelArticleElt.getElementById('prixUnitaire')[0]);
-//    let nouvelArticleUnite = nouvelArticleElt.getElementById('Unite')[0];
+    let nouvelArticlePrix = nouvelArticleElt.getElementByClassName('prixUnitaire')[0];
+    let nouvelArticleUnite1 = nouvelArticleElt.getElementByClassName('unité')[0];
+    let nouvelArticleUnite2 = nouvelArticleElt.getElementByClassName('unité')[1];
 
     for (j = 0; j < 31; j++) {
       if (articles[j].ref == tarifs[i].ref) {
@@ -48,8 +48,9 @@ function fabriqueInterfaceGraphique(articles, tarifs) {
       }
     }
     nouvelArticleOrigin.innerHTML = tarifs[i].origine;
-//    nouvelArticlePrix.innerHTML = tarifs[i].prix;
-//    nouvelArticleUnite.innerHTML = tarifs[i].unité;
+    nouvelArticlePrix.innerHTML = tarifs[i].prix;
+    nouvelArticleUnite1.innerHTML = tarifs[i].unité;
+    nouvelArticleUnite2.innerHTML = tarifs[i].unité;
     articleElt.appendChild(nouvelArticleElt);
   }
 }
