@@ -25,18 +25,18 @@ window.addEventListener("load", function() {
 function fabriqueInterfaceGraphique(articles, tarifs) {
   let dirImages = "./images/";
 
-  for (i = 0; i < 31; i++) {
+  for (i = 0; i < tarifs.length; i++) {
     let articleElt = document.getElementsByClassName('articles')[0];
     let nouvelArticleElt = articleElt.children[0].cloneNode();
     nouvelArticleElt.innerHTML = articleElt.children[0].innerHTML;
     let nouvelArticleImgStyle = nouvelArticleElt.getElementsByClassName('img')[0].style;
     let nouvelArticleName = nouvelArticleElt.getElementsByClassName('nom')[0];
     let nouvelArticleOrigin = nouvelArticleElt.getElementsByClassName('origine')[0];
-    let nouvelArticlePrix = nouvelArticleElt.getElementByClassName('prixUnitaire')[0];
-    let nouvelArticleUnite1 = nouvelArticleElt.getElementByClassName('unité')[0];
-    let nouvelArticleUnite2 = nouvelArticleElt.getElementByClassName('unité')[1];
+    let nouvelArticlePrix = nouvelArticleElt.getElementsByClassName('prixUnitaire')[0];
+    let nouvelArticleUnite1 = nouvelArticleElt.getElementsByClassName('unité')[0];
+    let nouvelArticleUnite2 = nouvelArticleElt.getElementsByClassName('unité')[1];
 
-    for (j = 0; j < 31; j++) {
+    for (j = 0; j < articles.length; j++) {
       if (articles[j].ref == tarifs[i].ref) {
         let nouvelArticlePhoto = articles[j].photos[0];
         nouvelArticleImgStyle.backgroundImage = "url('" + dirImages + nouvelArticlePhoto.url + "')";
