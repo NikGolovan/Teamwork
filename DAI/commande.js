@@ -25,40 +25,31 @@ window.addEventListener("load", function() {
 function fabriqueInterfaceGraphique(articles, tarifs) {
   let dirImages = "./images/";
 
-/*  let poivronPhoto = articles[0].photos[0];
-  let poivronsElt = document.getElementsByClassName('article')[0];
-  let poivronImgStyle = poivronsElt.getElementsByClassName('img')[0].style;
-  poivronImgStyle.backgroundImage = "url('" + dirImages + poivronPhoto.url + "')";
-  poivronImgStyle.backgroundPositionX = -poivronPhoto.x + "px";
-  poivronImgStyle.backgroundPositionY = -poivronPhoto.y + "px";
-  poivronImgStyle.width = poivronPhoto.w + "px";
-  poivronImgStyle.height = poivronPhoto.h + "px";
-
-/*  let fraisePhoto = articles[30].photos[0];
-  let fraisesElt = document.getElementsByClassName('article')[2];
-  let fraiseImgStyle = fraisesElt.getElementsByClassName('img')[0].style;
-  fraiseImgStyle.backgroundImage = "url('" + dirImages + fraisePhoto.url + "')";
-  fraiseImgStyle.backgroundPositionX = -fraisePhoto.x + "px";
-  fraiseImgStyle.backgroundPositionY = -fraisePhoto.y + "px";
-  fraiseImgStyle.width = fraisePhoto.w + "px";
-  fraiseImgStyle.height = fraisePhoto.h + "px";
-
-*/
   for (i = 0; i < 31; i++) {
     let articleElt = document.getElementsByClassName('articles')[0];
     let nouvelArticleElt = articleElt.children[0].cloneNode();
     nouvelArticleElt.innerHTML = articleElt.children[0].innerHTML;
-    let nouvelArticlePhoto = articles[i].photos[0];
     let nouvelArticleImgStyle = nouvelArticleElt.getElementsByClassName('img')[0].style;
     let nouvelArticleName = nouvelArticleElt.getElementsByClassName('nom')[0];
     let nouvelArticleOrigin = nouvelArticleElt.getElementsByClassName('origine')[0];
-    nouvelArticleImgStyle.backgroundImage = "url('" + dirImages + nouvelArticlePhoto.url + "')";
-    nouvelArticleImgStyle.backgroundPositionX = -nouvelArticlePhoto.x + "px";
-    nouvelArticleImgStyle.backgroundPositionY = -nouvelArticlePhoto.y + "px";
-    nouvelArticleImgStyle.width = nouvelArticlePhoto.w + "px";
-    nouvelArticleImgStyle.height = nouvelArticlePhoto.h + "px";
-    nouvelArticleName.innerHTML = articles[i].nom;
+//    let nouvelArticlePrix = nouvelArticleElt.getElementById('prixUnitaire')[0];
+//    console.log(nouvelArticleElt.getElementById('prixUnitaire')[0]);
+//    let nouvelArticleUnite = nouvelArticleElt.getElementById('Unite')[0];
+
+    for (j = 0; j < 31; j++) {
+      if (articles[j].ref == tarifs[i].ref) {
+        let nouvelArticlePhoto = articles[j].photos[0];
+        nouvelArticleImgStyle.backgroundImage = "url('" + dirImages + nouvelArticlePhoto.url + "')";
+        nouvelArticleImgStyle.backgroundPositionX = -nouvelArticlePhoto.x + "px";
+        nouvelArticleImgStyle.backgroundPositionY = -nouvelArticlePhoto.y + "px";
+        nouvelArticleImgStyle.width = nouvelArticlePhoto.w + "px";
+        nouvelArticleImgStyle.height = nouvelArticlePhoto.h + "px";
+        nouvelArticleName.innerHTML = articles[j].nom;
+      }
+    }
     nouvelArticleOrigin.innerHTML = tarifs[i].origine;
+//    nouvelArticlePrix.innerHTML = tarifs[i].prix;
+//    nouvelArticleUnite.innerHTML = tarifs[i].unité;
     articleElt.appendChild(nouvelArticleElt);
   }
 }
