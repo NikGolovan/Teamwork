@@ -82,6 +82,10 @@ function categoriesCheck() {
   } else if (legumesSelected.checked) {
     toutesSelected.checked = false;
   }
+
+  if (!toutesSelected.checked && !fruitsSelected.checked
+      && !legumesSelected.checked)
+    toutesSelected.checked = true;
 }
 /*
 La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
@@ -97,7 +101,7 @@ function categoriesCheckTout() {
   fruitsSelected.checked = false;
   legumesSelected.checked = false;
 
-  if (fruitsSelected.checked === false && legumesSelected.checked === false)
+  if (!fruitsSelected.checked && !legumesSelected.checked)
     toutesSelected.checked = true;
 }
 /*
@@ -119,6 +123,10 @@ function originesCheck() {
   } else if (marocSelected.checked) {
     toutesSelectedOrigine.checked = false;
   }
+
+  if (!toutesSelectedOrigine.checked && !espagneSelected.checked
+      && !franceSelected.checked && !marocSelected.checked)
+        toutesSelectedOrigine.checked = true;
 }
 /*
 La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
@@ -136,10 +144,9 @@ function originesCheckTout() {
   franceSelected.checked = false;
   marocSelected.checked = false;
 
-  if (!espagneSelected.checked && !franceSelected.checked && !marocSelected.checled)
+  if (!espagneSelected.checked && !franceSelected.checked && !marocSelected.checked)
     toutesSelectedOrigine.checked = true;
 }
-
 function ajouterElt() {
   var article = document.getElementsByClassName('article');
   let nouvelArticle = article.children[0].innerHTML;
