@@ -66,6 +66,80 @@ function envoyerCommande() {
   window.location.href = uri;
 }
 
+/*
+La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
+Si oui, elle décoche la case "Toutes".
+@params: aucun paramètre
+returne: void
+*/
+function categoriesCheck() {
+  var toutesSelected = document.getElementById('toutesSelected');
+  var fruitsSelected = document.getElementById('fruitsSelected');
+  var legumesSelected = document.getElementById('legumesSelected');
+
+  if (fruitsSelected.checked) {
+    toutesSelected.checked = false;
+  } else if (legumesSelected.checked) {
+    toutesSelected.checked = false;
+  }
+}
+/*
+La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
+Si non, elle coche la case "Toutes".
+@params: aucun paramètre
+returne: void
+*/
+function categoriesCheckTout() {
+  var toutesSelected = document.getElementById('toutesSelected');
+  var fruitsSelected = document.getElementById('fruitsSelected');
+  var legumesSelected = document.getElementById('legumesSelected');
+
+  fruitsSelected.checked = false;
+  legumesSelected.checked = false;
+
+  if (fruitsSelected.checked === false && legumesSelected.checked === false)
+    toutesSelected.checked = true;
+}
+/*
+La fonction qui vérifie si les checkboxs Espagne, France ou Maroc ont été cochés.
+Si oui, elle décoche la case "Toutes".
+@params: aucun paramètre
+returne: void
+*/
+function originesCheck() {
+  var toutesSelectedOrigine = document.getElementById('toutesSelectedOrigine');
+  var espagneSelected = document.getElementById('espagneSelected');
+  var franceSelected = document.getElementById('franceSelected');
+  var marocSelected = document.getElementById('marocSelected');
+
+  if (espagneSelected.checked) {
+    toutesSelectedOrigine.checked = false;
+  } else if (franceSelected.checked) {
+    toutesSelectedOrigine.checked = false;
+  } else if (marocSelected.checked) {
+    toutesSelectedOrigine.checked = false;
+  }
+}
+/*
+La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
+Si non, elle coche la case "Toutes".
+@params: aucun paramètre
+returne: void
+*/
+function originesCheckTout() {
+  var toutesSelectedOrigine = document.getElementById('toutesSelectedOrigine');
+  var espagneSelected = document.getElementById('espagneSelected');
+  var franceSelected = document.getElementById('franceSelected');
+  var marocSelected = document.getElementById('marocSelected');
+
+  espagneSelected.checked = false;
+  franceSelected.checked = false;
+  marocSelected.checked = false;
+
+  if (!espagneSelected.checked && !franceSelected.checked && !marocSelected.checled)
+    toutesSelectedOrigine.checked = true;
+}
+
 function ajouterElt() {
   var article = document.getElementsByClassName('article');
   let nouvelArticle = article.children[0].innerHTML;
