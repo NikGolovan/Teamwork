@@ -66,6 +66,35 @@ function envoyerCommande() {
   window.location.href = uri;
 }
 
+function ajouterPanier() {
+  var ligne = document.createElement('tr');
+  var colArticle = document.createElement('td');
+  var colQte = document.createElement('td');
+  var colPU= document.createElement('td');
+  var colPrix = document.createElement('td');
+  var colModifier = document.createElement('td');
+  var nomArticle = document.getElementById('nomArticle');
+  var quantiteArticle = document.getElementById('quantiteArticle');
+  var prixUnitaire = document.getElementById('prixUnitaire');
+
+  var x = document.createElement("qtite");
+  x.setAttribute("type", "text");
+
+  ligne.appendChild(colArticle);
+  ligne.appendChild(colQte);
+  ligne.appendChild(colPU);
+  ligne.appendChild(colPrix);
+  ligne.appendChild(colModifier);
+
+  colArticle.innerHTML = nomArticle.textContent;
+  colQte.innerHTML = quantiteArticle.value;
+  colPU.innerHTML = prixUnitaire.textContent;
+  colPrix.innerHTML = "teste";
+  colModifier.innerHTML = "teste";
+
+  var table = document.getElementById("tableID");
+  table.appendChild(ligne);
+}
 /*
 La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
 Si oui, elle décoche la case "Toutes".
@@ -147,10 +176,10 @@ function originesCheckTout() {
   if (!espagneSelected.checked && !franceSelected.checked && !marocSelected.checked)
     toutesSelectedOrigine.checked = true;
 }
+
 function ajouterElt() {
   var article = document.getElementsByClassName('article');
   let nouvelArticle = article.children[0].innerHTML;
-
 
   article.appendChild(nouvelArticle);
 }
