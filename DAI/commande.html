@@ -14,34 +14,34 @@
         <div class="categories">
           <h2>Catégories</h2>
           <div>
-            <input type="checkbox" name="cat_toutes" checked />
+            <input id="toutesSelected" onclick="categoriesCheckTout();" type="checkbox" name="cat_toutes" checked />
             <label>Toutes</label>
           </div>
           <div>
-            <input type="checkbox" name="cat_fruits" />
+            <input id="fruitsSelected" onclick="categoriesCheck();" type="checkbox" name="cat_fruits" />
             <label>Fruits</label>
           </div>
           <div>
-            <input type="checkbox" name="cat_légumes" />
+            <input id="legumesSelected" onclick="categoriesCheck();" type="checkbox" name="cat_légumes" />
             <label>Légumes</label>
           </div>
         </div>
         <div class="origines">
           <h2>Origines</h2>
           <div>
-            <input type="checkbox" name="ori_toutes" checked />
+            <input id="toutesSelectedOrigine" onclick="originesCheckTout();" type="checkbox" name="ori_toutes" checked />
             <label>Toutes</label>
           </div>
           <div>
-            <input type="checkbox" name="ori_espagne" />
+            <input id="espagneSelected" onclick="originesCheck();" type="checkbox" name="ori_espagne" />
             <label>Espagne</label>
           </div>
           <div>
-            <input type="checkbox" name="ori_france" />
+            <input id="franceSelected" onclick="originesCheck();" type="checkbox" name="ori_france" />
             <label>France</label>
           </div>
           <div>
-            <input type="checkbox" name="ori_maroc" />
+            <input id="marocSelected" onclick="originesCheck();" type="checkbox" name="ori_maroc" />
             <label>Maroc</label>
           </div>
         </div>
@@ -56,64 +56,20 @@
             <div class="img"></div>
           </div>
           <div class="description">
-            <label class="nom">Oranges</label>
+            <label id="nomProduit" class="nom">Oranges</label>
             <div class="origine">Origine :
               <span>Maroc</span>
             </div>
             <div class="prix">Prix :
-              <span>1.5</span> € /
+              <span id="puProduit">1.50</span>
               <span>Kg</span>
             </div>
             <div class="quantite">
               <label>Quantité : </label>
-              <input type="text" value="3" />
+              <input id="quantiteProduit" type="text" value="3" />
               <label class="unité">Kg</label>
             </div>
-            <button type="button">Ajouter au panier</button>
-          </div>
-        </div>
-        <!-- Article -->
-        <div class="article">
-          <div class="cadre">
-            <div class="img"></div>
-          </div>
-          <div class="description">
-            <label class="nom">Poivrons jaunes</label>
-            <div class="origine">Origine :
-              <span>France</span>
-            </div>
-            <div class="prix">Prix :
-              <span>2</span> € /
-              <span>Kg</span>
-            </div>
-            <div class="quantite">
-              <label>Quantité : </label>
-              <input type="text" value="2" />
-              <label class="unité">Kg</label>
-            </div>
-            <button type="button">Ajouter au panier</button>
-          </div>
-        </div>
-        <!-- Article -->
-        <div class="article">
-          <div class="cadre">
-            <div class="img"></div>
-          </div>
-          <div class="description">
-            <label class="nom">Fraises</label>
-            <div class="origine">Origine :
-              <span>Espagne</span>
-            </div>
-            <div class="prix">Prix :
-              <span>8</span> € /
-              <span>Plateau 1kg</span>
-            </div>
-            <div class="quantite">
-              <label>Quantité : </label>
-              <input type="text" value="1" />
-              <label class="unité">Plateau de 1kg</label>
-            </div>
-            <button type="button">Ajouter au panier</button>
+            <button onclick="ajouterPanier();" type="button">Ajouter au panier</button>
           </div>
         </div>
       </div>
@@ -123,7 +79,7 @@
   <section class="panier">
     <h2>Panier</h2>
     <div class="panier">
-      <table border="1">
+      <table id="tableID" border="1">
         <thead>
           <th>Articles</th>
           <th>Qté</th>
@@ -151,9 +107,9 @@
         </tr>
         <tfoot>
           <th colspan="3">Total :</th>
-          <th>12.50</th>
+          <th class="totalPrixArticle">12.50</th>
           <th>
-            <button type="button">Enlever</button>
+            <button onclick="enleverArticle(tableID)" type="button">Enlever</button>
           </th>
         </tfoot>
       </table>
