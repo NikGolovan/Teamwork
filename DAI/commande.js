@@ -67,18 +67,18 @@ function envoyerCommande() {
 }
 
 function ajouterPanier() {
-  var ligne = document.createElement('tr');
+    var ligne = document.createElement('tr');
   var colArticle = document.createElement('td');
   var colQte = document.createElement('td');
   var colPU= document.createElement('td');
   var colPrix = document.createElement('td');
   var colModifier = document.createElement('td');
-  var nomArticle = document.getElementById('nomArticle');
-  var quantiteArticle = document.getElementById('quantiteArticle');
-  var prixUnitaire = document.getElementById('prixUnitaire');
+  var sommePrix = 0.0;
 
-  var x = document.createElement("qtite");
-  x.setAttribute("type", "text");
+  var nomProduit = document.getElementById("nomProduit");
+  var quantiteProduit = document.getElementById("quantiteProduit");
+  var puProduit = document.getElementById("puProduit");
+  var prixProduit = document.getElementsByClassName("price");
 
   ligne.appendChild(colArticle);
   ligne.appendChild(colQte);
@@ -86,21 +86,54 @@ function ajouterPanier() {
   ligne.appendChild(colPrix);
   ligne.appendChild(colModifier);
 
-  colArticle.innerHTML = nomArticle.textContent;
-  colQte.innerHTML = quantiteArticle.value;
-  colPU.innerHTML = prixUnitaire.textContent;
-  colPrix.innerHTML = "teste";
-  colModifier.innerHTML = "teste";
+  sommePrix = parseFloat(quantiteProduit.value) * parseFloat(puProduit.textContent);
+
+  colArticle.innerHTML = nomProduit.textContent;
+  colQte.innerHTML = quantiteProduit.value;
+  colPU.innerHTML = puProduit.textContent;
+  colPrix.innerHTML = sommePrix.toFixed(2);
+  colModifier.innerHTML = "test";
 
   var table = document.getElementById("tableID");
   table.appendChild(ligne);
+
+  recalculerTotal();
 }
-/*
-La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
-Si oui, elle décoche la case "Toutes".
-@params: aucun paramètre
-returne: void
-*/
+
+function enleverArticle(tableau) {
+  for (var i = tableau.rows.length; i-- > 0;) {
+      var ligne = tableau.rows[i];
+      var data = ligne.getElementsByTagName('input');
+      for (var j = data.length; j-- > 0;) {
+          var stockerData = data[j];
+
+          if (stockerData.type ==='checkbox' && stockerData.checked) {
+              ligne.parentNode.removeChild(ligne);
+              break;
+          }
+      }
+  }
+  recalculerTotal();
+}
+
+function recalculerTotal() {
+  var tableau = document.getElementById("tableID");
+  var cellTotal = tableau.getElementsByClassName('totalPrixArticle')[0];
+  var total = ' ';
+
+  for (var i = 1; i < tableau.rows.length-1; i++) {
+    var prices = tableau.rows[i].cells[3];
+
+    if (prices != null)
+     total += parseFloat(prices.innerHTML).toFixed(2);
+}
+   if (total > 0) {
+    cellTotal.innerHTML = total;
+  } else {
+    cellTotal.innerHTML = "0.0";
+  }
+}
+
 function categoriesCheck() {
   var toutesSelected = document.getElementById('toutesSelected');
   var fruitsSelected = document.getElementById('fruitsSelected');
@@ -133,6 +166,7 @@ function categoriesCheckTout() {
   if (!fruitsSelected.checked && !legumesSelected.checked)
     toutesSelected.checked = true;
 }
+
 /*
 La fonction qui vérifie si les checkboxs Espagne, France ou Maroc ont été cochés.
 Si oui, elle décoche la case "Toutes".
