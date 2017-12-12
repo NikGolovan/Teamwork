@@ -128,8 +128,8 @@ var tarifs = [
   },
   {
     'ref':'au',
-    'origine':'France',
-    'prix':2,
+    'origine':'Turquie',
+    'prix':1.25,
     'unité':'Kg'
   },
   {
@@ -154,7 +154,7 @@ var tarifs = [
     'ref':'to',
     'origine':'France',
     'prix':1.20,
-    'unité':'Grappe'
+    'unité':'Plateau de 12'
   },
   {
     'ref':'to',
