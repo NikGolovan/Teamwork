@@ -18,10 +18,35 @@ let panier = {
   ]
 };
 
+
 window.addEventListener("load", function() {
   fabriqueInterfaceGraphique(articles, tarifs);
+  fabriqueCheckboxOrigine(tarifs);
 });
 
+
+function fabriqueCheckboxOrigine(tarifs) {
+  for (i = 0; i < tarifs.length; i++) {
+    let origineElt = document.getElementById('origines');
+    j = 2;
+    deja = false;
+    while (j < origineElt.children.length && !deja) {
+      if (tarifs[i].origine.localeCompare(origineElt.children[j].children[1].innerHTML)===0) {
+        deja = true;
+      }
+      j++;
+    }
+    if (!deja) {
+      let nouvelleOrigineElt = origineElt.children[1].cloneNode();
+      nouvelleOrigineElt.innerHTML = origineElt.children[1].innerHTML;
+      nouvelleOrigineElt.name = "ori_" + tarifs[i].origine;
+      nouvelleOrigineElt.children[0].checked = false;
+      nouvelleOrigineElt.children[1].textContent = tarifs[i].origine;
+      origineElt.appendChild(nouvelleOrigineElt);
+  }
+}
+  
+  
 function fabriqueInterfaceGraphique(articles, tarifs) {
   let dirImages = "./images/";
 
