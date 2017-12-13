@@ -136,57 +136,39 @@ function categoriesCheckTout() {
     toutesSelected.checked = true;
 }
 
-/*
-La fonction qui vérifie si les checkboxs Espagne, France ou Maroc ont été cochés.
-Si oui, elle décoche la case "Toutes".
-@params: aucun paramètre
-returne: void
-*/
 function originesCheck() {
-  var toutesSelectedOrigine = document.getElementById('toutesSelectedOrigine');
-  var espagneSelected = document.getElementById('espagneSelected');
-  var franceSelected = document.getElementById('franceSelected');
-  var marocSelected = document.getElementById('marocSelected');
-
-  if (espagneSelected.checked) {
-    toutesSelectedOrigine.checked = false;
-  } else if (franceSelected.checked) {
-    toutesSelectedOrigine.checked = false;
-  } else if (marocSelected.checked) {
-    toutesSelectedOrigine.checked = false;
-  }
-
-  if (!toutesSelectedOrigine.checked && !espagneSelected.checked
-      && !franceSelected.checked && !marocSelected.checked)
-        toutesSelectedOrigine.checked = true;
-}
-/*
-La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
-Si non, elle coche la case "Toutes".
-@params: aucun paramètre
-returne: void
-*/
-function originesCheckTout() {
-  var toutesSelectedOrigine = document.getElementById('toutesSelectedOrigine');
-  var espagneSelected = document.getElementById('espagneSelected');
-  var franceSelected = document.getElementById('franceSelected');
-  var marocSelected = document.getElementById('marocSelected');
-
-  espagneSelected.checked = false;
-  franceSelected.checked = false;
-  marocSelected.checked = false;
-
-  if (!espagneSelected.checked && !franceSelected.checked && !marocSelected.checked)
-    toutesSelectedOrigine.checked = true;
-}
-
-function test() {
   var origines = document.getElementById('origines');
+  var toutes = document.getElementById('toutesOrigines');
+  var compteurCheckedBox = 0;
+
+  compteurCheckedBox = calculerCheckedBoxes();
+
+  if (!origines.children[1].children[0].checked)
+    origines.children[1].children[0].checked = true;
+
+  toutes.addEventListener('click', decocherToutes);
+
+  if (compteurCheckedBox >= 1) {
+    origines.children[1].children[0].checked = false;
+  }
+}
+
+function decocherToutes() {
+  for (var i = 2; i < origines.children.length; i++) {
+    origines.children[i].children[0].checked = false;
+    origines.children[1].children[0].checked = true;
+  }
+}
+
+function calculerCheckedBoxes() {
+  var origines = document.getElementById('origines');
+  var compteur = 0;
 
   for (var i = 2; i < origines.children.length; i++) {
-    if (origines.children[1].children[0].checked)
-      origines.children[i].children[0].checked = false;
+    if (origines.children[i].children[0].checked)
+      compteur++;
   }
+  return compteur;
 }
 
 function ajouterElt() {
