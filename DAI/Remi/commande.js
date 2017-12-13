@@ -180,6 +180,15 @@ function originesCheckTout() {
     toutesSelectedOrigine.checked = true;
 }
 
+function test() {
+  var origines = document.getElementById('origines');
+
+  for (var i = 2; i < origines.children.length; i++) {
+    if (origines.children[1].children[0].checked)
+      origines.children[i].children[0].checked = false;
+  }
+}
+
 function ajouterElt() {
   var article = document.getElementsByClassName('article');
   let nouvelArticle = article.children[0].innerHTML;
