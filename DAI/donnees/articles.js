@@ -3,7 +3,7 @@ var articles = [
   {
     'ref':'pr',
     'nom':'Poivrons rouges',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -18,7 +18,7 @@ var articles = [
   {
     'ref':'be',
     'nom':'Betteraves',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -41,7 +41,7 @@ var articles = [
   {
     'ref':'or',
     'nom':'Oranges',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -64,7 +64,7 @@ var articles = [
   {
     'ref':'sa',
     'nom':'Salades',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -79,7 +79,7 @@ var articles = [
   {
     'ref':'an',
     'nom':'Ananas',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -94,7 +94,7 @@ var articles = [
   {
     'ref':'cv',
     'nom':'Citrons Verts',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -109,7 +109,7 @@ var articles = [
   {
     'ref':'ca',
     'nom':'Carottes',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -132,7 +132,7 @@ var articles = [
   {
     'ref':'ps',
     'nom':'Pastèques',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -147,7 +147,7 @@ var articles = [
   {
     'ref':'pa',
     'nom':'Pamplemousses',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_2.jpg',
@@ -178,7 +178,7 @@ var articles = [
   {
     'ref':'ki',
     'nom':'Kiwis',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -201,7 +201,7 @@ var articles = [
   {
     'ref':'ra',
     'nom':'Raisins',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -216,7 +216,7 @@ var articles = [
   {
     'ref':'poi',
     'nom':'Poires',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -239,7 +239,7 @@ var articles = [
   {
     'ref':'pi',
     'nom':'Piments',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -262,7 +262,7 @@ var articles = [
   {
     'ref':'pe',
     'nom':'Pêches',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -277,7 +277,7 @@ var articles = [
   {
     'ref':'co',
     'nom':'Concombres',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -300,7 +300,7 @@ var articles = [
   {
     'ref':'ci',
     'nom':'Citrons',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -323,7 +323,7 @@ var articles = [
   {
     'ref':'pm',
     'nom':'Pommes',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -346,7 +346,7 @@ var articles = [
   {
     'ref':'cf',
     'nom':'Choux-Fleur',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -361,7 +361,7 @@ var articles = [
   {
     'ref':'ba',
     'nom':'Bananes',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -376,7 +376,7 @@ var articles = [
   {
     'ref':'au',
     'nom':'Aubergines',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -391,7 +391,7 @@ var articles = [
   {
     'ref':'bo',
     'nom':'Brocolis',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -406,7 +406,7 @@ var articles = [
   {
     'ref':'nc',
     'nom':'Noix de Coco',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -429,7 +429,7 @@ var articles = [
   {
     'ref':'av',
     'nom':'Avocats',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -452,7 +452,7 @@ var articles = [
   {
     'ref':'to',
     'nom':'Tomates',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -475,7 +475,7 @@ var articles = [
   {
     'ref':'fr',
     'nom':'Fraises',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_2.jpg',
@@ -498,7 +498,7 @@ var articles = [
   {
     'ref':'br',
     'nom':'Bananes Rouges',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -521,7 +521,7 @@ var articles = [
   {
     'ref':'ma',
     'nom':'Mangues',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -536,7 +536,7 @@ var articles = [
   {
     'ref':'cl',
     'nom':'Clémentines',
-    'catégorie' : 'fruit',
+    'catégorie' : 'Fruits',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -551,7 +551,7 @@ var articles = [
   {
     'ref':'cx',
     'nom':'Choux',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_1.jpg',
@@ -566,7 +566,7 @@ var articles = [
   {
     'ref':'pj',
     'nom':'Poivrons jaunes',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_2.jpg',
@@ -581,7 +581,7 @@ var articles = [
   {
     'ref':'po',
     'nom':'Poivrons oranges',
-    'catégorie' : 'légume',
+    'catégorie' : 'Légumes',
     'photos':[
       {
         'url':'fruits_legumes_2.jpg',
