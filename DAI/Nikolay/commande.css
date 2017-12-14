@@ -41,7 +41,7 @@ aside.filtres {
 .cadre{
 	background-color: white;
 	width: 230px;
-	height: 150px;
+	height: 200px;
 	display:flex; /* Pour le alignement vertical des images */
 	flex-direction: column;  /* direction d'affichage verticale */
   justify-content: center; /* alignement vertical */
