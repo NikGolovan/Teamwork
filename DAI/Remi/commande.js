@@ -20,9 +20,33 @@ let panier = {
 
 window.addEventListener("load", function() {
   fabriqueInterfaceGraphique(articles, tarifs);
+  fabriqueCheckboxCategorie(articles);
   fabriqueCheckboxOrigine(tarifs);
 });
 
+function fabriqueCheckboxCategorie(articles) {
+  for (i = 0; i < articles.length; i++) {
+    let categorieElt = document.getElementById('categories');
+    categorieElt.children[1].children[0].checked = true;
+    j = 2;
+    deja = false;
+    while (j < categorieElt.children.length && !deja) {
+      if (articles[i].catégorie.localeCompare(categorieElt.children[j].children[1].innerHTML)===0) {
+        deja = true;
+      }
+      j++;
+    }
+    if (!deja) {
+      let nouvelleCategorieElt = categorieElt.children[1].cloneNode();
+      nouvelleCategorieElt.innerHTML = categorieElt.children[1].innerHTML;
+      nouvelleCategorieElt.name = "cat_" + articles[i].catégorie;
+      nouvelleCategorieElt.id = articles[i].catégorie;
+      nouvelleCategorieElt.children[0].checked = false;
+      nouvelleCategorieElt.children[1].textContent = articles[i].catégorie;
+      categorieElt.appendChild(nouvelleCategorieElt);
+    }
+  }
+}
 
 function fabriqueCheckboxOrigine(tarifs) {
   for (i = 0; i < tarifs.length; i++) {
@@ -104,63 +128,66 @@ function envoyerCommande() {
 
 
 function categoriesCheck() {
-  var toutesSelected = document.getElementById('toutesSelected');
-  var fruitsSelected = document.getElementById('fruitsSelected');
-  var legumesSelected = document.getElementById('legumesSelected');
+  var categories = document.getElementById('categories');
+  var toutes = document.getElementById('toutesCategories');
+  var compteurCheckedBox = 0;
 
-  if (fruitsSelected.checked) {
-    toutesSelected.checked = false;
-  } else if (legumesSelected.checked) {
-    toutesSelected.checked = false;
+  compteurCheckedBox = calculerCategoriesCheckedBoxes();
+
+  if (!categories.children[1].children[0].checked)
+    categories.children[1].children[0].checked = true;
+
+  toutes.addEventListener('click', decocherToutesCategories);
+
+  if (compteurCheckedBox >= 1) {
+    categories.children[1].children[0].checked = false;
   }
-
-  if (!toutesSelected.checked && !fruitsSelected.checked
-      && !legumesSelected.checked)
-    toutesSelected.checked = true;
 }
-/*
-La fonction qui vérifie si les checkboxs de fruits et légumes ont été cochés.
-Si non, elle coche la case "Toutes".
-@params: aucun paramètre
-returne: void
-*/
-function categoriesCheckTout() {
-  var toutesSelected = document.getElementById('toutesSelected');
-  var fruitsSelected = document.getElementById('fruitsSelected');
-  var legumesSelected = document.getElementById('legumesSelected');
 
-  fruitsSelected.checked = false;
-  legumesSelected.checked = false;
-
-  if (!fruitsSelected.checked && !legumesSelected.checked)
-    toutesSelected.checked = true;
+function decocherToutesCategories() {
+  for (var i = 2; i < categories.children.length; i++) {
+    categories.children[i].children[0].checked = false;
+    categories.children[1].children[0].checked = true;
+  }
 }
+
+function calculerCategoriesCheckedBoxes() {
+  var categories = document.getElementById('categories');
+  var compteur = 0;
+
+  for (var i = 2; i < categories.children.length; i++) {
+    if (categories.children[i].children[0].checked)
+      compteur++;
+  }
+  return compteur;
+}
+
 
 function originesCheck() {
   var origines = document.getElementById('origines');
   var toutes = document.getElementById('toutesOrigines');
   var compteurCheckedBox = 0;
 
-  compteurCheckedBox = calculerCheckedBoxes();
+  compteurCheckedBox = calculerOriginesCheckedBoxes();
 
   if (!origines.children[1].children[0].checked)
     origines.children[1].children[0].checked = true;
 
-  toutes.addEventListener('click', decocherToutes);
+  toutes.addEventListener('click', decocherToutesOrigines);
 
   if (compteurCheckedBox >= 1) {
     origines.children[1].children[0].checked = false;
   }
 }
 
-function decocherToutes() {
+function decocherToutesOrigines() {
   for (var i = 2; i < origines.children.length; i++) {
     origines.children[i].children[0].checked = false;
     origines.children[1].children[0].checked = true;
   }
 }
 
-function calculerCheckedBoxes() {
+function calculerOriginesCheckedBoxes() {
   var origines = document.getElementById('origines');
   var compteur = 0;
 
@@ -171,10 +198,68 @@ function calculerCheckedBoxes() {
   return compteur;
 }
 
-function ajouterElt() {
-  var article = document.getElementsByClassName('article');
-  let nouvelArticle = article.children[0].innerHTML;
 
-
-  article.appendChild(nouvelArticle);
+function filtrer(articles, tarifs) {
+  let categories = document.getElementById('categories');
+  let origines = document.getElementById('origines');
+  tarifsBis = [];
+  articlesBis = [];
+  for (i = 2; i < categories.children.length; i++) {
+    let categorie = categories.children[i];
+    if (categorie.children[0].checked) {
+      for (i = 0; j < tarifs.length; j++) {
+        for (i = 0; j < articles.length; j++) {
+          if (articles[j].origine == categorie[i].children[1].textContent) {
+            articlesBis.push(articles[j]);
+          }
+        }
+      }
+    }
+  }
+  let article = document.getElementsByClassName("articles")[0]
+  /*
+  for (int i = 1; i < article.children.length; i++) {
+    let enfant = article.children[i];
+    article.removeChild(enfant);
+  }
+  */
+  fabriqueInterfaceGraphique(articlesBis, tarifsBis);
 }
+
+
+
+
+function enleverArticle(tableau) {
+  for (var i = tableau.rows.length; i-- > 0;) {
+      var ligne = tableau.rows[i];
+      var data = ligne.getElementsByTagName('input');
+      for (var j = data.length; j-- > 0;) {
+          var stockerData = data[j];
+
+          if (stockerData.type ==='checkbox' && stockerData.checked) {
+              ligne.parentNode.removeChild(ligne);
+              break;
+          }
+      }
+  }
+  recalculerTotal();
+}
+
+function recalculerTotal() {
+  var tableau = document.getElementById("tableID");
+  var cellTotal = tableau.getElementsByClassName('totalPrixArticle')[0];
+  var total = ' ';
+
+  for (var i = 1; i < tableau.rows.length-1; i++) {
+    var prices = tableau.rows[i].cells[3];
+
+    if (prices != null)
+     total += parseFloat(prices.innerHTML).toFixed(2);
+}
+   if (total > 0) {
+    cellTotal.innerHTML = total;
+  } else {
+    cellTotal.innerHTML = "0.0";
+  }
+}
+
