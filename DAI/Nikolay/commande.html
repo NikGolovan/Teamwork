@@ -14,14 +14,14 @@
         <div id="categories">
           <h2>Catégories</h2>
           <div>
-            <input id="toutesCategories" onclick="categoriesCheck();" type="checkbox" name="cat_toutes" checked />
+            <input id="toutesCategories" onclick="categoriesCheck(); filtrCategories(articles, this);" type="checkbox" name="cat_toutes" checked />
             <label>Toutes</label>
           </div>
         </div>
         <div id="origines">
           <h2>Origines</h2>
           <div>
-            <input onclick="originesCheck();" id="toutesOrigines" type="checkbox" name="ori_toutes" checked />
+            <input onclick="originesCheck(); filtOrigines(articles, tarifs, this);" id="toutesOrigines" type="checkbox" name="ori_toutes" checked />
             <label>Toutes</label>
           </div>
         </div>
