@@ -46,8 +46,8 @@ function fabriqueCheckboxCategorie(articles) {
     if (!deja) {
       let nouvelleCategorieElt = categorieElt.children[1].cloneNode();
       nouvelleCategorieElt.innerHTML = categorieElt.children[1].innerHTML;
-      nouvelleCategorieElt.name = "cat_" + articles[i].catégorie;
-      nouvelleCategorieElt.id = articles[i].catégorie;
+      nouvelleCategorieElt.children[0].name = "cat_" + articles[i].catégorie;
+      nouvelleCategorieElt.children[0].id = articles[i].catégorie;
       nouvelleCategorieElt.children[0].checked = false;
       nouvelleCategorieElt.children[1].textContent = articles[i].catégorie;
       categorieElt.appendChild(nouvelleCategorieElt);
@@ -98,6 +98,7 @@ function fabriqueInterfaceGraphique(articles, tarifs) {
       if (articles[j].ref == tarifs[i].ref) {
         let nouvelArticlePhoto = articles[j].photos[0];
         nouvelArticleImgStyle.backgroundImage = "url('" + dirImages + nouvelArticlePhoto.url + "')";
+
         nouvelArticleImgStyle.backgroundPositionX = -nouvelArticlePhoto.x + "px";
         nouvelArticleImgStyle.backgroundPositionY = -nouvelArticlePhoto.y + "px";
         nouvelArticleImgStyle.width = nouvelArticlePhoto.w + "px";
@@ -301,6 +302,124 @@ function recalculerTotal() {
     cellTotal.innerHTML = "0.0";
   }
 }
+
+
+
+
+
+function filtrCategories(articles, choix) {
+  var article = document.getElementsByClassName('articles')[0];
+  var articlesTab = [];
+
+  if (choix.name == 'cat_Légumes') {
+    for (var i = 0; i < articles.length; i++) {
+      if (articles[i].catégorie == 'Légumes')
+        articlesTab.push(articles[i]);
+    }
+  }
+  console.log(JSON.stringify(articlesTab));
+  fabriqueInterfaceGraphique(articlesTab, tarifs);
+}
+
+
+
+
+function filtOrigines(articles, tarifs, choix) {
+  let taille = document.getElementById('origines').children.length;
+  let origines = document.getElementById('origines');
+  let origine = origines.children[2].children[1].innerHTML;
+  let toutes = origines.children[1].children[0];
+  console.log(toutes.checked);
+  if(toutes.checked===true)
+  {
+    nbArticles = document.getElementsByClassName('article').length;
+    i = 0;
+    while(i<nbArticles-1)
+    {
+      let elt = document.getElementsByClassName('articles')[0];
+      let prem = elt.children[0];
+      elt.removeChild(prem);
+      i++;
+    }
+    fabriqueInterfaceGraphique(articles, tarifs);
+  }
+  else
+  {
+    tarifsBis = [];
+    for(i=0; i<articles.length; i++)
+    {
+      for(j=0; j<tarifs.length; j++)
+      {
+        if(articles[i].ref===tarifs[j].ref)
+        {
+          if(tarifs[j].origine===origine)
+          {
+            tarifsBis.push(tarifs[j]);
+          }
+        }
+      }
+    }
+  nbArticles = document.getElementsByClassName('article').length;
+  i = 0;
+  while(i<nbArticles-1)
+  {
+    let elt = document.getElementsByClassName('articles')[0];
+    let prem = elt.children[0];
+    elt.removeChild(prem);
+    i++;
+  }
+  fabriqueInterfaceGraphique(articles, tarifsBis);
+}
+}
+
+
+
+
+
+function afficherLegumes() {
+  let article = document.getElementsByClassName('articles')[0];
+  let dirImages = "./images/";
+
+  //while (article.firstChild) {
+  //    article.removeChild(article.firstChild);
+  //}
+
+  for (var i = 0; i < articles.length; i++) {
+    if (articles[i].catégorie === 'Légumes')
+    for (i = 0; i < tarifs.length; i++) {
+      let nouvelArticleElt = article.children[0].cloneNode();
+      nouvelArticleElt.innerHTML = article.children[0].innerHTML;
+      let nouvelArticleImgStyle = nouvelArticleElt.getElementsByClassName('img')[0].style;
+      let nouvelArticleName = nouvelArticleElt.getElementsByClassName('nom')[0];
+      let nouvelArticleOrigin = nouvelArticleElt.getElementsByClassName('origine')[0];
+      let nouvelArticlePrix = nouvelArticleElt.getElementsByClassName('prixUnitaire')[0];
+      let nouvelArticleUnite1 = nouvelArticleElt.getElementsByClassName('unité')[0];
+      let nouvelArticleUnite2 = nouvelArticleElt.getElementsByClassName('unité')[1];
+
+      for (j = 0; j < articles.length; j++) {
+        if (articles[j].ref == tarifs[i].ref) {
+          let nouvelArticlePhoto = articles[j].photos[0];
+          nouvelArticleImgStyle.backgroundImage = "url('" + dirImages + nouvelArticlePhoto.url + "')";
+          nouvelArticleImgStyle.backgroundPositionX = -nouvelArticlePhoto.x + "px";
+          nouvelArticleImgStyle.backgroundPositionY = -nouvelArticlePhoto.y + "px";
+          nouvelArticleImgStyle.width = nouvelArticlePhoto.w + "px";
+          nouvelArticleImgStyle.height = nouvelArticlePhoto.h + "px";
+          nouvelArticleName.innerHTML = articles[j].nom;
+        }
+      }
+      nouvelArticleOrigin.innerHTML = "Origine : " + tarifs[i].origine;
+      nouvelArticlePrix.innerHTML = tarifs[i].prix;
+      nouvelArticleUnite1.innerHTML = tarifs[i].unité;
+      nouvelArticleUnite2.innerHTML = tarifs[i].unité;
+      article.appendChild(nouvelArticleElt);
+    }
+  }
+}
+
+
+
+
+
 
 function ajouterElt() {
   var article = document.getElementsByClassName('article');
