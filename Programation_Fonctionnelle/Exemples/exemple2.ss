@@ -1,0 +1,5 @@
+(load "exemple1.ss")
+(define a 1)
+(define b 5)
+(define c 3)
+(define delta (- (carre b) (* 4 a c)))
