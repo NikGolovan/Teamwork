@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 6.4.--><structure>
+	<type>turing</type>
+	<automaton>
+		<note>
+			<text>simule la machine M
+Non on n'a pas construit M
+Ah si on l'a faite.
+Mais on ne l'a pas enregistrée
+COMMENT OUI COMMENT ?
+On doit quitter JFLAP</text>
+			<x>480.0</x>
+			<y>467.0</y>
+		</note>
+	</automaton>
+</structure>
