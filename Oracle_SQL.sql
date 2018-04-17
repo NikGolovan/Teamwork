@@ -79,7 +79,7 @@ alter table realisateurs add (PRENOMREAL char(60));
 UPDATE FILMS SET BUDGET = BUDGET+BUDGET*(10/100) WHERE CODFILM='F012';
 alter table FILMS add (CATEGORIE VARCHAR(20));
 
-// TD 5
+# TD 5
 1) select *
    from FILMS
    where BUDGET > 1000000;
@@ -140,8 +140,8 @@ alter table FILMS add (CATEGORIE VARCHAR(20));
     where F.CODREAL = R.CODREAL
       and DATESORTIE - DNAISSREAL < 40 * 365;
 
-// TD 6
-// Question 3
+# TD 6
+# Question 3
 a) select distinct NATIONACT
    from ACTEURS;
 b) select NOMREAL, PRENOMREAL
@@ -153,7 +153,7 @@ b) select NOMREAL, PRENOMREAL
                            and F.CODFILM = J.CODFILM
                            and NATIONACT = 'français');
 
-// TD 7
+# TD 7
 1) select count(CODFILM)
    from FILMS;
 2) select count(distinct F.CODFILM)
@@ -180,7 +180,7 @@ b) select NOMREAL, PRENOMREAL
    where F.CODREAL = R.CODREAL
      and R.NOMREAL = 'Cameron';
 
-// Utilisation du GROUP BY
+# Utilisation du GROUP BY
 1) select R.CODREAL, NOMREAL, count(F.CODFILM)
    from REALISATEURS R, FILMS F
    where R.CODREAL = F.CODREAL
@@ -199,7 +199,8 @@ b) select NOMREAL, PRENOMREAL
    from REALISATEURS R, FILMS F
    where R.CODREAL = F.CODREAL
    group by R.CODREAL, NOMREAL, NATIONREAL, CATEGORIE;
-// Utilisation du having
+   
+# Utilisation du having
 1) select NOMACT, PRENOMACT
    from ACTEURS A, JOUENT J
    where J.NACT = A.CODACT
