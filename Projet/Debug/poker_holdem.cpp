@@ -69,16 +69,19 @@ void afficherCarte(Carte carte) {
 Carte tirerCarte(Deck deck[]) {
   Carte carte;
 
-  int estTiree = 0;
+  int estTiree = FAUX;
 
-  int tmpRandCouleur = rand() % 4;
-  int tmpRandHauteur = rand() % 13 + 1;
+  while (!estTiree) {
 
-  if (!deck[tmpRandHauteur].getEstUtilisee()) {
-    carte.setCouleur(tmpRandCouleur);
-    carte.setHauteur(tmpRandHauteur);
-    deck[tmpRandHauteur].setEstUtilisee(VRAI);
-    estTiree = VRAI;
+    int tmpRandCouleur = rand() % 4;
+    int tmpRandHauteur = rand() % 13 + 1;
+
+    if (!deck[tmpRandHauteur].getEstUtilisee()) {
+      carte.setCouleur(tmpRandCouleur);
+      carte.setHauteur(tmpRandHauteur);
+      deck[tmpRandHauteur].setEstUtilisee(VRAI);
+      estTiree = VRAI;
+    }
   }
   return(carte);
 }
@@ -209,9 +212,29 @@ Carte Plateau::getCartesPlateau() const {
   return(_cartes);
 }
 
-void afficherBoard(Plateau *plateau) {
-  for (int i = 0; i < TAILLE_PLATEAU; i++) {
-    afficherCarte(plateau[i].getCartesPlateau());
+void afficherBoard(Plateau *plateau, int nombreTours) {
+  switch (nombreTours) {
+    case FLOP:
+      cout << "3 carte(s) : ";
+      for (int i = 0; i < 3; i++) {
+        afficherCarte(plateau[i].getCartesPlateau());
+      }
+      break;
+    case TURN:
+      cout << "4 carte(s) : ";
+      for (int i = 0; i < 4; i++) {
+        afficherCarte(plateau[i].getCartesPlateau());
+      }
+      break;
+    case RIVER:
+      cout << "5 carte(s) : ";
+      for (int i = 0; i < 5; i++) {
+        afficherCarte(plateau[i].getCartesPlateau());
+      }
+      break;
+    default:
+      cout << "aucune carte" << endl;
+      break;
   }
 }
 
@@ -219,11 +242,27 @@ void Plateau::setCartesPlateau(Carte carte) {
   _cartes = carte;
 }
 
-void devoilerCarte(Plateau *plateau, Deck deck[]) {
-  for (int i = 0; i < TAILLE_PLATEAU; i++) {
-    if (!deck[i].getEstUtilisee())
-      plateau[i].setCartesPlateau(deck[rand() % 13 + 1].getCartesDeck());
+void devoilerCarte(Plateau *plateau, Deck deck[], int nombreTours) {
+  switch (nombreTours) {
+    case FLOP:
+      for (int i = 0; i < 3; i++) {
+        plateau[i].setCartesPlateau(tirerCarte(deck));
+      }
+      break;
+    case TURN:
+      for (int i = 3; i < 4; i++) {
+        plateau[i].setCartesPlateau(tirerCarte(deck));
+      }
+      break;
+    case RIVER:
+      for (int i = 4; i < 5; i++) {
+        plateau[i].setCartesPlateau(tirerCarte(deck));
+      }
+      break;
+    default:
+      break;
   }
+
 }
 
 void comparerMainEtPlateau(Joueurs *joueurs, Plateau *plateau, int nombreJoueurs) {
@@ -245,7 +284,7 @@ void comparerMainEtPlateau(Joueurs *joueurs, Plateau *plateau, int nombreJoueurs
     std::cout << "\t PREFLOP\n";
     std::cout << "===========================\n";
   } else if (nombreTours == FLOP) {
-    devoilerCarte(plateau, deck);
+    devoilerCarte(plateau, deck, nombreTours);
     //TODO depiler(deck);
   //  devoilerCarte(board, /*TODO sommet(deck)*/);
     //TODO depiler(deck);
@@ -255,13 +294,13 @@ void comparerMainEtPlateau(Joueurs *joueurs, Plateau *plateau, int nombreJoueurs
     std::cout << "\t FLOP\n";
     std::cout << "===========================\n";
   } else if (nombreTours == TURN) {
-  //  devoilerCarte(board, /*TODO sommet(deck)*/);
+    devoilerCarte(plateau, deck, nombreTours);
     //TODO depiler(deck);
     std::cout << "===========================\n";
     std::cout << "\t TURN\n";
     std::cout << "===========================\n";
   } else {
-  //  devoilerCarte(board, /*TODO sommet(deck)*/);
+    devoilerCarte(plateau, deck, nombreTours);
     //TODO depiler(deck);
     std::cout << "===========================\n";
     std::cout << "\t RIVER\n";
@@ -271,7 +310,7 @@ void comparerMainEtPlateau(Joueurs *joueurs, Plateau *plateau, int nombreJoueurs
   comparerPremierMain(joueurs, nombreJoueurs);
 
   std::cout << "Board :\n";
-  afficherBoard(plateau);
+  afficherBoard(plateau, nombreTours);
   cout << endl;
   for (int i = 0; i < nombreJoueurs; i++) {
     std::cout << "Joueur " << i << '\n';
