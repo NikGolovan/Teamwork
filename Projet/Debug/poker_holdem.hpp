@@ -20,14 +20,16 @@
 #define VRAI 1
 #define FAUX 0
 
-#define CARTE_HAUTE "Carte haute à "
+#define CARTE_HAUTE "Hauteur "
 #define PAIR "Pair de "
 #define DOUBLE_PAIR "Double pair de "
 #define BRELAN "Brelan de "
-#define QUINTE "Quinte de "
+#define QUINTE "Quinte hauteur "
 #define COULEUR "Couleur de "
-#define BRELAN "Brelan de "
-#define QUINTE_FLUSH "Quinte flush au "
+#define FULL "Full de "
+#define CARRE "Carré de "
+#define QUINTE_FLUSH "Quinte flush hauteur "
+#define QUINTE_FLUSH_ROYALE "Quinte flush royale "
 
 #define ERREUR_CARTE_EGAL_MOINS_UN "Carte vaut -1"
 
@@ -92,10 +94,10 @@ public:
 void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours);
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs);
 int sommet(Carte deck[]);
-void devoilerCarte(Plateau *plateau, Deck deck[]);
+void devoilerCarte(Plateau *plateau, Deck deck[], int nombreTours);
 Carte tirerCarte(Deck deck[]);
 void afficherCarte(Carte carte);
-void afficherBoard(Plateau *plateau);
+void afficherBoard(Plateau *plateau, int nombreTours);
 
 bool operator==(const Carte&, const Carte&);
 std::ostream& operator<<(std::ostream&, const Carte&);
