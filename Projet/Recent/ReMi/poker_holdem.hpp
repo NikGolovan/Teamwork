@@ -74,7 +74,6 @@ public:
   void setNiveau(std::string niveau);
   void setCartesBoardEtMain(Carte carte, int numCarte);
   void ajouterCarte(Carte carte);
-  void calculerNiveau(Plateau *plateau, int nombreTours);
   int convertirCartesBoardEtMainEnEntier();
   bool estCarre(Plateau *plateau);
   bool estFull(Plateau *plateau);
@@ -84,6 +83,7 @@ public:
   bool estDoublePaire(Plateau *plateau);
   bool estUnePaireDcarte(Plateau *plateau);
   bool estUnePairePcarte(Plateau *plateau);
+  void calculerNiveau(Plateau *plateau, int nombreTours);
 };
 
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs);

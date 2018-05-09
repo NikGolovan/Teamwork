@@ -208,42 +208,6 @@ void Joueurs::ajouterCarte(Carte carte) {
   }
 }
 
-void Joueurs::calculerNiveau(Plateau *plateau, int nombreTours) {
-  switch (nombreTours) {
-    case PREFLOP:
-       if (getCartes(0) == getCartes(1))
-        _niveau = PAIRE + getCartes(0).getHauteur();
-      else if (getCartes(0) > getCartes(1))
-        _niveau = CARTE_HAUTE + getCartes(0).getHauteur();
-      else
-        _niveau = CARTE_HAUTE + getCartes(1).getHauteur();
-      break;
-    case FLOP:
-      break;
-    case TURN:
-
-      break;
-    default:
-      if (estCarre(plateau))
-        _niveau = CARRE + getCartes(0).getHauteur();
-      else if (estFull(plateau))
-      _niveau = FULL + getCartes(0).getHauteur();
-      else if (estQuinte(plateau))
-       _niveau = QUINTE + getCartes(0).getHauteur();
-      else if (estCouleur(plateau))
-        _niveau = COULEUR + getCartes(0).getHauteur(); //TODO: il affiche toujours la premiere carte pour la couleur
-      else if (estUnBrelan(plateau))
-        _niveau = BRELAN + getCartes(0).getHauteur();
-      else if (estDoublePaire(plateau))
-        _niveau = DOUBLE_PAIR + getCartes(0).getHauteur(); // TODO: ajouter + " et de " +
-      else if (estUnePairePcarte(plateau))
-        _niveau = PAIRE + getCartes(0).getHauteur();
-      else if (estUnePaireDcarte(plateau))
-        _niveau = PAIRE + getCartes(1).getHauteur();
-      break;
-  }
-}
-
 int Joueurs::convertirCartesBoardEtMainEnEntier() {
   string carteChaine = getCartes(0).getHauteur();
 
@@ -407,6 +371,42 @@ bool Joueurs::estUnePairePcarte(Plateau *plateau) {
         estPaire = VRAI;
   }
   return(estPaire);
+}
+
+void Joueurs::calculerNiveau(Plateau *plateau, int nombreTours) {
+  switch (nombreTours) {
+    case PREFLOP:
+    if (getCartes(0) == getCartes(1))
+    _niveau = PAIRE + getCartes(0).getHauteur();
+    else if (getCartes(0) > getCartes(1))
+    _niveau = CARTE_HAUTE + getCartes(0).getHauteur();
+    else
+    _niveau = CARTE_HAUTE + getCartes(1).getHauteur();
+    break;
+    case FLOP:
+    break;
+    case TURN:
+
+    break;
+    default:
+    if (estCarre(plateau))
+    _niveau = CARRE + getCartes(0).getHauteur();
+    else if (estFull(plateau))
+    _niveau = FULL + getCartes(0).getHauteur();
+    else if (estQuinte(plateau))
+    _niveau = QUINTE + getCartes(0).getHauteur();
+    else if (estCouleur(plateau))
+    _niveau = COULEUR + getCartes(0).getHauteur(); //TODO: il affiche toujours la premiere carte pour la couleur
+    else if (estUnBrelan(plateau))
+    _niveau = BRELAN + getCartes(0).getHauteur();
+    else if (estDoublePaire(plateau))
+    _niveau = DOUBLE_PAIR + getCartes(0).getHauteur(); // TODO: ajouter + " et de " +
+    else if (estUnePairePcarte(plateau))
+    _niveau = PAIRE + getCartes(0).getHauteur();
+    else if (estUnePaireDcarte(plateau))
+    _niveau = PAIRE + getCartes(1).getHauteur();
+    break;
+  }
 }
 
 /*---------------------------------------------*/
