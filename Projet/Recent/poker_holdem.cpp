@@ -472,34 +472,43 @@ void devoilerCarte(Plateau *plateau, Deck deck[], int nombreTours) {
  void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours) {
    int nombreDeCartes = 0;
 
-   if (nombreTours == PREFLOP) {
-    distribuerCarte(deck, joueurs, nombreJoueurs);
-    std::cout << "╔═════════════════════════╗\n";
-    std::cout << "║         PREFLOP         ║\n";
-    std::cout << "╚═════════════════════════╝\n";
-  } else if (nombreTours == FLOP) {
-    devoilerCarte(plateau, deck, nombreTours);
-    //TODO depiler(deck);
-  //  devoilerCarte(board, /*TODO sommet(deck)*/);
-    //TODO depiler(deck);
-  //  devoilerCarte(board, /*TODO sommet(deck)*/);
-    //TODO depiler(deck);
-    std::cout << "╔═════════════════════════╗\n";
-    std::cout << "║          FLOP           ║\n";
-    std::cout << "╚═════════════════════════╝\n";
-  } else if (nombreTours == TURN) {
-    devoilerCarte(plateau, deck, nombreTours);
-    //TODO depiler(deck);
-    std::cout << "╔═════════════════════════╗\n";
-    std::cout << "║          TURN           ║\n";
-    std::cout << "╚═════════════════════════╝\n";
-  } else {
-    devoilerCarte(plateau, deck, nombreTours);
-    //TODO depiler(deck);
-    std::cout << "╔═════════════════════════╗\n";
-    std::cout << "║          RIVER          ║\n";
-    std::cout << "╚═════════════════════════╝\n";
-  }
+   switch (nombreTours) {
+     case PREFLOP:
+       distribuerCarte(deck, joueurs, nombreJoueurs);
+       std::cout << "╔═════════════════════════╗\n";
+       std::cout << "║         PREFLOP         ║\n";
+       std::cout << "╚═════════════════════════╝\n";
+       break;
+     case FLOP:
+       //TODO depiler(deck);
+       //  devoilerCarte(board, /*TODO sommet(deck)*/);
+       //TODO depiler(deck);
+       //  devoilerCarte(board, /*TODO sommet(deck)*/);
+       //TODO depiler(deck);
+       std::cout << "╔═════════════════════════╗\n";
+       std::cout << "║          FLOP           ║\n";
+       std::cout << "╚═════════════════════════╝\n";
+       break;
+     case TURN:
+       devoilerCarte(plateau, deck, nombreTours);
+       //TODO depiler(deck);
+       std::cout << "╔═════════════════════════╗\n";
+       std::cout << "║          TURN           ║\n";
+       std::cout << "╚═════════════════════════╝\n";
+       break;
+     case RIVER:
+       devoilerCarte(plateau, deck, nombreTours);
+       //TODO depiler(deck);
+       std::cout << "╔═════════════════════════╗\n";
+       std::cout << "║          RIVER          ║\n";
+       std::cout << "╚═════════════════════════╝\n";
+       break;
+     default:
+     std::cout << "╔═════════════════════════╗\n";
+     std::cout << "║      FIN DE PARTIE      ║\n";
+     std::cout << "╚═════════════════════════╝\n";
+       break;
+   }
 
 
   std::cout << "Board :\n";
