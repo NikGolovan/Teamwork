@@ -27,10 +27,11 @@ private:
 public:
   Carte();
   ~Carte();
-  void setHauteur(int hauteur);
-  void setCouleur(int couleur);
-  std::string getHauteur() const;
   int getCouleur() const;
+  std::string getHauteur() const;
+  void setCouleur(int couleur);
+  void setHauteur(int hauteur);
+  void afficherCarte();
   friend class Deck;
   friend class Joueurs;
 };
@@ -41,8 +42,8 @@ private:
 public:
   Plateau();
   ~Plateau();
-  void setCartesPlateau(Carte carte);
   Carte getCartesPlateau() const;
+  void setCartesPlateau(Carte carte);
 };
 
 class Deck {
@@ -52,47 +53,45 @@ private:
 public:
   Deck();
   ~Deck();
-  void setEstUtilisee(int boolean);
-  int getEstUtilisee() const;
   Carte getCartesDeck() const;
+  int getEstUtilisee() const;
+  void setEstUtilisee(int boolean);
   friend void remplirDeck(Deck deck[]);
 };
 
 class Joueurs {
 private:
   Carte _cartes[DEUX_CARTES_INITIALES];
-  std::string _niveau;
   int _nombreDeCartes;
+  std::string _niveau;
   Carte _boardEtMain[DEUX_CARTES_INITIALES + TAILLE_PLATEAU];
 public:
   Joueurs();
   ~Joueurs();
   Carte getCartes(int indexCarte);
+  std::string getNiveau() const;
   Carte getCartesBoardEtMain(int indexCarte);
   void setNiveau(std::string niveau);
-  std::string getNiveau() const;
-  void calculerNiveau(Plateau *plateau, int nombreTours);
-  void ajouterCarte(Carte carte);
   void setCartesBoardEtMain(Carte carte, int numCarte);
-  int convertirCarteEnEntier();
-  int convertirPlateauEnEntier(Plateau *plateau, int pos);
-  bool estUnePairePcarte(Plateau *plateau);
-  bool estUnePaireDcarte(Plateau *plateau);
-  bool estDoublePaire(Plateau *plateau);
-  bool estUnBrelan(Plateau *plateau);
-  bool estQuinte(Plateau *plateau);
-  bool estCouleur(Plateau *plateau);
-  bool estFull(Plateau *plateau);
+  void ajouterCarte(Carte carte);
+  void calculerNiveau(Plateau *plateau, int nombreTours);
+  int convertirCartesBoardEtMainEnEntier();
   bool estCarre(Plateau *plateau);
+  bool estFull(Plateau *plateau);
+  bool estCouleur(Plateau *plateau);
+  bool estQuinte(Plateau *plateau);
+  bool estUnBrelan(Plateau *plateau);
+  bool estDoublePaire(Plateau *plateau);
+  bool estUnePaireDcarte(Plateau *plateau);
+  bool estUnePairePcarte(Plateau *plateau);
 };
 
-void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours);
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs);
-int sommet(Carte deck[]);
 void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreTours);
+//int sommet(Carte deck[]);
 Carte tirerCarte(Deck deck[]);
-void afficherCarte(Carte carte);
 void afficherBoard(Plateau *plateau, int nombreTours);
+void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours);
 
 bool operator==(const Carte&, const Carte&);
 std::ostream& operator<<(std::ostream&, const Carte&);
