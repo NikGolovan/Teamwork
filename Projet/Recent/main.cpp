@@ -1,4 +1,4 @@
-#include "poker_holdem.cpp"
+#include "poker_holdem.hpp"
 
 int main(int argc, char const *argv[]) {
   Deck deck[TAILLE_DECK];
