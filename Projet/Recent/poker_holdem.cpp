@@ -480,6 +480,7 @@ void devoilerCarte(Plateau *plateau, Deck deck[], int nombreTours) {
        std::cout << "╚═════════════════════════╝\n";
        break;
      case FLOP:
+       devoilerCarte(plateau, deck, nombreTours);
        //TODO depiler(deck);
        //  devoilerCarte(board, /*TODO sommet(deck)*/);
        //TODO depiler(deck);
