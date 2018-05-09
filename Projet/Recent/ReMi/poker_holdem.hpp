@@ -75,15 +75,14 @@ public:
   void setCartesBoardEtMain(Carte carte, int numCarte);
   void ajouterCarte(Carte carte);
   int convertirCartesBoardEtMainEnEntier();
-  bool estCarre(Plateau *plateau);
-  bool estFull(Plateau *plateau);
-  bool estCouleur(Plateau *plateau);
-  bool estQuinte(Plateau *plateau);
-  bool estUnBrelan(Plateau *plateau);
-  bool estDoublePaire(Plateau *plateau);
-  bool estUnePaireDcarte(Plateau *plateau);
-  bool estUnePairePcarte(Plateau *plateau);
-  void calculerNiveau(Plateau *plateau, int nombreTours);
+  bool estCarre(int nombreTours);
+  bool estFull(int nombreTours);
+  bool estCouleur(int nombreTours);
+  bool estQuinte(int nombreTours);
+  bool estUnBrelan(int nombreTours);
+  bool estDoublePaire(int nombreTours);
+  bool estUnePaire(int nombreTours);
+  void calculerNiveau(int nombreTours);
 };
 
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs);
