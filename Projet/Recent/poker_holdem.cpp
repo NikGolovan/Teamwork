@@ -474,9 +474,9 @@ void devoilerCarte(Plateau *plateau, Deck deck[], int nombreTours) {
 
    if (nombreTours == PREFLOP) {
     distribuerCarte(deck, joueurs, nombreJoueurs);
-    std::cout << "===========================\n";
-    std::cout << "\t PREFLOP\n";
-    std::cout << "===========================\n";
+    std::cout << "╔═════════════════════════╗\n";
+    std::cout << "║         PREFLOP         ║\n";
+    std::cout << "╚═════════════════════════╝\n";
   } else if (nombreTours == FLOP) {
     devoilerCarte(plateau, deck, nombreTours);
     //TODO depiler(deck);
@@ -484,21 +484,21 @@ void devoilerCarte(Plateau *plateau, Deck deck[], int nombreTours) {
     //TODO depiler(deck);
   //  devoilerCarte(board, /*TODO sommet(deck)*/);
     //TODO depiler(deck);
-    std::cout << "===========================\n";
-    std::cout << "\t FLOP\n";
-    std::cout << "===========================\n";
+    std::cout << "╔═════════════════════════╗\n";
+    std::cout << "║          FLOP           ║\n";
+    std::cout << "╚═════════════════════════╝\n";
   } else if (nombreTours == TURN) {
     devoilerCarte(plateau, deck, nombreTours);
     //TODO depiler(deck);
-    std::cout << "===========================\n";
-    std::cout << "\t TURN\n";
-    std::cout << "===========================\n";
+    std::cout << "╔═════════════════════════╗\n";
+    std::cout << "║          TURN           ║\n";
+    std::cout << "╚═════════════════════════╝\n";
   } else {
     devoilerCarte(plateau, deck, nombreTours);
     //TODO depiler(deck);
-    std::cout << "===========================\n";
-    std::cout << "\t RIVER\n";
-    std::cout << "===========================\n";
+    std::cout << "╔═════════════════════════╗\n";
+    std::cout << "║          RIVER          ║\n";
+    std::cout << "╚═════════════════════════╝\n";
   }
 
 
