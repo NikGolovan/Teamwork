@@ -36,5 +36,7 @@
 #define QUINTE_FLUSH_ROYALE "Quinte flush royale "
 
 #define ERREUR_JOUEURS_EST_NULL "Jouers est NULL"
+#define ERREUR_DEVOILER_CARTE "La carte ne peut pas etre mise sur le plateau"
+#define ERREUR_PLATEAU_NULL "Le plateau vaut NULL"
 
 #endif
