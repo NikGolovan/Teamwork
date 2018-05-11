@@ -2,54 +2,25 @@
 
 using namespace std;
 
-
 bool Joueurs::estQuinteFlush(int nombreTours) {
+  std::cout << "/* message */" << '\n';
   int compteur = 1;
-  int tabCarreau[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
-  int tabCoeur[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
-  int tabPique[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
-  int tabTrefle[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
+  Carte tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {};
   int j = 0;
   bool suivi = true;
 
   switch (nombreTours) {
-    case PREFLOP:
-      for (int i = 0; i < DEUX_CARTES_INITIALES; i++) {
-        switch (getCartesBoardEtMain(i)._couleur) {
-          case 0:
-            tabCarreau[i] = getCartesBoardEtMain(i)._hauteur;
-            break;
-          case 1:
-            break;
-          case 2:
-            break;
-          default:
-            break;
-        }
-      }
-
-      trierTableauPourQuinte(tab);
-
-      while (j < DEUX_CARTES_INITIALES - 1 && suivi) {
-        if (tab[j] == tab[j + 1] - 1) {
-          compteur++;
-        } else if (tab[j] != tab[j + 1]) {
-          suivi = false;
-        }
-        j++;
-      }
-      break;
     case FLOP:
       for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
+        tab[i] = getCartesBoardEtMain(i);
       }
 
       trierTableauPourQuinte(tab);
 
       while (j < DEUX_CARTES_INITIALES + 2 && suivi) {
-        if (tab[j] == tab[j + 1] - 1) {
+        if ((tab[j]._hauteur == tab[j + 1]._hauteur - 1) && (tab[j]._couleur == tab[j + 1]._couleur)) {
           compteur++;
-        } else if (tab[j] != tab[j + 1]) {
+        } else if (tab[j]._hauteur != tab[j + 1]._hauteur) {
           suivi = false;
         }
         j++;
@@ -57,15 +28,15 @@ bool Joueurs::estQuinteFlush(int nombreTours) {
       break;
     case TURN:
       for (int i = 0; i < DEUX_CARTES_INITIALES + 4; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
+        tab[i] = getCartesBoardEtMain(i);
       }
 
       trierTableauPourQuinte(tab);
 
       while (j < DEUX_CARTES_INITIALES + 3 && suivi) {
-        if (tab[j] == tab[j + 1] - 1) {
+        if ((tab[j]._hauteur == tab[j + 1]._hauteur - 1) && (tab[j]._couleur == tab[j + 1]._couleur)) {
           compteur++;
-        } else if (tab[j] != tab[j + 1]) {
+        } else if (tab[j]._hauteur != tab[j + 1]._hauteur) {
           suivi = false;
         }
         j++;
@@ -74,15 +45,15 @@ bool Joueurs::estQuinteFlush(int nombreTours) {
     default:
 
       for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
+        tab[i] = getCartesBoardEtMain(i);
       }
 
       trierTableauPourQuinte(tab);
 
       while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
-        if (tab[j] == tab[j + 1] - 1) {
+        if ((tab[j]._hauteur == tab[j + 1]._hauteur - 1) && (tab[j]._couleur == tab[j + 1]._couleur)) {
           compteur++;
-        } else if (tab[j] != tab[j + 1]) {
+        } else if (tab[j]._hauteur != tab[j + 1]._hauteur) {
           suivi = false;
         }
         j++;
@@ -96,6 +67,7 @@ bool Joueurs::estQuinteFlush(int nombreTours) {
   else
     return false;
 }
+
 
 // TODO: ameliorer carre
 bool Joueurs::estCarre(int nombreTours) {
