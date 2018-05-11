@@ -35,6 +35,6 @@
 #define QUINTE_FLUSH "Quinte flush hauteur "
 #define QUINTE_FLUSH_ROYALE "Quinte flush royale "
 
-#define ERREUR_CARTE_EGAL_MOINS_UN "Carte vaut -1"
+#define ERREUR_JOUEURS_EST_NULL "Jouers est NULL"
 
 #endif

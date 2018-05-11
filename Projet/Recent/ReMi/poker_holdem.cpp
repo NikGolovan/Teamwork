@@ -218,25 +218,37 @@ void Joueurs::setCartesBoardEtMain(Carte carte, int numCarte) {
 void Joueurs::ajouterCarte(Carte carte) {
   if (_cartes[0].getHauteur() == "-1") {
     _cartes[0].setHauteur(carte._hauteur);
-    _cartes[0].setCouleur(2);
+    _cartes[0].setCouleur(carte._couleur);
     _boardEtMain[0].setHauteur(carte._hauteur);
-    _boardEtMain[0].setCouleur(2);
+    _boardEtMain[0].setCouleur(carte._couleur);
   } else {
     _cartes[1].setHauteur(carte._hauteur);
-    _cartes[1].setCouleur(2);
+    _cartes[1].setCouleur(carte._couleur);
     _boardEtMain[1].setHauteur(carte._hauteur);
-    _boardEtMain[1].setCouleur(2);
+    _boardEtMain[1].setCouleur(carte._couleur);
   }
 }
 
-int Joueurs::convertirCartesBoardEtMainEnEntier() {
-  string carteChaine = getCartes(0).getHauteur();
+int Joueurs::convertirCartesBoardEtMainEnEntier(int indexCarte) {
 
-  stringstream convertir(carteChaine);
-  int carteEntier = 0;
-  convertir >> carteEntier;
+  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
 
-  return(carteEntier);
+
+  string tmp = getCartesBoardEtMain(indexCarte).getHauteur();
+
+  if (tmp == AS)
+    tmp = "1";
+  else if (tmp == ROI)
+    tmp = "13";
+  else if (tmp == DAME)
+    tmp = "12";
+  else if (tmp == VALET)
+    tmp = "11";
+
+  stringstream convertir(tmp);
+  convertir >> tab[indexCarte];
+
+  return(tab[indexCarte]);
 }
 
 // TODO: ameliorer carre
@@ -398,6 +410,18 @@ bool Joueurs::estCouleur(int nombreTours) {
     return false;
 }
 
+void trierTableauPourQuinte(int tab[]) {
+  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
+    for (int j = 0; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - i - 1; j++) {
+      if (tab[j] > tab[j + 1]) {
+        int temp = tab[j];
+        tab[j] = tab[j + 1];
+        tab[j + 1] = temp;
+      }
+    }
+  }
+}
+
 // TODO: faire quinte pour deuxieme main
 bool Joueurs::estQuinte(int nombreTours) {
 
@@ -417,25 +441,28 @@ bool Joueurs::estQuinte(int nombreTours) {
   }
 
   int compteur = 0;
-  int tab[TAILLE_PLATEAU] = {0, 0, 0, 0, 0};
-  string carteChaine;
-  int carteEntier = 0;
+  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
 
-  carteEntier = convertirCartesBoardEtMainEnEntier();
-
-  for (int i = 0; i < TAILLE_PLATEAU; i++) {
-    tab[i] = convertirCartesBoardEtMainEnEntier();
+  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
+    tab[i] = convertirCartesBoardEtMainEnEntier(i);
   }
 
-  for (int i = 0; i < TAILLE_PLATEAU; i++) {
-    if ((carteEntier) == tab[i+1])
-    compteur++;
-  }
+  trierTableauPourQuinte(tab);
+
+  /*int i = 0;
+  bool suivi = true;
+  while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && suivi) {
+    if ((tab[i] != tab[i + 1] + 1) && (tab[i] != tab[i + 1])) {
+      suivi = false;
+    } else if (tab[i] == tab[i + 1] + 1) {
+      compteur++;
+    }
+  }*/
 
   if (compteur == 5)
-  return true;
+    return true;
   else
-  return false;
+    return false;
 }
 
 bool Joueurs::estUnBrelan(int nombreTours) {
@@ -570,9 +597,9 @@ void Joueurs::calculerNiveau(int nombreTours) {
     _niveau = FULL;
   else*/
   if (estCouleur(nombreTours))
-    _niveau = COULEUR; //TODO: il affiche toujours la premiere carte pour la couleur
-    /*else if (estQuinte(nombreTours))
-    _niveau = QUINTE;*/
+    _niveau = COULEUR; 
+  else if (estQuinte(nombreTours))
+    _niveau = QUINTE;
   else if (estUnBrelan(nombreTours))
     _niveau = BRELAN;
   else if (estDoublePaire(nombreTours))
@@ -614,20 +641,20 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJo
   switch (nombreTours) {
     case FLOP:
       for (int i = 0; i < 3; i++) {
-        plateau[i].setCartesPlateau(test);
+        plateau[i].setCartesPlateau(tirerCarte(deck));
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[i].getCartesPlateau(), i);
         }
       }
       break;
     case TURN:
-      plateau[3].setCartesPlateau(test);
+      plateau[3].setCartesPlateau(tirerCarte(deck));
       for (int j = 0; j < nombreJoueurs; j++) {
         joueurs[j].setCartesBoardEtMain(plateau[3].getCartesPlateau(), 3);
       }
       break;
     case RIVER:
-      plateau[4].setCartesPlateau(test2);
+      plateau[4].setCartesPlateau(tirerCarte(deck));
       for (int j = 0; j < nombreJoueurs; j++) {
         joueurs[j].setCartesBoardEtMain(plateau[4].getCartesPlateau(), 4);
       }
@@ -661,6 +688,35 @@ void afficherBoard(Plateau *plateau, int nombreTours) {
       cout << "aucune carte" << endl;
       break;
   }
+}
+
+void Joueurs::afficherCartesBoardEtMain(Joueurs *joueurs, int nombreTours) {
+  switch (nombreTours) {
+    case PREFLOP:
+      for (int j = 0; j < 2; j++) {
+        this->getCartesBoardEtMain(j).afficherCarte();
+        std::cout << " ";
+      }
+      break;
+    case FLOP:
+    for (int j = 0; j < 5; j++) {
+      this->getCartesBoardEtMain(j).afficherCarte();
+      std::cout << " ";
+      }
+      break;
+    case TURN:
+    for (int j = 0; j < 6; j++) {
+      this->getCartesBoardEtMain(j).afficherCarte();
+      std::cout << " ";
+      }
+      break;
+    default:
+    for (int j = 0; j < 7; j++) {
+      this->getCartesBoardEtMain(j).afficherCarte();
+      std::cout << " ";
+      }
+      break;
+    }
 }
 
 void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours) {
@@ -718,10 +774,7 @@ void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, in
     std::cout << endl;
     //TODO faire une fonction
     std::cout << "avec le board : ";
-    for (int j = 0; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 3 + nombreTours; j++) {
-      joueurs[i].getCartesBoardEtMain(j).afficherCarte();
-      std::cout << " ";
-    }
+    joueurs[i].afficherCartesBoardEtMain(joueurs, nombreTours);
     std::cout << endl;
     joueurs[i].calculerNiveau(nombreTours);
     std::cout << joueurs[i].getNiveau() << '\n';

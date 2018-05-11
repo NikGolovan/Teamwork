@@ -74,7 +74,8 @@ public:
   void setNiveau(std::string niveau);
   void setCartesBoardEtMain(Carte carte, int numCarte);
   void ajouterCarte(Carte carte);
-  int convertirCartesBoardEtMainEnEntier();
+  void afficherCartesBoardEtMain(Joueurs *joueurs, int nombreTours);
+  int convertirCartesBoardEtMainEnEntier(int indexCarte);
   bool estCarre(int nombreTours);
   bool estFull(int nombreTours);
   bool estCouleur(int nombreTours);
@@ -91,6 +92,7 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreTo
 Carte tirerCarte(Deck deck[]);
 void afficherBoard(Plateau *plateau, int nombreTours);
 void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours);
+void trierTableauPourQuinte(int tab[]);
 
 bool operator==(const Carte&, const Carte&);
 std::ostream& operator<<(std::ostream&, const Carte&);
