@@ -243,9 +243,13 @@ void trierTableauPourQuinte(int tab[]) {
 }
 
 void Joueurs::calculerNiveau(int nombreTours) {
-/*  if (estCarre(nombreTours))
+  /*if (estQuinteFlushRoyale(nombreTours))
+    _niveau = QUINTE_FLUSH_ROYALE;
+  else */if (estQuinteFlush(nombreTours))
+    _niveau = QUINTE_FLUSH;
+  /*else if (estCarre(nombreTours))
     _niveau = CARRE;*/
-  if (estFull(nombreTours))
+  else if (estFull(nombreTours))
     _niveau = FULL;
   else if (estCouleur(nombreTours))
     _niveau = COULEUR;
@@ -256,7 +260,6 @@ void Joueurs::calculerNiveau(int nombreTours) {
   else if (estDoublePaire(nombreTours))
     _niveau = DOUBLE_PAIR; // TODO: ajouter + " et de " +
   else if (estUnePaire(nombreTours))
-
     _niveau = PAIRE;
   else
     _niveau = CARTE_HAUTE;
