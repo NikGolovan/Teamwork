@@ -230,28 +230,6 @@ void Joueurs::ajouterCarte(Carte carte) {
   }
 }
 
-int Joueurs::convertirCartesBoardEtMainEnEntier(int indexCarte) {
-
-  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
-
-
-  string tmp = getCartesBoardEtMain(indexCarte).getHauteur();
-
-  if (tmp == AS)
-    tmp = "1";
-  else if (tmp == ROI)
-    tmp = "13";
-  else if (tmp == DAME)
-    tmp = "12";
-  else if (tmp == VALET)
-    tmp = "11";
-
-  stringstream convertir(tmp);
-  convertir >> tab[indexCarte];
-
-  return(tab[indexCarte]);
-}
-
 void trierTableauPourQuinte(int tab[]) {
   for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
     for (int j = 0; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - i - 1; j++) {
@@ -266,11 +244,10 @@ void trierTableauPourQuinte(int tab[]) {
 
 void Joueurs::calculerNiveau(int nombreTours) {
 /*  if (estCarre(nombreTours))
-    _niveau = CARRE;
-  else if (estFull(nombreTours))
+    _niveau = CARRE;*/
+  if (estFull(nombreTours))
     _niveau = FULL;
-  else*/
-  if (estCouleur(nombreTours))
+  else if (estCouleur(nombreTours))
     _niveau = COULEUR;
   else if (estQuinte(nombreTours))
     _niveau = QUINTE;
@@ -290,6 +267,11 @@ void Joueurs::calculerNiveau(int nombreTours) {
 /*---------------------------------------------*/
 
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs) {
+  Carte test;
+
+  test.setHauteur(1);
+  test.setCouleur(3);
+
   for (int j = 0; j < 2; j++) {
     for (int i = 0; i < nombreJoueurs; i++) {
       joueurs[i].ajouterCarte(tirerCarte(deck));
@@ -301,30 +283,30 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJo
   Carte test;
   Carte test2;
 
-  test.setHauteur(3);
+  test.setHauteur(1);
   test.setCouleur(2);
 
   test2.setHauteur(5);
-  test2.setCouleur(3);
+  test2.setCouleur(2);
 
   try {
     switch (nombreTours) {
       case FLOP:
         for (int i = 0; i < 3; i++) {
-          plateau[i].setCartesPlateau(tirerCarte(deck));
+          plateau[i].setCartesPlateau(test);
           for (int j = 0; j < nombreJoueurs; j++) {
             joueurs[j].setCartesBoardEtMain(plateau[i].getCartesPlateau(), i);
           }
         }
         break;
       case TURN:
-        plateau[3].setCartesPlateau(tirerCarte(deck));
+        plateau[3].setCartesPlateau(test2);
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[3].getCartesPlateau(), 3);
         }
         break;
       case RIVER:
-        plateau[4].setCartesPlateau(tirerCarte(deck));
+        plateau[4].setCartesPlateau(test2);
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[4].getCartesPlateau(), 4);
         }
@@ -413,25 +395,18 @@ void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, in
       break;
     case FLOP:
       devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
-      //TODO depiler(deck);
-      //devoilerCarte(board, /*TODO sommet(deck)*/);
-      //TODO depiler(deck);
-      //devoilerCarte(board, /*TODO sommet(deck)*/);
-      //TODO depiler(deck);
       std::cout << "╔═════════════════════════╗\n";
       std::cout << "║          FLOP           ║\n";
       std::cout << "╚═════════════════════════╝\n";
       break;
      case TURN:
       devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
-      //TODO depiler(deck);
       std::cout << "╔═════════════════════════╗\n";
       std::cout << "║          TURN           ║\n";
       std::cout << "╚═════════════════════════╝\n";
       break;
      case RIVER:
       devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
-      //TODO depiler(deck);
       std::cout << "╔═════════════════════════╗\n";
       std::cout << "║          RIVER          ║\n";
       std::cout << "╚═════════════════════════╝\n";
@@ -442,7 +417,6 @@ void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, in
       std::cout << "╚═════════════════════════╝\n";
       break;
    }
-
 
   std::cout << "Board :\n";
   afficherBoard(plateau, nombreTours);
