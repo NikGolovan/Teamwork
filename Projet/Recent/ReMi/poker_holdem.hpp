@@ -75,6 +75,7 @@ public:
   void ajouterCarte(Carte carte);
   void afficherCartesBoardEtMain(Joueurs *joueurs, int nombreTours);
   int convertirCartesBoardEtMainEnEntier(int indexCarte);
+  bool estQuinteFlush(int nombreTours);
   bool estCarre(int nombreTours);
   bool estFull(int nombreTours);
   bool estCouleur(int nombreTours);
