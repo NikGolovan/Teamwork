@@ -12,7 +12,6 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <time.h>
-#include <typeinfo>
 
 /*
   Prédéfinition des classes Deck && Joueurs
@@ -88,7 +87,6 @@ public:
 
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs);
 void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreTours);
-//int sommet(Carte deck[]);
 Carte tirerCarte(Deck deck[]);
 void afficherBoard(Plateau *plateau, int nombreTours);
 void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours);
