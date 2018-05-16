@@ -47,9 +47,6 @@ int Carte::getCouleur() const {
 */
 string Carte::getHauteur() const {
   switch (_hauteur) {
-    case 1:
-      return(AS);
-      break;
     case 11:
       return(VALET);
       break;
@@ -58,6 +55,9 @@ string Carte::getHauteur() const {
       break;
     case 13:
       return(ROI);
+      break;
+    case 14:
+      return(AS);
       break;
     default:
       /* La fonction qui converti hauteur en chaîne de caractères
@@ -213,7 +213,7 @@ void remplirDeck(Deck deck[]) {
   /* couleurs */
   for (int i = 0; i < 4; i++) {
     /* hauteurs */
-    for (int j = 1; j < 14; j++) {
+    for (int j = 2; j < 15; j++) {
       /* initialisation */
       deck[k]._carte.setHauteur(j);
       deck[k]._carte.setCouleur(i);
@@ -245,7 +245,7 @@ Carte tirerCarte(Deck deck[]) {
     /* contient couleur aléatoire  */
     int tmpRandCouleur = rand() % 4;
     /* contient hauteur aléatoire  */
-    int tmpRandHauteur = rand() % 13 + 1;
+    int tmpRandHauteur = rand() % 13 + 2;
 
     if (!deck[tmpRandHauteur].getEstUtilisee()) {
       /* affectation de la couleur */
