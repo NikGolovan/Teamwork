@@ -1,4 +1,4 @@
-#include "poker_holdem.cpp"
+#include "poker_holdem.hpp"
 
 using namespace std;
 
