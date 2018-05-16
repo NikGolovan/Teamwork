@@ -60,14 +60,13 @@ bool Joueurs::estFull(int nombreTours) {
     case FLOP:
       if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
         estFullBooleen = true;
-      cout <<  estUnBrelan(nombreTours) << " " << estDoublePaire(nombreTours) << endl;
       break;
     case TURN:
-    if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
-      estFullBooleen = true;
-    cout <<  estUnBrelan(nombreTours) << " " << estDoublePaire(nombreTours) << endl;
+      if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
+        estFullBooleen = true;
     case RIVER:
-      cout <<  estUnBrelan(nombreTours) << " " <<  estDoublePaire(nombreTours) << endl;
+      if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
+        estFullBooleen = true;
       break;
     default:
       break;
@@ -131,7 +130,7 @@ bool Joueurs::estCouleur(int nombreTours) {
 
 bool Joueurs::estQuinte(int nombreTours) {
   int compteur = 1;
-  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
+  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
   int j = 0;
   bool suivi = true;
 
@@ -223,58 +222,76 @@ bool Joueurs::estUnBrelan(int nombreTours) {
       }
       break;
   }
-  return(compteur == 3);
+  return(compteur >= 3);
 }
 
 bool Joueurs::estDoublePaire(int nombreTours) {
   int compteur = 0;
   int i = 0;
-  int interdit = -1;
+  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
 
   switch (nombreTours) {
     case FLOP:
+      for (i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
+        tab[i] = getCartesBoardEtMain(i)._hauteur;
+      }
+
+      trierTableauPourQuinte(tab);
+
+      for (i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
+      }
+
+      i = 0;
       while (i < DEUX_CARTES_INITIALES + 2) {
-        if (i != interdit) {
-          for (int j = i + 1; j < DEUX_CARTES_INITIALES + 3; j++) {
-            if (j != interdit && getCartesBoardEtMain(i) == getCartesBoardEtMain(j)) {
-              if (interdit == -1)
-                interdit = j;
-              compteur++;
-              i++;
-            }
-          }
+        int j = i + 1;
+        while (j < DEUX_CARTES_INITIALES + 3 && tab[i] == tab[j]) {
+          j++;
         }
-        i++;
+        if (j > i + 1) {
+          compteur++;
+          i = j;
+        } else
+          i++;
       }
       break;
     case TURN:
+      for (i = 0; i < DEUX_CARTES_INITIALES + 4; i++) {
+        tab[i] = getCartesBoardEtMain(i)._hauteur;
+      }
+
+      trierTableauPourQuinte(tab);
+
+      i = 0;
       while (i < DEUX_CARTES_INITIALES + 3) {
-        if (i != interdit) {
-          for (int j = i + 1; j < DEUX_CARTES_INITIALES + 4; j++) {
-            if (j != interdit && getCartesBoardEtMain(i) == getCartesBoardEtMain(j)) {
-              if (interdit == -1)
-                interdit = j;
-              compteur++;
-              i++;
-            }
-          }
+        int j = i + 1;
+        while (j < DEUX_CARTES_INITIALES + 4 && tab[i] == tab[j]) {
+          j++;
         }
-        i++;
+        if (j > i + 1) {
+          compteur++;
+          i = j;
+        } else
+          i++;
       }
       break;
     case RIVER:
-      while (i < DEUX_CARTES_INITIALES + 4) {
-        if (i != interdit) {
-          for (int j = i + 1; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; j++) {
-            if (j != interdit && getCartesBoardEtMain(i) == getCartesBoardEtMain(j)) {
-              if (interdit == -1)
-                interdit = j;
-              compteur++;
-              i++;
-            }
-          }
+      for (i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
+        tab[i] = getCartesBoardEtMain(i)._hauteur;
+      }
+
+      trierTableauPourQuinte(tab);
+
+      i = 0;
+      while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1) {
+        int j = i + 1;
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && tab[i] == tab[j]) {
+          j++;
         }
-        i++;
+        if (j > i + 1) {
+          compteur++;
+          i = j;
+        } else
+          i++;
       }
       break;
   }
@@ -293,7 +310,7 @@ bool Joueurs::estUnePaire(int nombreTours) {
     case PREFLOP:
       for (int i = 0; i < DEUX_CARTES_INITIALES - 1; i++) {
         for (int j = i + 1; j < DEUX_CARTES_INITIALES; j++) {
-          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j)) 
+          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
               estPaire = true;
           }
       }
