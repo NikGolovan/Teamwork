@@ -2,6 +2,217 @@
 
 using namespace std;
 
+bool Joueurs::estQuinteFlush(int nombreTours) {
+  int compteur = 1;
+  int ca[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
+  int carreau = 0;
+  int co[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
+  int coeur = 0;
+  int p[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
+  int pique = 0;
+  int t[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
+  int trefle = 0;
+  int j = 0;
+  bool suivi = true;
+
+  switch (nombreTours) {
+    case FLOP:
+
+      for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
+        if (getCartesBoardEtMain(i).getCouleur() == 0) {
+          ca[carreau] = getCartesBoardEtMain(i)._hauteur;
+          carreau++;
+        } else if (getCartesBoardEtMain(i).getCouleur() == 1) {
+          co[coeur] = getCartesBoardEtMain(i)._hauteur;
+          coeur++;
+        } else if (getCartesBoardEtMain(i).getCouleur() == 2) {
+          p[pique] = getCartesBoardEtMain(i)._hauteur;
+          pique++;
+        } else {
+          t[trefle] = getCartesBoardEtMain(i)._hauteur;
+          trefle++;
+        }
+      }
+
+      trierTableau(ca);
+      trierTableau(co);
+      trierTableau(p);
+      trierTableau(t);
+
+
+      if (carreau >= 5) {
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+          if (ca[j] == ca[j + 1] - 1) {
+            compteur++;
+          } else if (ca[j] != ca[j + 1]) {
+            suivi = false;
+          }
+          j++;
+        }
+      } else if (coeur >= 5) {
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+          if (co[j] == co[j + 1] - 1) {
+            compteur++;
+          } else if (co[j] != co[j + 1]) {
+            suivi = false;
+          }
+          j++;
+        }
+      } else if (pique >= 5) {
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+          if (p[j] == p[j + 1] - 1) {
+            compteur++;
+          } else if (p[j] != p[j + 1]) {
+            suivi = false;
+          }
+          j++;
+        }
+      } else if (trefle >= 5){
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+          if (t[j] == t[j + 1] - 1) {
+            compteur++;
+          } else if (t[j] != t[j + 1]) {
+            suivi = false;
+          }
+          j++;
+        }
+      }
+
+      break;
+    case TURN:
+      for (int i = 0; i < DEUX_CARTES_INITIALES + 4; i++) {
+        if (getCartesBoardEtMain(i).getCouleur() == 0) {
+          ca[carreau] = getCartesBoardEtMain(i)._hauteur;
+          carreau++;
+        } else if (getCartesBoardEtMain(i).getCouleur() == 1) {
+          co[coeur] = getCartesBoardEtMain(i)._hauteur;
+          coeur++;
+        } else if (getCartesBoardEtMain(i).getCouleur() == 2) {
+          p[pique] = getCartesBoardEtMain(i)._hauteur;
+          pique++;
+        } else {
+          t[trefle] = getCartesBoardEtMain(i)._hauteur;
+          trefle++;
+        }
+      }
+
+      trierTableau(ca);
+      trierTableau(co);
+      trierTableau(p);
+      trierTableau(t);
+
+
+      if (carreau >= 5) {
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+          if (ca[j] == ca[j + 1] - 1) {
+            compteur++;
+          } else if (ca[j] != ca[j + 1]) {
+            suivi = false;
+          }
+          j++;
+        }
+      } else if (coeur >= 5) {
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+          if (co[j] == co[j + 1] - 1) {
+            compteur++;
+          } else if (co[j] != co[j + 1]) {
+            suivi = false;
+          }
+          j++;
+        }
+      } else if (pique >= 5) {
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+          if (p[j] == p[j + 1] - 1) {
+            compteur++;
+          } else if (p[j] != p[j + 1]) {
+            suivi = false;
+          }
+          j++;
+        }
+      } else if (trefle >= 5){
+        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+          if (t[j] == t[j + 1] - 1) {
+            compteur++;
+          } else if (t[j] != t[j + 1]) {
+            suivi = false;
+          }
+          j++;
+        }
+      }
+
+      break;
+    case RIVER:
+
+
+      for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
+        if (getCartesBoardEtMain(i).getCouleur() == 0) {
+          ca[carreau] = getCartesBoardEtMain(i)._hauteur;
+          carreau++;
+        } else if (getCartesBoardEtMain(i).getCouleur() == 1) {
+          co[coeur] = getCartesBoardEtMain(i)._hauteur;
+          coeur++;
+        } else if (getCartesBoardEtMain(i).getCouleur() == 2) {
+          p[pique] = getCartesBoardEtMain(i)._hauteur;
+          pique++;
+        } else {
+          t[trefle] = getCartesBoardEtMain(i)._hauteur;
+          trefle++;
+        }
+      }
+
+      trierTableau(ca);
+      trierTableau(co);
+      trierTableau(p);
+      trierTableau(t);
+
+
+        if (carreau >= 5) {
+          while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+            if (ca[j] == ca[j + 1] - 1) {
+              compteur++;
+            } else if (ca[j] != ca[j + 1]) {
+              suivi = false;
+            }
+            j++;
+          }
+        } else if (coeur >= 5) {
+          while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+            if (co[j] == co[j + 1] - 1) {
+              compteur++;
+            } else if (co[j] != co[j + 1]) {
+              suivi = false;
+            }
+            j++;
+          }
+        } else if (pique >= 5) {
+          while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+            if (p[j] == p[j + 1] - 1) {
+              compteur++;
+            } else if (p[j] != p[j + 1]) {
+              suivi = false;
+            }
+            j++;
+          }
+        } else if (trefle >= 5){
+          while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+            if (t[j] == t[j + 1] - 1) {
+              compteur++;
+            } else if (t[j] != t[j + 1]) {
+              suivi = false;
+            }
+            j++;
+          }
+        }
+
+      break;
+  }
+
+  if (compteur >= 5)
+    return true;
+  else
+    return false;
+}
+
 // TODO: finir fonction et mettre les commentaires
 bool Joueurs::estCarre(int nombreTours) {
 
