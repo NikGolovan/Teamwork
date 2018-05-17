@@ -378,7 +378,7 @@ void Joueurs::ajouterCarte(Carte carte) {
 
   @param int : tableau des cartes.
 */
-void trierTableauPourQuinte(int tab[]) {
+void trierTableau(int tab[]) {
   for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
     for (int j = 0; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - i - 1; j++) {
       if (tab[j] > tab[j + 1] && tab[j] != -1 && tab[j + 1] != -1) {
