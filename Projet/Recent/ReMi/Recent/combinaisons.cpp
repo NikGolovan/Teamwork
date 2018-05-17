@@ -1,557 +1,710 @@
+/*
+  poker_holdem.cpp
+  Ce fichier consiste des fonctions générales et des constructeurs des classes
+  @auteurs : GOLOVAN Mykola && LACROIX Rémi
+*/
+
 #include "poker_holdem.hpp"
+#include "defines.hpp"
 
 using namespace std;
+/*---------------------------------------------*/
+/* Fonctions de la classe Carte                */
+/*---------------------------------------------*/
 
-// TODO: finir fonction et mettre les commentaires
-bool Joueurs::estCarre(int nombreTours) {
-
-  switch (nombreTours) {
-    case FLOP:
-
-      break;
-    case TURN:
-
-      break;
-    case RIVER:
-
-      break;
-  }
-
-  int compteur = 0;
-
-  if (getCartes(0) == getCartes(1)) {
-    compteur -= 1;
-    for (int i = 0; i < TAILLE_PLATEAU; i++) {
-      if (getCartes(0) == getCartesBoardEtMain(i+1))
-      compteur++;
-      // when fourth card is at the end but doesnt work if
-      // we get four card in a row
-      if (i == TAILLE_PLATEAU-1) {
-        for (int i = TAILLE_PLATEAU; i > 0; i--)
-        //if (plateau[TAILLE_PLATEAU].getCartesPlateau() == getCartesBoardEtMain(i))
-        compteur++;
-      }
-    }
-  } else {
-    for (int i = 0; i < TAILLE_PLATEAU; i++) {
-      if (getCartes(0) == getCartesBoardEtMain(i+1))
-      compteur++;
-      // when fourth card is at the end but doesnt work if
-      // we get four card in a row
-      if (i == TAILLE_PLATEAU-1) {
-        for (int i = TAILLE_PLATEAU; i > 0; i--)
-        //if (plateau[TAILLE_PLATEAU].getCartesPlateau() == getCartesBoardEtMain(i))
-        compteur++;
-      }
-    }
-  }
-
-  if (compteur == 3 || compteur == 4)
-  return true;
-  else
-  return false;
+/*
+  Constructeur de la classe Carte.
+  Initialise hauteur et couleur de la carte à -1.
+*/
+Carte::Carte() {
+  _couleur = -1;
+  _hauteur = -1;
 }
 
-// TODO: commentaires
-bool Joueurs::estFull(int nombreTours) {
-  bool estFullBooleen = false;
+/*
+  Destructeur de la classe Carte.
+  Initialise hauteur et couleur de la carte à -1,
+  ce que simule la destruction.
+*/
+Carte::~Carte() {
+  _couleur = -1;
+  _hauteur = -1;
+}
 
-  switch (nombreTours) {
-    case FLOP:
-      if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
-        estFullBooleen = true;
+/*
+  Le getteur de la class carte.
+  @return : couleur de la carte.
+*/
+int Carte::getCouleur() const {
+  return(_couleur);
+}
+
+/*
+  Le getteur de la classe Carte.
+  Principe : On vérifie hauteur de la carte,
+  1 vaut AS,  13 vaut ROI, 12 vaut DAME et 11 vaut VALET.
+  @return string : hauteur de la carte.
+*/
+string Carte::getHauteur() const {
+  switch (_hauteur) {
+    case 11:
+      return(VALET);
       break;
-    case TURN:
-      if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
-        estFullBooleen = true;
-    case RIVER:
-      if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
-        estFullBooleen = true;
+    case 12:
+      return(DAME);
+      break;
+    case 13:
+      return(ROI);
+      break;
+    case 14:
+      return(AS);
       break;
     default:
+      /* La fonction qui converti hauteur en chaîne de caractères
+        pour ensuite pouvoir l'afficher dans la console en tant que niveau. */
+      return(to_string(_hauteur));
       break;
   }
-  return(estFullBooleen);
 }
 
-// TODO: commentaires
-bool Joueurs::estCouleur(int nombreTours) {
+/*
+  Le setteur de la classe Carte.
+  Affectue une couleur à une carte.
+  @param int : couleur de la carte.
+*/
+void Carte::setCouleur(int couleur) {
+  _couleur = couleur;
+}
 
-  int carreau = 0;
-  int coeur = 0;
-  int pique = 0;
-  int trefle = 0;
+/*
+  Le setteur de la classe Carte.
+  Affectue une hauteur à une carte.
+  @param int : hauteur de la carte.
+*/
+void Carte::setHauteur(int hauteur) {
+  _hauteur = hauteur;
+}
 
-  switch (nombreTours) {
-    case FLOP:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
-        if (getCartesBoardEtMain(i).getCouleur() == 0) {
-          carreau++;
-        } else if (getCartesBoardEtMain(i).getCouleur() == 1) {
-          coeur++;
-        } else if (getCartesBoardEtMain(i).getCouleur() == 2) {
-          pique++;
-        } else {
-          trefle++;
-        }
-      }
+/*
+  Fonction affiche les cartes de chaque joueur.
+*/
+void Carte::afficherCarte() {
+  cout << getHauteur();
+  cout << _DE_;
+
+  switch (getCouleur()) {
+    case 0:
+      cout << CARREAU;
       break;
-    case TURN:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 4; i++) {
-        if (getCartesBoardEtMain(i).getCouleur() == 0) {
-          carreau++;
-        } else if (getCartesBoardEtMain(i).getCouleur() == 1) {
-          coeur++;
-        } else if (getCartesBoardEtMain(i).getCouleur() == 2) {
-          pique++;
-        } else {
-          trefle++;
-        }
-      }
+    case 1:
+      cout << COEUR;
       break;
-    case RIVER:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 5; i++) {
-        if (getCartesBoardEtMain(i).getCouleur() == 0) {
-          carreau++;
-        } else if (getCartesBoardEtMain(i).getCouleur() == 1) {
-          coeur++;
-        } else if (getCartesBoardEtMain(i).getCouleur() == 2) {
-          pique++;
-        } else {
-          trefle++;
-        }
-      }
+    case 2:
+      cout << PIQUE;
+      break;
+    default:
+      cout << TREFLE;
       break;
   }
-  if (carreau >= 5 || coeur >= 5 || pique >= 5 || trefle >= 5)
-    return true;
-  else
-    return false;
+  cout << " ";
 }
 
-// TODO: commentaires
-bool Joueurs::estQuinte(int nombreTours) {
-  int compteur = 1;
-  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
-  int j = 0;
-  bool suivi = true;
+/*---------------------------------------------*/
+/* Fonctions de la classe Plateau              */
+/*---------------------------------------------*/
 
-  switch (nombreTours) {
-    case FLOP:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
-      }
+/*
+  Constructeur de la classe Plateau.
+  Initialise hauteur et couleur de la carte à -1.
+*/
+Plateau::Plateau() {
+  //_cartes._couleur = -1;
+  //_cartes._hauteur = -1;
+}
 
-      trierTableauPourQuinte(tab);
+/*
+  Destructeur de la classe Plateau.
+  Initialise hauteur et couleur de la carte à -1.
+*/
+Plateau::~Plateau() {
+  //_cartes._couleur = -1;
+  //_cartes._hauteur = -1;
+}
 
-      while (j < DEUX_CARTES_INITIALES + 2 && suivi) {
-        if (tab[j] == tab[j + 1] - 1) {
-          compteur++;
-        } else if (tab[j] != tab[j + 1]) {
-          suivi = false;
-        }
-        j++;
-      }
-      break;
-    case TURN:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 4; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
-      }
+/*
+  Le getteur de la classe Plateau.
+  @return Carte : une carte.
+*/
+Carte Plateau::getCartesPlateau() const {
+  return(_cartes);
+}
 
-      trierTableauPourQuinte(tab);
+/*
+  Le setteur de la classe Plateau.
+  Affectue une carte à une carte de la classe Plateau.
+*/
+void Plateau::setCartesPlateau(Carte carte) {
+  _cartes = carte;
+}
 
-      while (j < DEUX_CARTES_INITIALES + 3 && suivi) {
-        if (tab[j] == tab[j + 1] - 1) {
-          compteur++;
-        } else if (tab[j] != tab[j + 1]) {
-          suivi = false;
-        }
-        j++;
-      }
-      break;
-    case RIVER:
+/*---------------------------------------------*/
+/* Fonctions de la classe Deck                 */
+/*---------------------------------------------*/
 
-      for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
-      }
+/*
+  Constructeur de la classe Deck.
+  Initialise hauteur et couleur de la carte à -1 et booleen à faux.
+*/
+Deck::Deck() {
+  _carte._couleur = -1;
+  _carte._hauteur = -1;
+  _estUtilisee = false;
+}
 
-      trierTableauPourQuinte(tab);
+/*
+  Destructeur de la classe Deck.
+  Initialise hauteur et couleur de la carte à -1 et booleen à faux.
+*/
+Deck::~Deck() {
+  _carte._couleur = -1;
+  _carte._hauteur = -1;
+  _estUtilisee = false;
+}
 
-      while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
-        if (tab[j] == tab[j + 1] - 1) {
-          compteur++;
-        } else if (tab[j] != tab[j + 1]) {
-          suivi = false;
-        }
-        j++;
-      }
-      break;
+/*
+  Le getteur de la classe Deck.
+  @return Carte : une carte.
+*/
+Carte Deck::getCartesDeck() const {
+  return(_carte);
+}
+
+/*
+  Le setteur de la classe Deck.
+  Initialise le booleen.
+  @param booleen : booleen.
+*/
+void Deck::setEstUtilisee(bool boolean) {
+  _estUtilisee = boolean;
+}
+
+/*
+  Le getteur de la classe Deck.
+  @return booleen : un booleen.
+*/
+int Deck::getEstUtilisee() const {
+  return(_estUtilisee);
+}
+
+/*
+  Fonction rempli le deck avec 52 carte.
+  Le booleen d'utilisation de chaque carte mise dans le deck est
+  initialisé à faux car les cartes n'étaient pas encore mises sur plateau.
+
+  Principe : Une variable de type entier k qui sert comme index des cases
+  du tableau et qui incremente à chaque tour des boucles. Première boucle
+  sert pour réinitialiser les couleurs et la deuxième pour les hauters.
+
+  @param Deck : tableau de deck.
+*/
+void remplirDeck(Deck deck[]) {
+  int k = 0;
+
+  /* couleurs */
+  for (int i = 0; i < 4; i++) {
+    /* hauteurs */
+    for (int j = 2; j < 15; j++) {
+      /* initialisation */
+      deck[k]._carte.setHauteur(j);
+      deck[k]._carte.setCouleur(i);
+      deck[k].setEstUtilisee(false);
+      k++;
+    }
   }
-
-  if (compteur >= 5)
-    return true;
-  else
-    return false;
 }
 
-// TODO: commentaires
-bool Joueurs::estUnBrelan(int nombreTours) {
-  int compteur = 0;
+/*
+  Fonction renvoi une carte qui a été tirée du deck de façon aléatoire.
+  Le booleen de chaque carte _estUtilisee est initialisé à vrai.
 
-  switch (nombreTours) {
-    case FLOP:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 2; i++) {
-        for (int j = i + 1; j < DEUX_CARTES_INITIALES + 3; j++) {
-          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-              compteur++;
-        }
-      }
-      break;
-    case TURN:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
-        for (int j = i + 1; j < DEUX_CARTES_INITIALES + 4; j++) {
-          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-            compteur++;
-        }
-      }
-      break;
-    case RIVER:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
-        for (int j = i + 1; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; j++) {
-          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-            compteur++;
-        }
-      }
-      break;
-  }
-  return(compteur >= 3);
-}
+  Principe : Une variable de type carte va prendre une couleur et un hauteur
+  generés de façon aléatoire. Pour éviter de mettre les mêmes cartes sur le
+  plateau, on vérifie si la carte a été déjà prise. Si oui, on continue la boucle
+  tant qu'on n'a pas trové carte non-utilisée. Sinon, on prend la carte et
+  initialise le booleen à vrai.
 
-// TODO: commentaires
-bool Joueurs::estDoublePaire(int nombreTours) {
-  int compteur = 0;
+  @param Deck : tableau de deck.
+  @return Carte : une carte.
+*/
+Carte tirerCarte(Deck deck[]) {
+  Carte carte;
   int i = 0;
-  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
+  /* sert pour sortir de la boucle */
+  int estTiree = false;
 
-  switch (nombreTours) {
-    case FLOP:
-      for (i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
-      }
+  while (!estTiree) {
+    /* contient couleur aléatoire  */
+    int tmpRandCouleur = rand() % 4;
+    /* contient hauteur aléatoire  */
+    int tmpRandHauteur = rand() % 13 + 2;
 
-      trierTableauPourQuinte(tab);
-
-      for (i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
-      }
-
-      i = 0;
-      while (i < DEUX_CARTES_INITIALES + 2) {
-        int j = i + 1;
-        while (j < DEUX_CARTES_INITIALES + 3 && tab[i] == tab[j]) {
-          j++;
-        }
-        if (j > i + 1) {
-          compteur++;
-          i = j;
-        } else
-          i++;
-      }
-      break;
-    case TURN:
-      for (i = 0; i < DEUX_CARTES_INITIALES + 4; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
-      }
-
-      trierTableauPourQuinte(tab);
-
-      i = 0;
-      while (i < DEUX_CARTES_INITIALES + 3) {
-        int j = i + 1;
-        while (j < DEUX_CARTES_INITIALES + 4 && tab[i] == tab[j]) {
-          j++;
-        }
-        if (j > i + 1) {
-          compteur++;
-          i = j;
-        } else
-          i++;
-      }
-      break;
-    case RIVER:
-      for (i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
-      }
-
-      trierTableauPourQuinte(tab);
-
-      i = 0;
-      while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1) {
-        int j = i + 1;
-        while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && tab[i] == tab[j]) {
-          j++;
-        }
-        if (j > i + 1) {
-          compteur++;
-          i = j;
-        } else
-          i++;
-      }
-      break;
-  }
-
-  if (compteur >= 2)
-    return true;
-  else
-    return false;
-}
-
-// TODO: commentaires
-bool Joueurs::estUnePaire(int nombreTours) {
-  bool estPaire = false;
-
-  switch (nombreTours) {
-    case PREFLOP:
-      for (int i = 0; i < DEUX_CARTES_INITIALES - 1; i++) {
-        for (int j = i + 1; j < DEUX_CARTES_INITIALES; j++) {
-          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-              estPaire = true;
-          }
-      }
-      break;
-    case FLOP:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 2; i++) {
-        for (int j = i + 1; j < DEUX_CARTES_INITIALES + 3; j++) {
-          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-              estPaire = true;
-          }
-      }
-      break;
-    case TURN:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
-        for (int j = i + 1; j < DEUX_CARTES_INITIALES + 4; j++) {
-          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-              estPaire = true;
-          }
-      }
-      break;
-    default:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
-        for (int j = i + 1; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; j++) {
-          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-            estPaire = true;
-          }
-      }
-      break;
-  }
-
-  return(estPaire);
-}
-
-string Joueurs::getCarteCarre() {
-
-}
-
-string Joueurs::getCarteFull() {
-
-}
-
-string Joueurs::getCarteDeuxiemeDoublePaire() {
-
-}
-
-string Joueurs::getCartePremiereDoublePaire() {
-
-}
-
-/*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
-  l'afficher dans la console et rejoindre dans le niveau;
-
-  Principe : On compte les couleurs des cartes sur le plateau. Si l'une des
-  couleurs est égale ou supérieur a 5, on renvoi une chaîne de caractères
-  avec la couleur correspondante.
-
-  @return string : une carte.
-*/
-string Joueurs::getCarteCouleur() {
-  int carreau = 0;
-  int coeur = 0;
-  int pique = 0;
-  int trefle = 0;
-
-  /* on compte chaque couleur sur le plateau */
-  for (int i = 0; i < DEUX_CARTES_INITIALES + 5; i++) {
-    if (getCartesBoardEtMain(i).getCouleur() == 0) {
-      carreau++;
-    } else if (getCartesBoardEtMain(i).getCouleur() == 1) {
-      coeur++;
-    } else if (getCartesBoardEtMain(i).getCouleur() == 2) {
-      pique++;
-    } else {
-      trefle++;
+    if (!deck[tmpRandHauteur].getEstUtilisee()) {
+      /* affectation de la couleur */
+      carte.setCouleur(tmpRandCouleur);
+      /* affectation du hauteur */
+      carte.setHauteur(tmpRandHauteur);
+      /* initialisation du booleen à vrai */
+      deck[i].setEstUtilisee(true);
+      estTiree = true;
     }
+    i++;
   }
-  /* on vérifie le résultat */
-  if (carreau >= 5) {
-    return(CARREAU);
-  } else if (coeur >= 5) {
-    return(COEUR);
-  } else if (pique >= 5) {
-    return(PIQUE);
-  } else {
-    return(TREFLE);
-  }
+  return(carte);
 }
 
-string Joueurs::getCarteQuinte() {
-
-}
+/*---------------------------------------------*/
+/* Fonctions de la classe Joueurs              */
+/*---------------------------------------------*/
 
 /*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
-  l'afficher dans la console et rejoindre dans le niveau;
-
-  Principe : On compare directement les cartes dans le board entre elles et
-  dès qu'on trouve une paire, on recopie la position de cette carte. Ensuite,
-  on convertir hauteur de cette carte (en utilisant la positon) en une chaîne
-  de caractères.
-
-  Remarque : Nous n'avons pas fait des vérifications car cettefonction est
-  appelée si et seulement s'il y a un brelan.
-
-  @return string : une carte.
+  Constructeur de la classe Joueurs.
+  Initialise hauteur et couleur de la carte de chaque joueur à -1.
 */
-string Joueurs::getCarteBrelan() {
-  string carteBrelan;
-  int brelan = 0;
-  int positionCarte = 0;
-
-  /* recherche d'une paire */
-  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
-    for (int j = i + 1; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; j++) {
-      if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-        positionCarte = i; /* recopie de la position */
-    }
-  }
-
-  /* convertion en chaîne de caractères */
-  brelan = getCartesBoardEtMain(positionCarte)._hauteur;
-  carteBrelan = to_string(brelan);
-
-  return(carteBrelan);
-}
-
-/*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
-  l'afficher dans la console et rejoindre dans le niveau;
-
-  Principe : Les hauteurs de cartes sont mises dans un tableau. Puis, ce
-  tableau est trié par l'ordre croissant. Ensuite, on prend la carte qui a
-  eu le paire.
-
-  @return string : une carte.
-*/
-string Joueurs::getCartePaire() {
-  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
-  string cartePaire;
-  int tmp = 0;
-
-  /* recopie des hauteurs des cartes dans un tableau */
+Joueurs::Joueurs() {
   for (int i = 0; i < DEUX_CARTES_INITIALES; i++) {
-    tab[i] = getCartesBoardEtMain(i)._hauteur;
+    _cartes[i]._hauteur = -1;
+    _cartes[i]._couleur = -1;
   }
-
-  /* tri du tableau */
-  trierTableauPourQuinte(tab);
-
-  /* convertion en chaîne de caractères */
-  tmp = tab[6];
-  cartePaire = to_string(tmp);
-
-  /* on vérifie le résultat obtenu s'il est supérieur à 10 */
-  if (cartePaire == "14")
-    return(AS);
-  else if (cartePaire == "13")
-    return(ROI);
-  else if (cartePaire == "12")
-    return(DAME);
-  else if (cartePaire == "11")
-    return(VALET);
-  else
-    return cartePaire;
+  _niveau = "vide";
+  _nombreDeCartes = 0;
+  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
+    _boardEtMain[i]._hauteur = -1;
+    _boardEtMain[i]._couleur = -1;
+  }
 }
 
 /*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
-  l'afficher dans la console et rejoindre dans le niveau;
+  Destructeur de la classe Joueurs.
+  Initialise hauteur et couleur de la carte de chaque joueur à -1.
+*/
+Joueurs::~Joueurs() {
+  for (int i = 0; i < DEUX_CARTES_INITIALES; i++) {
+    _cartes[i]._hauteur = -1;
+    _cartes[i]._couleur = -1;
+  }
+  _niveau = "";
+  _nombreDeCartes = 0;
+  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
+    _boardEtMain[i]._hauteur = -1;
+    _boardEtMain[i]._couleur = -1;
+  }
+ }
 
-  Principe : À chaque tour toutes les hauteurs de cartes sont mises dans
-  un tableau. Puis, ce tableau est trié par l'ordre croissant. Ensuite,
-  selon le numéro de tour on prend le dernier valeur du tableau (le plus haut)
-  et on le convertit en une chaîne de caractères. La fonction returne cette
-  chaîne.
+ /*
+   Le getteur de la classe Joueurs.
+
+   @param int : index de la carte.
+   @return Carte : une carte.
+ */
+Carte Joueurs::getCartes(int indexCarte) {
+  return(_cartes[indexCarte]);
+}
+
+/*
+  Le getteur de la classe Joueurs.
+
+  @return string : le niveau de la main du joueur.
+*/
+string Joueurs::getNiveau() const {
+  return(_niveau);
+}
+
+/*
+  Le getteur de la classe Joueurs.
+  Renvoi une carte précise du tableau _boardEtMain.
+
+  @param int : index de la carte.
+  @return Carte : une carte.
+*/
+Carte Joueurs::getCartesBoardEtMain(int indexCarte) {
+  return(_boardEtMain[indexCarte]);
+}
+
+/*
+  Le setteur de la classe Joueurs.
+  Initialise le niveau.
+
+  @param string : le niveau.
+*/
+void Joueurs::setNiveau(string niveau) {
+  _niveau = niveau;
+}
+
+/*
+  Le setteur de la classe Joueurs.
+  Initialise le tableau _boardEtMain pour chaque joueur.
+
+  @param Carte : une carte.
+  @param int : numéro de la carte ou bien index.
+*/
+void Joueurs::setCartesBoardEtMain(Carte carte, int numCarte) {
+  _boardEtMain[numCarte + DEUX_CARTES_INITIALES] = carte;
+}
+
+/*
+  Fonction ajoute une carte à un joueur et en même temps dans le tableau
+  _boardEtMain.
+
+  @param Carte : une carte.
+*/
+void Joueurs::ajouterCarte(Carte carte) {
+  if (_cartes[0].getHauteur() == "-1") {
+    _cartes[0].setHauteur(carte._hauteur);
+    _cartes[0].setCouleur(carte._couleur);
+    _boardEtMain[0].setHauteur(carte._hauteur);
+    _boardEtMain[0].setCouleur(carte._couleur);
+  } else {
+    _cartes[1].setHauteur(carte._hauteur);
+    _cartes[1].setCouleur(carte._couleur);
+    _boardEtMain[1].setHauteur(carte._hauteur);
+    _boardEtMain[1].setCouleur(carte._couleur);
+  }
+}
+
+/*
+  La fonction tri le tableau par ordre croissant.
+
+  Principe : tri par bulle.
+
+  @param int : tableau des cartes.
+*/
+void trierTableau(int tab[]) {
+  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
+    for (int j = 0; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - i - 1; j++) {
+      if (tab[j] > tab[j + 1] && tab[j] != -1 && tab[j + 1] != -1) {
+        int temp = tab[j];
+        tab[j] = tab[j + 1];
+        tab[j + 1] = temp;
+      }
+    }
+  }
+}
+
+/*
+  Fonction calcule le niveau de la main de chaque joueur et ensuite l'affecte
+  aux joueurs.
 
   @param int : nombre de tours.
-  @return string : une carte.
 */
-string Joueurs::getCarteHaute(int nombreTours) {
-  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
-  string carteHaute; /* la chaîne qui va être retourné */
-  int valeurMax = 0; /* va contenir le plus grand entier du tableau */
+void Joueurs::calculerNiveau(int nombreTours) {
+  string carte;
 
+/*  if (estCarre(nombreTours))
+    _niveau = CARRE;*/
+  if (estFull(nombreTours))
+    _niveau = FULL;
+  else if (estCouleur(nombreTours)) {
+    carte = getCarteCouleur();
+     _niveau = COULEUR + carte;
+  } else if (estQuinte(nombreTours))
+    _niveau = QUINTE;
+  else if (estUnBrelan(nombreTours)) {
+    carte = getCarteBrelan();
+    _niveau = BRELAN + carte;
+  } else if (estDoublePaire(nombreTours)) {
+    _niveau = DOUBLE_PAIR; // TODO: ajouter + " et de " +
+  } else if (estUnePaire(nombreTours)) {
+      carte = getCartePaire();
+      _niveau = PAIRE + carte;
+  } else {
+    carte = getCarteHaute(nombreTours);
+    _niveau = CARTE_HAUTE + carte;
+  }
+}
+
+/*---------------------------------------------*/
+/* Fonctions hors des classes                  */
+/*---------------------------------------------*/
+
+/*
+  Fonction distribue 2 cartes à chaque joueur.
+
+  Principe : Première boucle sert pour ne pas dépasser le nombre de cartes pour
+  chaque main, ce que est égal à deux. Deuxième boucle sert pour distribuer
+  les cartes à chaque joueur. Autrement dit, on distribue deux cartes initiales
+  pour chaque joueur.
+
+  @param Deck : tableau de deck.
+  @param Joueurs : joueur.
+  @param int : nombre de tours.
+*/
+void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs) {
+  for (int j = 0; j < 2; j++) {
+    for (int i = 0; i < nombreJoueurs; i++) {
+      /* appel de la fonction tirerCarte(deck) pour tirer aux hazard une carte
+         de deck. */
+      joueurs[i].ajouterCarte(tirerCarte(deck));
+    }
+  }
+}
+
+/*
+  Fonction pour devoiler les cartes sur le plateau.
+
+  Principe : Selon le nombre de tours on affiche les cartes du plateau.
+
+  @param Plateau : plateau.
+  @param Joueurs : un joueur.
+  @param int : nombre de joueurs.
+  @param int : nombre de tours.
+*/
+void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJoueurs, int nombreTours) {
+  Carte test;
+  Carte test2;
+
+  test.setHauteur(1);
+  test.setCouleur(1);
+
+  test2.setHauteur(5);
+  test2.setCouleur(1);
+
+  try {
+    switch (nombreTours) {
+      case FLOP:
+        /* Distribution sur le plateau de 3 cartes */
+        for (int i = 0; i < 3; i++) {
+          plateau[i].setCartesPlateau(tirerCarte(deck));
+          for (int j = 0; j < nombreJoueurs; j++) {
+            joueurs[j].setCartesBoardEtMain(plateau[i].getCartesPlateau(), i);
+          }
+        }
+        break;
+      case TURN:
+        /* Rajoute d'une carte sur le plateau. Nombre total de carte vaut 4 */
+        plateau[3].setCartesPlateau(tirerCarte(deck));
+        for (int j = 0; j < nombreJoueurs; j++) {
+          joueurs[j].setCartesBoardEtMain(plateau[3].getCartesPlateau(), 3);
+        }
+        break;
+      case RIVER:
+        /* Rajoute d'une carte sur le plateau. Nombre total de carte vaut 5 */
+        plateau[4].setCartesPlateau(tirerCarte(deck));
+        for (int j = 0; j < nombreJoueurs; j++) {
+          joueurs[j].setCartesBoardEtMain(plateau[4].getCartesPlateau(), 4);
+        }
+        break;
+      default:
+        break;
+    }
+  } catch (string s) {
+    cout << "Erreur : " << ERREUR_DEVOILER_CARTE << endl;
+  }
+
+}
+
+/*
+  Fonction affiche le plateau de jeu.
+
+  Principe : Selon le nombre de tours on affiche les cartes du plateau.
+
+  @param Plateau : plateau.
+  @param int : nombre de tours.
+*/
+void afficherBoard(Plateau *plateau, int nombreTours) {
+  try {
+    /* Gestion des erreur */
+    if (plateau == NULL) {
+      throw ERREUR_PLATEAU_NULL;
+      exit(-1);
+    }
+    switch (nombreTours) {
+      case FLOP:
+        cout << "3 carte(s) : ";
+        /* Affichage de 3 cartes du plateau */
+        for (int i = 0; i < 3; i++) {
+          plateau[i].getCartesPlateau().afficherCarte();
+        }
+        break;
+      case TURN:
+        cout << "4 carte(s) : ";
+        /* Affichage de 4 cartes du plateau */
+        for (int i = 0; i < 4; i++) {
+          plateau[i].getCartesPlateau().afficherCarte();
+        }
+        break;
+      case RIVER:
+        cout << "5 carte(s) : ";
+        /* Affichage de 5 cartes du plateau */
+        for (int i = 0; i < 5; i++) {
+          plateau[i].getCartesPlateau().afficherCarte();
+        }
+        break;
+      default:
+        /* Pour le PREFLOP il n'y a aucune carte du plateau */
+        cout << "aucune carte" << endl;
+        break;
+    }
+  } catch (string plateau_null) {
+    std::cout << "Erreur : " << plateau_null << endl;
+  }
+}
+
+/*
+  Fonction affiche les cartes de board et de main.
+
+  Principe : Selon le nombre de tours on affiche les cartes du plateau et de
+  main.
+
+  @param Joueurs : un joueur.
+  @param int : nombre de tours.
+*/
+void Joueurs::afficherCartesBoardEtMain(Joueurs *joueurs, int nombreTours) {
   switch (nombreTours) {
     case PREFLOP:
-      /* recopie des hauteurs des cartes dans un tableau */
-      for (int i = 0; i < DEUX_CARTES_INITIALES; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
+      /* Affichage de 2 cartes de main */
+      for (int j = 0; j < 2; j++) {
+        this->getCartesBoardEtMain(j).afficherCarte();
+        std::cout << " ";
       }
-      /* tri du tableau */
-      trierTableauPourQuinte(tab);
-
-      /* convertion en chaîne de caractères du valeur maximum */
-      valeurMax = tab[6];
-      carteHaute = to_string(valeurMax);
       break;
     case FLOP:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
+    /* Affichage de 2 cartes de main et 3 cartes du plateau */
+    for (int j = 0; j < 5; j++) {
+      this->getCartesBoardEtMain(j).afficherCarte();
+      std::cout << " ";
       }
-
-      trierTableauPourQuinte(tab);
-
-      valeurMax = tab[4];
-      carteHaute = to_string(valeurMax);
       break;
     case TURN:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
+    /* Affichage de 2 cartes de main et 4 cartes du plateau */
+    for (int j = 0; j < 6; j++) {
+      this->getCartesBoardEtMain(j).afficherCarte();
+      std::cout << " ";
       }
-
-      trierTableauPourQuinte(tab);
-
-      valeurMax = tab[5];
-      carteHaute = to_string(valeurMax);
       break;
     default:
-      for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
-        tab[i] = getCartesBoardEtMain(i)._hauteur;
+    /* Affichage de 2 cartes de main et 5 cartes du plateau */
+    for (int j = 0; j < 7; j++) {
+      this->getCartesBoardEtMain(j).afficherCarte();
+      std::cout << " ";
       }
-
-      trierTableauPourQuinte(tab);
-
-      valeurMax = tab[6];
-      carteHaute = to_string(valeurMax);
       break;
+    }
+}
+
+/*
+  Fonction de gestion de tours pendant le jeu.
+
+  Principe : D'abord, on distribue deux cartes à chaque joueur et ensuite selon
+  le nombre de tours on devoile different quantité des cartes sur le plateau.
+  Après on fait affichage du plateau, des mains et du niveau.
+
+  @param Deck : tableau de deck.
+  @param Plateau : plateau de jeu.
+  @param int : nombre de joueurs.
+  @param int : nombre de tours.
+*/
+void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours) {
+  /* Selon le nombre de tours on devoile different quantité des cartes sur le plateau */
+  switch (nombreTours) {
+    case PREFLOP:
+      /* D'abord on distribue les deux premières cartes aux joueurs. */
+      distribuerCarte(deck, joueurs, nombreJoueurs);
+      std::cout << "***************************\n";
+      std::cout << "*         PREFLOP         *\n";
+      std::cout << "***************************\n";
+      break;
+    case FLOP:
+    /* Ensuite on devoile les deux trois cartes sur le plateau. */
+      devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
+      std::cout << "***************************\n";
+      std::cout << "*          FLOP           *\n";
+      std::cout << "***************************\n";
+      break;
+     case TURN:
+     /* On rajoute quatrième carte sur le plateau */
+      devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
+      std::cout << "***************************\n";
+      std::cout << "*          TURN           *\n";
+      std::cout << "***************************\n";
+      break;
+     case RIVER:
+      /* On rajoute cinquième carte sur le plateau */
+      devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
+      std::cout << "***************************\n";
+      std::cout << "*          RIVER          *\n";
+      std::cout << "***************************\n";
+      break;
+    default:
+      /* On affiche le fin de partie */
+      std::cout << "***************************\n";
+      std::cout << "*      FIN DE PARTIE      *\n";
+      std::cout << "***************************\n";
+      break;
+   }
+
+  /* On affiche le plateau */
+  std::cout << "Board :\n";
+  afficherBoard(plateau, nombreTours);
+  cout << endl;
+  /* On affiche les cartes de chaque joueur. */
+  for (int i = 0; i < nombreJoueurs; i++) {
+    std::cout << "Joueur " << i << '\n';
+    std::cout << "2 carte(s) : " << endl;;
+    joueurs[i].getCartes(0).afficherCarte();
+    std::cout << " ";
+    joueurs[i].getCartes(1).afficherCarte();
+    std::cout << endl;
+    /* On affiche les cartes du plateau et de main */
+    std::cout << "avec le board : ";
+    joueurs[i].afficherCartesBoardEtMain(joueurs, nombreTours);
+    std::cout << endl;
+    /* On calcul le niveau */
+    joueurs[i].calculerNiveau(nombreTours);
+    /* On affiche le niveau */
+    std::cout << joueurs[i].getNiveau() << endl;
   }
-  /* on vérifie le résultat obtenu s'il est supérieur à 10 */
-  if (carteHaute == "14")
-    return(AS);
-  else if (carteHaute == "13")
-    return(ROI);
-  else if (carteHaute == "12")
-    return(DAME);
-  else if (carteHaute == "11")
-    return(VALET);
-  else
-    return carteHaute;
+}
+
+/*
+  Surcharge de l'operarteur égal pour pouvoir comparer deux cartes.
+
+  @param Carte : première carte.
+  @param Carte : deuxième carte.
+*/
+bool operator==(const Carte& carte1, const Carte& carte2) {
+  return (carte1.getHauteur() == carte2.getHauteur());
+}
+
+/*
+  Surcharge de l'operarteur > pour pouvoir comparer deux cartes.
+
+  @param Carte : première carte.
+  @param Carte : deuxième carte.
+*/
+bool operator>(const Carte& carte1, const Carte& carte2) {
+  return (carte1.getHauteur() > carte2.getHauteur());
+}
+
+/*
+  Surcharge de flux de sortie pour pouvoir afficher une carte.
+
+  @param ostream : flux de sortie.
+  @param Carte : une carte.
+*/
+ostream& operator<<(ostream& os, const Carte& carte) {
+  os << carte.getHauteur() << endl;
+  return os;
+}
+
+/*
+  Fonction convertit un entier à une chaîne de caractères.
+
+  @param int : une carte.
+  @return string : une chaîne de caractères.
+*/
+string to_string(int carte) {
+  ostringstream ss;
+  ss << carte;
+
+  return ss.str();
 }
