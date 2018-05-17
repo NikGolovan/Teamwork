@@ -19,6 +19,7 @@
 class Deck;
 class Joueurs;
 
+/* Classe carte */
 class Carte {
 private:
   int _couleur;
@@ -82,7 +83,15 @@ public:
   bool estDoublePaire(int nombreTours);
   bool estUnePaire(int nombreTours);
   void calculerNiveau(int nombreTours);
-  std::string estCarteHaute(int nombreTours);
+  std::string getCarteCarre();
+  std::string getCarteFull();
+  std::string getCarteCouleur();
+  std::string getCarteQuinte();
+  std::string getCarteBrelan();
+  std::string getCarteDeuxiemeDoublePaire();
+  std::string getCartePremiereDoublePaire();
+  std::string getCartePaire();
+  std::string getCarteHaute(int nombreTours);
 };
 
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs);
