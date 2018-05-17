@@ -248,6 +248,10 @@ Carte tirerCarte(Deck deck[]) {
     /* contient hauteur aléatoire  */
     int tmpRandHauteur = rand() % 13 + 2;
 
+    //while (i < 52 && (deck[i]._couleur != tmpRandCouleur
+    //        && deck[i]._hauteur != tmpRandHauteur)) {
+    //  i++;
+    //}
     if (!deck[tmpRandHauteur].getEstUtilisee()) {
       /* affectation de la couleur */
       carte.setCouleur(tmpRandCouleur);
@@ -399,7 +403,10 @@ void trierTableau(int tab[]) {
 void Joueurs::calculerNiveau(int nombreTours) {
   string carte;
 
-/*  if (estCarre(nombreTours))
+  /* if (estQuinteFlush(nombreTours)) {
+
+  }
+    if (estCarre(nombreTours))
     _niveau = CARRE;*/
   if (estFull(nombreTours))
     _niveau = FULL;
@@ -412,7 +419,8 @@ void Joueurs::calculerNiveau(int nombreTours) {
     carte = getCarteBrelan();
     _niveau = BRELAN + carte;
   } else if (estDoublePaire(nombreTours)) {
-    _niveau = DOUBLE_PAIR; // TODO: ajouter + " et de " +
+    carte = getCarteDoublePaire();
+    _niveau = DOUBLE_PAIR + carte; // TODO: ajouter + " et de " +
   } else if (estUnePaire(nombreTours)) {
       carte = getCartePaire();
       _niveau = PAIRE + carte;

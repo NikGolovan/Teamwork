@@ -566,31 +566,6 @@ string Joueurs::getCarteFull() {
 
 }
 
-string Joueurs::getCarteDoublePaire() {
-  int compteur = 0;
-  int i = 0;
-  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
-  
-  for (i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
-    tab[i] = getCartesBoardEtMain(i)._hauteur;
-  }
-
-  trierTableau(tab);
-
-  i = 0;
-  while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1) {
-    int j = i + 1;
-    while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && tab[i] == tab[j]) {
-      j++;
-    }
-    if (j > i + 1) {
-      compteur++;
-      i = j;
-    } else
-      i++;
-  }
-}
-
 /*
   Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
@@ -680,6 +655,42 @@ string Joueurs::getCarteBrelan() {
     return(carteBrelan);
 }
 
+string Joueurs::getCarteDoublePaire() {
+  string test;
+  string test2;
+  string doublePaire;
+  int i = 0;
+  bool trouvee = false;
+
+  test = getCartePaire();
+
+  while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && !trouvee) {
+    int j = i + 1;
+    while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && !trouvee) {
+      if (test != getCartesBoardEtMain(i).getHauteur()
+          && getCartesBoardEtMain(i)._hauteur == getCartesBoardEtMain(j)._hauteur) {
+        test2 = getCartesBoardEtMain(i).getHauteur();
+        trouvee = true;
+      }
+      j++;
+    }
+    i++;
+  }
+
+  /* on vérifie le résultat obtenu s'il est supérieur à 10 */
+  if (test2 == "14")
+    test2 = AS;
+  else if (test2 == "13")
+    test2 = ROI;
+  else if (test2 == "12")
+    test2 = DAME;
+  else if (test2 == "11")
+    test2 = VALET;
+
+  doublePaire = test + " et de " + test2;
+
+  return(doublePaire);
+}
 /*
   Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
@@ -692,13 +703,20 @@ string Joueurs::getCarteBrelan() {
 */
 string Joueurs::getCartePaire() {
   string cartePaire;
-  int tmp = 0;
+  int tmp = -1;
+  bool trouvee = false;
+  int i = 0;
 
-  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
-    for (int j = i + 1; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; j++) {
-      if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
+  while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && !trouvee) {
+    int j = i + 1;
+    while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && !trouvee) {
+      if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j)) {
         tmp = i;
+        trouvee = true;
       }
+      j++;
+    }
+    i++;
   }
 
   /* convertion en chaîne de caractères */

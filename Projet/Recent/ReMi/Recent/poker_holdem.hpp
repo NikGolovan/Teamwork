@@ -75,6 +75,7 @@ public:
   void setCartesBoardEtMain(Carte carte, int numCarte);
   void ajouterCarte(Carte carte);
   void afficherCartesBoardEtMain(Joueurs *joueurs, int nombreTours);
+  bool estQuinteFlush(int nombreTours);
   bool estCarre(int nombreTours);
   bool estFull(int nombreTours);
   bool estCouleur(int nombreTours);
@@ -95,10 +96,10 @@ public:
 
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs);
 void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreTours);
-Carte tirerCarte(Deck deck[]);
 void afficherBoard(Plateau *plateau, int nombreTours);
 void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours);
 void trierTableau(int tab[]);
+Carte tirerCarte(Deck deck[]);
 
 bool operator==(const Carte&, const Carte&);
 std::ostream& operator<<(std::ostream&, const Carte&);
