@@ -88,8 +88,7 @@ public:
   std::string getCarteCouleur();
   std::string getCarteQuinte();
   std::string getCarteBrelan();
-  std::string getCarteDeuxiemeDoublePaire();
-  std::string getCartePremiereDoublePaire();
+  std::string getCarteDoublePaire();
   std::string getCartePaire();
   std::string getCarteHaute(int nombreTours);
 };
@@ -99,7 +98,7 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreTo
 Carte tirerCarte(Deck deck[]);
 void afficherBoard(Plateau *plateau, int nombreTours);
 void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, int nombreTours);
-void trierTableauPourQuinte(int tab[]);
+void trierTableau(int tab[]);
 
 bool operator==(const Carte&, const Carte&);
 std::ostream& operator<<(std::ostream&, const Carte&);
