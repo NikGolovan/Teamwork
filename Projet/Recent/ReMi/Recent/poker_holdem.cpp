@@ -238,6 +238,7 @@ void remplirDeck(Deck deck[]) {
 */
 Carte tirerCarte(Deck deck[]) {
   Carte carte;
+  int i = 0;
   /* sert pour sortir de la boucle */
   int estTiree = false;
 
@@ -253,9 +254,10 @@ Carte tirerCarte(Deck deck[]) {
       /* affectation du hauteur */
       carte.setHauteur(tmpRandHauteur);
       /* initialisation du booleen à vrai */
-      deck[tmpRandHauteur].setEstUtilisee(true);
+      deck[i].setEstUtilisee(true);
       estTiree = true;
     }
+    i++;
   }
   return(carte);
 }
@@ -395,31 +397,34 @@ void trierTableauPourQuinte(int tab[]) {
   @param int : nombre de tours.
 */
 void Joueurs::calculerNiveau(int nombreTours) {
-  string carteHaute;
-  carteHaute = estCarteHaute(nombreTours);
+  string carte;
 
 /*  if (estCarre(nombreTours))
     _niveau = CARRE;*/
   if (estFull(nombreTours))
     _niveau = FULL;
-  else if (estCouleur(nombreTours))
-    _niveau = COULEUR;
-  else if (estQuinte(nombreTours))
+  else if (estCouleur(nombreTours)) {
+    carte = getCarteCouleur();
+     _niveau = COULEUR + carte;
+  } else if (estQuinte(nombreTours))
     _niveau = QUINTE;
-  else if (estUnBrelan(nombreTours))
-    _niveau = BRELAN;
-  else if (estDoublePaire(nombreTours))
+  else if (estUnBrelan(nombreTours)) {
+    carte = getCarteBrelan();
+    _niveau = BRELAN + carte;
+  } else if (estDoublePaire(nombreTours)) {
     _niveau = DOUBLE_PAIR; // TODO: ajouter + " et de " +
-  else if (estUnePaire(nombreTours))
-    _niveau = PAIRE;
-  else
-    _niveau = CARTE_HAUTE + carteHaute;
+  } else if (estUnePaire(nombreTours)) {
+      carte = getCartePaire();
+      _niveau = PAIRE + carte;
+  } else {
+    carte = getCarteHaute(nombreTours);
+    _niveau = CARTE_HAUTE + carte;
+  }
 }
 
 /*---------------------------------------------*/
 /* Fonctions hors des classes                  */
 /*---------------------------------------------*/
-
 
 /*
   Fonction distribue 2 cartes à chaque joueur.
@@ -435,7 +440,7 @@ void Joueurs::calculerNiveau(int nombreTours) {
 */
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs) {
   for (int j = 0; j < 2; j++) {
-    for (int i = 0; i < nombreJoueurs; i++) {\
+    for (int i = 0; i < nombreJoueurs; i++) {
       /* appel de la fonction tirerCarte(deck) pour tirer aux hazard une carte
          de deck. */
       joueurs[i].ajouterCarte(tirerCarte(deck));
@@ -458,17 +463,17 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJo
   Carte test2;
 
   test.setHauteur(1);
-  test.setCouleur(2);
+  test.setCouleur(1);
 
   test2.setHauteur(5);
-  test2.setCouleur(2);
+  test2.setCouleur(1);
 
   try {
     switch (nombreTours) {
       case FLOP:
         /* Distribution sur le plateau de 3 cartes */
         for (int i = 0; i < 3; i++) {
-          plateau[i].setCartesPlateau(test);
+          plateau[i].setCartesPlateau(tirerCarte(deck));
           for (int j = 0; j < nombreJoueurs; j++) {
             joueurs[j].setCartesBoardEtMain(plateau[i].getCartesPlateau(), i);
           }
@@ -476,14 +481,14 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJo
         break;
       case TURN:
         /* Rajoute d'une carte sur le plateau. Nombre total de carte vaut 4 */
-        plateau[3].setCartesPlateau(test2);
+        plateau[3].setCartesPlateau(tirerCarte(deck));
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[3].getCartesPlateau(), 3);
         }
         break;
       case RIVER:
         /* Rajoute d'une carte sur le plateau. Nombre total de carte vaut 5 */
-        plateau[4].setCartesPlateau(test2);
+        plateau[4].setCartesPlateau(tirerCarte(deck));
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[4].getCartesPlateau(), 4);
         }
@@ -604,36 +609,36 @@ void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, in
     case PREFLOP:
       /* D'abord on distribue les deux premières cartes aux joueurs. */
       distribuerCarte(deck, joueurs, nombreJoueurs);
-      std::cout << "╔═════════════════════════╗\n";
-      std::cout << "║         PREFLOP         ║\n";
-      std::cout << "╚═════════════════════════╝\n";
+      std::cout << "***************************\n";
+      std::cout << "*         PREFLOP         *\n";
+      std::cout << "***************************\n";
       break;
     case FLOP:
     /* Ensuite on devoile les deux trois cartes sur le plateau. */
       devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
-      std::cout << "╔═════════════════════════╗\n";
-      std::cout << "║          FLOP           ║\n";
-      std::cout << "╚═════════════════════════╝\n";
+      std::cout << "***************************\n";
+      std::cout << "*          FLOP           *\n";
+      std::cout << "***************************\n";
       break;
      case TURN:
      /* On rajoute quatrième carte sur le plateau */
       devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
-      std::cout << "╔═════════════════════════╗\n";
-      std::cout << "║          TURN           ║\n";
-      std::cout << "╚═════════════════════════╝\n";
+      std::cout << "***************************\n";
+      std::cout << "*          TURN           *\n";
+      std::cout << "***************************\n";
       break;
      case RIVER:
       /* On rajoute cinquième carte sur le plateau */
       devoilerCarte(plateau, deck, joueurs, nombreJoueurs, nombreTours);
-      std::cout << "╔═════════════════════════╗\n";
-      std::cout << "║          RIVER          ║\n";
-      std::cout << "╚═════════════════════════╝\n";
+      std::cout << "***************************\n";
+      std::cout << "*          RIVER          *\n";
+      std::cout << "***************************\n";
       break;
     default:
       /* On affiche le fin de partie */
-      std::cout << "╔═════════════════════════╗\n";
-      std::cout << "║      FIN DE PARTIE      ║\n";
-      std::cout << "╚═════════════════════════╝\n";
+      std::cout << "***************************\n";
+      std::cout << "*      FIN DE PARTIE      *\n";
+      std::cout << "***************************\n";
       break;
    }
 
