@@ -9,7 +9,7 @@ using namespace std;
 */
 
 /*
-  Fonction renvoi un booléen qui vaut vrai si il y a une quinte flush, et faux
+  Fonction qui renvoie un booléen qui vaut vrai si il y a une quinte flush, et faux
   sinon;
 
   Principe : On crée 1 compteur qui servira à la fin pour vérifier si il y a une
@@ -231,7 +231,7 @@ bool Joueurs::estQuinteFlush(int nombreTours) {
 }
 
 /*
-  Fonction renvoi un booléen qui vaut vrai si il y a un carre, et faux sinon;
+  Fonction qui renvoie un booléen qui vaut vrai si il y a un carre, et faux sinon;
 
   Principe : On utilise le même principe que pour le brelan mais en comparant
   avec 3 au lieu de 2.
@@ -281,7 +281,7 @@ bool Joueurs::estCarre(int nombreTours) {
 }
 
 /*
-  Fonction renvoi un booléen qui vaut vrai si il y a un full, et faux sinon;
+  Fonction qui renvoie un booléen qui vaut vrai si il y a un full, et faux sinon;
 
   Principe : On initialise un booléen à faux. On regarde si il y a un brelan et
   une double paire et, le cas échéant, on met le booléen à vrai. Enfin, on
@@ -299,7 +299,7 @@ bool Joueurs::estFull(int nombreTours) {
 }
 
 /*
-  Fonction renvoi un booléen qui vaut vrai si il y a une couleur, et faux sinon;
+  Fonction qui renvoie un booléen qui vaut vrai si il y a une couleur, et faux sinon;
 
   Principe : On initialise 4 compteurs (1 pour chaque couleur) à 0. On compare
   les couleurs des cartes du plateau et on incrémente le compteur de la couleur
@@ -364,7 +364,7 @@ bool Joueurs::estCouleur(int nombreTours) {
 }
 
 /*
-  Fonction renvoi un booléen qui vaut vrai si il y a une quinte, et faux sinon;
+  Fonction qui renvoie un booléen qui vaut vrai si il y a une quinte, et faux sinon;
 
   Principe : On trie les hauteurs des cartes par ordre croissant. On initialise
   un compteur à 1. On incrémente le compteur si deux cartes se suivent. Si les 2
@@ -438,7 +438,7 @@ bool Joueurs::estQuinte(int nombreTours) {
 }
 
 /*
-  Fonction renvoi un booléen qui vaut vrai si il y a un brelan, et faux sinon;
+  Fonction qui renvoie un booléen qui vaut vrai si il y a un brelan, et faux sinon;
 
   Principe : On initialise un compteur à 0. On compare les cartes du plateau
   et si on trouve 2 cartes égales, on incrémente le compteur. Enfin, on vérifie
@@ -491,7 +491,8 @@ bool Joueurs::estUnBrelan(int nombreTours) {
 }
 
 /*
-  Fonction renvoi un booléen qui vaut vrai si il y a 2 paires, et faux sinon;
+  Fonction qui renvoie un booléen qui vaut vrai si il y a 2 paires, et faux
+  sinon;
 
   Principe : On trie les hauteurs des cartes par ordre croissant. On initialise
   un compteur à 0. On compare les hauteurs des cartes du plateau et si on trouve
@@ -577,7 +578,8 @@ bool Joueurs::estDoublePaire(int nombreTours) {
 }
 
 /*
-  Fonction renvoi un booléen qui vaut vrai si il y a une paire, et faux sinon;
+  Fonction qui renvoie un booléen qui vaut vrai si il y a une paire, et faux
+  sinon;
 
   Principe : On initialise un booléen à faux. On compare les cartes du plateau
   et si on trouve une paire, on met le booléen à vrai. Enfin, on retourne ce
@@ -629,7 +631,7 @@ bool Joueurs::estUnePaire(int nombreTours) {
 
 
 /*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+  Fonction qui renvoie une carte sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
 
   Principe : On utilise le même principe que pour le brelan mais en cherchant 4
@@ -680,7 +682,7 @@ string Joueurs::getCarteCarre() {
 }
 
 /*
-Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+Fonction qui renvoie une carte sous type de chaîne de caractères pour pouvoir
 l'afficher dans la console et rejoindre dans le niveau;
 
 Principe : On récupère la hauteur du brelan ainsi que les 2 paires (dont le
@@ -714,11 +716,11 @@ string Joueurs::getCarteFull() {
 }
 
 /*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+  Fonction qui renvoie une carte sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
 
   Principe : On compte les couleurs des cartes sur le plateau. Si l'une des
-  couleurs est égale ou supérieur a 5, on renvoi une chaîne de caractères
+  couleurs est supérieure ou égale à 5, on renvoie une chaîne de caractères
   avec la couleur correspondante.
 
   @return string : une carte.
@@ -754,11 +756,11 @@ string Joueurs::getCarteCouleur() {
 }
 
 /*
-Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+Fonction qui renvoie une carte sous type de chaîne de caractères pour pouvoir
 l'afficher dans la console et rejoindre dans le niveau;
 
 Principe : On trie les hauteurs des cartes par ordre croissant et on les compares
-2 à 2 jusq'à arriver à la fin de la quinte. On renvoie la hauteur correspondante
+2 à 2 jusqu'à arriver à la fin de la quinte. On renvoie la hauteur correspondante
 
 @return string : une carte.
 */
@@ -803,13 +805,13 @@ string Joueurs::getCarteQuinte() {
 }
 
 /*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+  Fonction qui renvoie une carte sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
 
-  Principe : On compare directement les cartes dans le board entre elles et
-  dès qu'on trouve 3 cartes identiques, on recopie la position de cette carte. Ensuite,
-  on convertir hauteur de cette carte (en utilisant la positon) en une chaîne
-  de caractères.
+  Principe : On compare directement les cartes dans le board entre elles et dès
+  qu'on trouve 3 cartes identiques, on recopie la position de cette carte.
+  Ensuite, on convertir la hauteur de cette carte (en utilisant la position) en
+  une chaîne de caractères.
 
   @return string : une carte.
 */
@@ -856,7 +858,7 @@ string Joueurs::getCarteBrelan() {
 }
 
 /*
-  Fonction renvoi deux cartes sous type de chaîne de caractères pour pouvoir
+  Fonction qui renvoie deux cartes sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
 
   Principe : On appelle getCartePaire() pour avoir la première paire puis on
@@ -903,11 +905,11 @@ string Joueurs::getCarteDoublePaire() {
 }
 
 /*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+  Fonction qui renvoie une carte sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
 
-  Principe : On compare les cartes du plateau et dès qu'on trouve une paire
-  on recopie sa position dans le plateau. Ensuite, on converti hauteur de la
+  Principe : On compare les cartes du plateau et dès qu'on trouve une paire, on
+  recopie sa position dans le plateau. Ensuite, on convertit la hauteur de la
   carte de cette position en une chaîne de caractères.
 
   @return string : une carte.
@@ -948,20 +950,19 @@ string Joueurs::getCartePaire() {
 }
 
 /*
-  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+  Fonction qui renvoie une carte sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
 
-  Principe : À chaque tour toutes les hauteurs de cartes sont mises dans
-  un tableau. Puis, ce tableau est trié par l'ordre croissant. Ensuite,
-  selon le numéro de tour on prend le dernier valeur du tableau (le plus haut)
-  et on le convertit en une chaîne de caractères. La fonction returne cette
-  chaîne.
+  Principe : On trie les hauteurs des cartes par ordre croissant. Ensuite on
+  prend la valeur maximale du tableau et on la convertit en une chaîne de
+  caractères. La fonction retourne cette chaîne. On utilise le switch pour
+  chaque tour afin de ne pas comparer les cartes avec des cartes inexistantes.
 
   @param int : nombre de tours.
   @return string : une carte.
 */
 string Joueurs::getCarteHaute(int nombreTours) {
-  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {0, 0, 0, 0, 0, 0, 0};
+  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
   string carteHaute; /* la chaîne qui va être retourné */
   int valeurMax = 0; /* va contenir le plus grand entier du tableau */
 

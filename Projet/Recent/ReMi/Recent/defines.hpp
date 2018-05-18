@@ -31,7 +31,6 @@
 #define FULL "Full de "
 #define CARRE "Carre de "
 #define QUINTE_FLUSH "Quinte flush hauteur "
-#define QUINTE_FLUSH_ROYALE "Quinte flush royale "
 
 #define ERREUR_JOUEURS_EST_NULL "Jouers est NULL"
 #define ERREUR_DEVOILER_CARTE "La carte ne peut pas etre mise sur le plateau"

@@ -42,7 +42,7 @@ int Carte::getCouleur() const {
 /*
   Le getteur de la classe Carte.
   Principe : On vérifie hauteur de la carte,
-  1 vaut AS,  13 vaut ROI, 12 vaut DAME et 11 vaut VALET.
+  14 vaut AS,  13 vaut ROI, 12 vaut DAME et 11 vaut VALET.
   @return string : hauteur de la carte.
 */
 string Carte::getHauteur() const {
@@ -86,7 +86,7 @@ void Carte::setHauteur(int hauteur) {
 }
 
 /*
-  Fonction affiche les cartes de chaque joueur.
+  Fonction qui affiche les cartes de chaque joueur.
 */
 void Carte::afficherCarte() {
   cout << getHauteur();
@@ -112,24 +112,6 @@ void Carte::afficherCarte() {
 /*---------------------------------------------*/
 /* Fonctions de la classe Plateau              */
 /*---------------------------------------------*/
-
-/*
-  Constructeur de la classe Plateau.
-  Initialise hauteur et couleur de la carte à -1.
-*/
-Plateau::Plateau() {
-  //_cartes._couleur = -1;
-  //_cartes._hauteur = -1;
-}
-
-/*
-  Destructeur de la classe Plateau.
-  Initialise hauteur et couleur de la carte à -1.
-*/
-Plateau::~Plateau() {
-  //_cartes._couleur = -1;
-  //_cartes._hauteur = -1;
-}
 
 /*
   Le getteur de la classe Plateau.
@@ -198,12 +180,12 @@ int Deck::getEstUtilisee() const {
 
 /*
   Fonction rempli le deck avec 52 carte.
-  Le booleen d'utilisation de chaque carte mise dans le deck est
-  initialisé à faux car les cartes n'étaient pas encore mises sur plateau.
+  Le booleen d'utilisation de chaque carte mise dans le deck est initialisé à
+  faux car les cartes ne sont pas encore mises sur plateau.
 
   Principe : Une variable de type entier k qui sert comme index des cases
-  du tableau et qui incremente à chaque tour des boucles. Première boucle
-  sert pour réinitialiser les couleurs et la deuxième pour les hauters.
+  du tableau et qui est incrémentée à chaque tour des boucles. Première boucle
+  sert pour initialiser les couleurs et la deuxième pour les hauteurs.
 
   @param Deck : tableau de deck.
 */
@@ -224,14 +206,14 @@ void remplirDeck(Deck deck[]) {
 }
 
 /*
-  Fonction renvoi une carte qui a été tirée du deck de façon aléatoire.
-  Le booleen de chaque carte _estUtilisee est initialisé à vrai.
+  Fonction qui renvoie une carte qui a été tirée du deck de façon aléatoire.
+  Le booleéen de chaque carte _estUtilisee est modifié à vrai.
 
-  Principe : Une variable de type carte va prendre une couleur et un hauteur
-  generés de façon aléatoire. Pour éviter de mettre les mêmes cartes sur le
+  Principe : Une variable de type carte va prendre une couleur et une hauteur
+  generées de façon aléatoire. Pour éviter de mettre les mêmes cartes sur le
   plateau, on vérifie si la carte a été déjà prise. Si oui, on continue la boucle
-  tant qu'on n'a pas trové carte non-utilisée. Sinon, on prend la carte et
-  initialise le booleen à vrai.
+  tant qu'on n'a pas trouvé une carte non-utilisée. Sinon, on prend la carte et
+  modifie le booléen à vrai.
 
   @param Deck : tableau de deck.
   @return Carte : une carte.
@@ -370,7 +352,7 @@ void Joueurs::ajouterCarte(Carte carte) {
 }
 
 /*
-  La fonction tri le tableau par ordre croissant.
+  La fonction trie le tableau par ordre croissant.
 
   Principe : tri par bulle.
 
@@ -389,8 +371,8 @@ void trierTableau(int tab[]) {
 }
 
 /*
-  Fonction calcule le niveau de la main de chaque joueur et ensuite l'affecte
-  aux joueurs.
+  Fonction qui calcule le niveau de la main de chaque joueur et ensuite l'affecte
+  au joueur.
 
   @param int : nombre de tours.
 */
@@ -435,7 +417,7 @@ void Joueurs::calculerNiveau(int nombreTours) {
   Fonction distribue 2 cartes à chaque joueur.
 
   Principe : Première boucle sert pour ne pas dépasser le nombre de cartes pour
-  chaque main, ce que est égal à deux. Deuxième boucle sert pour distribuer
+  chaque main, ce qui est égal à deux. Deuxième boucle sert pour distribuer
   les cartes à chaque joueur. Autrement dit, on distribue deux cartes initiales
   pour chaque joueur.
 
@@ -446,7 +428,7 @@ void Joueurs::calculerNiveau(int nombreTours) {
 void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs) {
   for (int j = 0; j < 2; j++) {
     for (int i = 0; i < nombreJoueurs; i++) {
-      /* appel de la fonction tirerCarte(deck) pour tirer aux hazard une carte
+      /* appel de la fonction tirerCarte(deck) pour tirer aux hasard une carte
          de deck. */
       joueurs[i].ajouterCarte(tirerCarte(deck));
     }
@@ -454,9 +436,9 @@ void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs) {
 }
 
 /*
-  Fonction pour devoiler les cartes sur le plateau.
+  Fonction pour dévoiler les cartes sur le plateau.
 
-  Principe : Selon le nombre de tours on affiche les cartes du plateau.
+  Principe : Selon le nombre de tours on distribue les cartes du deck au plateau.
 
   @param Plateau : plateau.
   @param Joueurs : un joueur.
@@ -464,18 +446,6 @@ void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs) {
   @param int : nombre de tours.
 */
 void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJoueurs, int nombreTours) {
-  Carte test;
-  Carte test2;
-  Carte test3;
-
-  test.setHauteur(5);
-  test.setCouleur(2);
-
-  test2.setHauteur(6);
-  test2.setCouleur(2);
-
-  test3.setHauteur(7);
-  test3.setCouleur(2);
 
   try {
     switch (nombreTours) {
@@ -512,7 +482,7 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJo
 }
 
 /*
-  Fonction affiche le plateau de jeu.
+  Fonction qui affiche le plateau de jeu.
 
   Principe : Selon le nombre de tours on affiche les cartes du plateau.
 
@@ -604,8 +574,8 @@ void Joueurs::afficherCartesBoardEtMain(Joueurs *joueurs, int nombreTours) {
   Fonction de gestion de tours pendant le jeu.
 
   Principe : D'abord, on distribue deux cartes à chaque joueur et ensuite selon
-  le nombre de tours on devoile different quantité des cartes sur le plateau.
-  Après on fait affichage du plateau, des mains et du niveau.
+  le nombre de tours on dévoile différentes quantités de cartes sur le plateau.
+  Après on fait l'affichage du plateau, des mains et du niveau.
 
   @param Deck : tableau de deck.
   @param Plateau : plateau de jeu.

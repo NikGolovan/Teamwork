@@ -19,7 +19,6 @@
 class Deck;
 class Joueurs;
 
-/* Classe carte */
 class Carte {
 private:
   int _couleur;
