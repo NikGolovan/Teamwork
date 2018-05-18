@@ -36,7 +36,7 @@ public:
   friend class Joueurs;
 };
 
-class Plateau : public Carte {
+class Plateau{
 private:
   Carte _cartes;
 public:
@@ -62,7 +62,6 @@ public:
 class Joueurs {
 private:
   Carte _cartes[DEUX_CARTES_INITIALES];
-  int _nombreDeCartes;
   std::string _niveau;
   Carte _boardEtMain[DEUX_CARTES_INITIALES + TAILLE_PLATEAU];
 public:

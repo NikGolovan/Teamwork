@@ -248,10 +248,6 @@ Carte tirerCarte(Deck deck[]) {
     /* contient hauteur aléatoire  */
     int tmpRandHauteur = rand() % 13 + 2;
 
-    //while (i < 52 && (deck[i]._couleur != tmpRandCouleur
-    //        && deck[i]._hauteur != tmpRandHauteur)) {
-    //  i++;
-    //}
     if (!deck[tmpRandHauteur].getEstUtilisee()) {
       /* affectation de la couleur */
       carte.setCouleur(tmpRandCouleur);
@@ -280,7 +276,6 @@ Joueurs::Joueurs() {
     _cartes[i]._couleur = -1;
   }
   _niveau = "vide";
-  _nombreDeCartes = 0;
   for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
     _boardEtMain[i]._hauteur = -1;
     _boardEtMain[i]._couleur = -1;
@@ -297,7 +292,6 @@ Joueurs::~Joueurs() {
     _cartes[i]._couleur = -1;
   }
   _niveau = "";
-  _nombreDeCartes = 0;
   for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
     _boardEtMain[i]._hauteur = -1;
     _boardEtMain[i]._couleur = -1;
@@ -363,15 +357,15 @@ void Joueurs::setCartesBoardEtMain(Carte carte, int numCarte) {
 */
 void Joueurs::ajouterCarte(Carte carte) {
   if (_cartes[0].getHauteur() == "-1") {
-    _cartes[0].setHauteur(2);
-    _cartes[0].setCouleur(2);
-    _boardEtMain[0].setHauteur(2);
-    _boardEtMain[0].setCouleur(2);
+    _cartes[0].setHauteur(carte._hauteur);
+    _cartes[0].setCouleur(carte._couleur);
+    _boardEtMain[0].setHauteur(carte._hauteur);
+    _boardEtMain[0].setCouleur(carte._couleur);
   } else {
-    _cartes[1].setHauteur(3);
-    _cartes[1].setCouleur(4);
-    _boardEtMain[1].setHauteur(3);
-    _boardEtMain[1].setCouleur(3);
+    _cartes[1].setHauteur(carte._hauteur);
+    _cartes[1].setCouleur(carte._couleur);
+    _boardEtMain[1].setHauteur(carte._hauteur);
+    _boardEtMain[1].setCouleur(carte._couleur);
   }
 }
 
@@ -403,14 +397,16 @@ void trierTableau(int tab[]) {
 void Joueurs::calculerNiveau(int nombreTours) {
   string carte;
 
-  /* if (estQuinteFlush(nombreTours)) {
-
-  }
-    if (estCarre(nombreTours))
-    _niveau = CARRE;*/
-  if (estFull(nombreTours))
-    _niveau = FULL;
-  else if (estCouleur(nombreTours)) {
+   if (estQuinteFlush(nombreTours)) {
+     carte = getCarteQuinte();
+     _niveau = QUINTE_FLUSH + carte;
+  } else if (estCarre(nombreTours)) {
+      carte = getCarteCarre();
+    _niveau = CARRE + carte;
+  } else if (estFull(nombreTours)) {
+    carte = getCarteFull();
+    _niveau = FULL + carte;
+  } else if (estCouleur(nombreTours)) {
     carte = getCarteCouleur();
      _niveau = COULEUR + carte;
   } else if (estQuinte(nombreTours)) {
@@ -472,14 +468,14 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJo
   Carte test2;
   Carte test3;
 
-  test.setHauteur(4);
-  test.setCouleur(1);
+  test.setHauteur(5);
+  test.setCouleur(2);
 
-  test2.setHauteur(5);
-  test2.setCouleur(1);
+  test2.setHauteur(6);
+  test2.setCouleur(2);
 
-  test3.setHauteur(6);
-  test3.setCouleur(3);
+  test3.setHauteur(7);
+  test3.setCouleur(2);
 
   try {
     switch (nombreTours) {
@@ -494,14 +490,14 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJo
         break;
       case TURN:
         /* Rajoute d'une carte sur le plateau. Nombre total de carte vaut 4 */
-        plateau[3].setCartesPlateau(test);
+        plateau[3].setCartesPlateau(tirerCarte(deck));
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[3].getCartesPlateau(), 3);
         }
         break;
       case RIVER:
         /* Rajoute d'une carte sur le plateau. Nombre total de carte vaut 5 */
-        plateau[4].setCartesPlateau(test3);
+        plateau[4].setCartesPlateau(tirerCarte(deck));
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[4].getCartesPlateau(), 4);
         }
@@ -661,7 +657,7 @@ void tour(Deck deck[], Plateau *plateau, Joueurs *joueurs, int nombreJoueurs, in
   cout << endl;
   /* On affiche les cartes de chaque joueur. */
   for (int i = 0; i < nombreJoueurs; i++) {
-    std::cout << "Joueur " << i << '\n';
+    std::cout << "Joueur " << i + 1 << '\n';
     std::cout << "2 carte(s) : " << endl;;
     joueurs[i].getCartes(0).afficherCarte();
     std::cout << " ";

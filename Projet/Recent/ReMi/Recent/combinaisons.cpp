@@ -2,6 +2,29 @@
 
 using namespace std;
 
+/*
+  Remarque :
+    Le fait d'utiliser des switch nous amène à écrire 3 fois un code similaire
+    ce qui augmente considérablement la taille de chaque fonction.
+*/
+
+/*
+  Fonction renvoi un booléen qui vaut vrai si il y a une quinte flush, et faux
+  sinon;
+
+  Principe : On crée 1 compteur qui servira à la fin pour vérifier si il y a une
+  quinte. On créé 4 tableaux pour les hauteurs de cartes et 4 compteurs (1 pour
+  chaque couleur). On compare les couleurs des cartes et on insère la hauteur
+  dans le tableau correspondant. On incrémente le compteur correspondant. Si un
+  des compteurs est supérieur ou égal à 5, on vérifie dans le tableau
+  correspondant si il y a une quinte (avec le compteur du départ) (On utilise le
+  même principe que pour la quinte). Enfin, on vérifie si le compteur est
+  supérieur à 5 et, le cas échéant, on retourne vrai. Sinon on retourne faux. On
+   utilise le switch pour chaque tour afin de ne pas comparer les cartes avec
+   des cartes inexistantes.
+
+  @return bool.
+*/
 bool Joueurs::estQuinteFlush(int nombreTours) {
   int compteur = 1;
   int ca[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
@@ -17,7 +40,6 @@ bool Joueurs::estQuinteFlush(int nombreTours) {
 
   switch (nombreTours) {
     case FLOP:
-
       for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
         if (getCartesBoardEtMain(i).getCouleur() == 0) {
           ca[carreau] = getCartesBoardEtMain(i)._hauteur;
@@ -142,8 +164,6 @@ bool Joueurs::estQuinteFlush(int nombreTours) {
 
       break;
     case RIVER:
-
-
       for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
         if (getCartesBoardEtMain(i).getCouleur() == 0) {
           ca[carreau] = getCartesBoardEtMain(i)._hauteur;
@@ -207,85 +227,88 @@ bool Joueurs::estQuinteFlush(int nombreTours) {
       break;
   }
 
-  if (compteur >= 5)
-    return true;
-  else
-    return false;
+  return(compteur >= 5);
 }
 
-// TODO: finir fonction et mettre les commentaires
+/*
+  Fonction renvoi un booléen qui vaut vrai si il y a un carre, et faux sinon;
+
+  Principe : On utilise le même principe que pour le brelan mais en comparant
+  avec 3 au lieu de 2.
+
+  @return bool.
+*/
 bool Joueurs::estCarre(int nombreTours) {
+  int compteur = 0;
+  bool estBrelan = false;
 
   switch (nombreTours) {
     case FLOP:
-
+      for (int i = 0; i < DEUX_CARTES_INITIALES + 2; i++) {
+        compteur = 0;
+        for (int j = i + 1; j < DEUX_CARTES_INITIALES + 3; j++) {
+          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
+            compteur++;
+        }
+        if (compteur >= 3)
+          estBrelan = true;
+      }
       break;
     case TURN:
-
+      for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
+        compteur = 0;
+        for (int j = i + 1; j < DEUX_CARTES_INITIALES + 4; j++) {
+          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
+            compteur++;
+        }
+        if (compteur >= 3)
+          estBrelan = true;
+      }
       break;
     case RIVER:
-
+      for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
+        compteur = 0;
+        for (int j = i + 1; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; j++) {
+          if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
+            compteur++;
+        }
+        if (compteur >= 3)
+          estBrelan = true;
+      }
       break;
   }
-
-  int compteur = 0;
-
-  if (getCartes(0) == getCartes(1)) {
-    compteur -= 1;
-    for (int i = 0; i < TAILLE_PLATEAU; i++) {
-      if (getCartes(0) == getCartesBoardEtMain(i+1))
-      compteur++;
-      // when fourth card is at the end but doesnt work if
-      // we get four card in a row
-      if (i == TAILLE_PLATEAU-1) {
-        for (int i = TAILLE_PLATEAU; i > 0; i--)
-        //if (plateau[TAILLE_PLATEAU].getCartesPlateau() == getCartesBoardEtMain(i))
-        compteur++;
-      }
-    }
-  } else {
-    for (int i = 0; i < TAILLE_PLATEAU; i++) {
-      if (getCartes(0) == getCartesBoardEtMain(i+1))
-      compteur++;
-      // when fourth card is at the end but doesnt work if
-      // we get four card in a row
-      if (i == TAILLE_PLATEAU-1) {
-        for (int i = TAILLE_PLATEAU; i > 0; i--)
-        //if (plateau[TAILLE_PLATEAU].getCartesPlateau() == getCartesBoardEtMain(i))
-        compteur++;
-      }
-    }
-  }
-
-  if (compteur == 3 || compteur == 4)
-  return true;
-  else
-  return false;
+  return(estBrelan);
 }
 
-// TODO: commentaires
+/*
+  Fonction renvoi un booléen qui vaut vrai si il y a un full, et faux sinon;
+
+  Principe : On initialise un booléen à faux. On regarde si il y a un brelan et
+  une double paire et, le cas échéant, on met le booléen à vrai. Enfin, on
+  retourne ce booléen.
+
+  @return bool.
+*/
 bool Joueurs::estFull(int nombreTours) {
   bool estFullBooleen = false;
 
-  switch (nombreTours) {
-    case FLOP:
-      if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
-        estFullBooleen = true;
-      break;
-    case TURN:
-      if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
-        estFullBooleen = true;
-    case RIVER:
-      if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
-        estFullBooleen = true;
-      break;
-    default:
-      break;
-  }
+  if (estUnBrelan(nombreTours) && estDoublePaire(nombreTours))
+    estFullBooleen = true;
+
   return(estFullBooleen);
 }
 
-// TODO: commentaires
+/*
+  Fonction renvoi un booléen qui vaut vrai si il y a une couleur, et faux sinon;
+
+  Principe : On initialise 4 compteurs (1 pour chaque couleur) à 0. On compare
+  les couleurs des cartes du plateau et on incrémente le compteur de la couleur
+  correspondante. Si un des compteurs est supérieur à 5, on retourne vrai. Sinon
+  on retourne faux. On utilise le switch pour chaque tour afin de ne pas comparer
+  les cartes avec des cartes inexistantes.
+
+  @return bool.
+*/
 bool Joueurs::estCouleur(int nombreTours) {
 
   int carreau = 0;
@@ -340,7 +363,19 @@ bool Joueurs::estCouleur(int nombreTours) {
     return false;
 }
 
-// TODO: commentaires
+/*
+  Fonction renvoi un booléen qui vaut vrai si il y a une quinte, et faux sinon;
+
+  Principe : On trie les hauteurs des cartes par ordre croissant. On initialise
+  un compteur à 1. On incrémente le compteur si deux cartes se suivent. Si les 2
+  cartes ne se suivent pas et ne sont pas égales, on met un booléen à faux pour
+  sortir de la boucke de parcours. On vérifie que le compteur est supérieur à 5
+  et, le cas échéant, on retourne vrai. Sinon on retourne faux. On utilise le
+  switch pour chaque tour afin de ne pas comparer les cartes avec des cartes
+  inexistantes.
+
+  @return bool.
+*/
 bool Joueurs::estQuinte(int nombreTours) {
   int compteur = 1;
   int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
@@ -399,46 +434,74 @@ bool Joueurs::estQuinte(int nombreTours) {
       break;
   }
 
-  if (compteur >= 5)
-    return true;
-  else
-    return false;
+  return(compteur >= 5);
 }
 
-// TODO: commentaires
+/*
+  Fonction renvoi un booléen qui vaut vrai si il y a un brelan, et faux sinon;
+
+  Principe : On initialise un compteur à 0. On compare les cartes du plateau
+  et si on trouve 2 cartes égales, on incrémente le compteur. Enfin, on vérifie
+  si le compteur est supérieur ou égal à 2 et, le cas échéant, on retourne vrai.
+  Sinon on retourne faux. On utilise le switch pour chaque tour afin de ne pas
+  comparer les cartes avec des cartes inexistantes.
+
+  @return bool.
+*/
 bool Joueurs::estUnBrelan(int nombreTours) {
   int compteur = 0;
+  bool estBrelan = false;
 
   switch (nombreTours) {
     case FLOP:
       for (int i = 0; i < DEUX_CARTES_INITIALES + 2; i++) {
+        compteur = 0;
         for (int j = i + 1; j < DEUX_CARTES_INITIALES + 3; j++) {
           if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-              compteur++;
+            compteur++;
         }
+        if (compteur >= 2)
+          estBrelan = true;
       }
       break;
     case TURN:
       for (int i = 0; i < DEUX_CARTES_INITIALES + 3; i++) {
+        compteur = 0;
         for (int j = i + 1; j < DEUX_CARTES_INITIALES + 4; j++) {
           if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
             compteur++;
         }
+        if (compteur >= 2)
+          estBrelan = true;
       }
       break;
     case RIVER:
       for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
+        compteur = 0;
         for (int j = i + 1; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; j++) {
           if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
             compteur++;
         }
+        if (compteur >= 2)
+          estBrelan = true;
       }
       break;
   }
-  return(compteur >= 3);
+  return(estBrelan);
 }
 
-// TODO: commentaires
+/*
+  Fonction renvoi un booléen qui vaut vrai si il y a 2 paires, et faux sinon;
+
+  Principe : On trie les hauteurs des cartes par ordre croissant. On initialise
+  un compteur à 0. On compare les hauteurs des cartes du plateau et si on trouve
+  une paire, on incrémente le compteur. Enfin, on vérifie si le compteur est
+  supérieur ou égal à 2 et, le cas échéant, on retourne vrai. Sinon on retourne
+  faux. On utilise le switch pour chaque tour afin de ne pas comparer les cartes
+  avec des cartes inexistantes.
+
+  @return bool.
+*/
 bool Joueurs::estDoublePaire(int nombreTours) {
   int compteur = 0;
   int i = 0;
@@ -510,13 +573,19 @@ bool Joueurs::estDoublePaire(int nombreTours) {
       break;
   }
 
-  if (compteur >= 2)
-    return true;
-  else
-    return false;
+  return(compteur >= 2);
 }
 
-// TODO: commentaires
+/*
+  Fonction renvoi un booléen qui vaut vrai si il y a une paire, et faux sinon;
+
+  Principe : On initialise un booléen à faux. On compare les cartes du plateau
+  et si on trouve une paire, on met le booléen à vrai. Enfin, on retourne ce
+  booléen. On utilise le switch pour chaque tour afin de ne pas comparer les
+  cartes avec des cartes inexistantes.
+
+  @return bool.
+*/
 bool Joueurs::estUnePaire(int nombreTours) {
   bool estPaire = false;
 
@@ -558,12 +627,90 @@ bool Joueurs::estUnePaire(int nombreTours) {
   return(estPaire);
 }
 
-string Joueurs::getCarteCarre() {
 
+/*
+  Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+  l'afficher dans la console et rejoindre dans le niveau;
+
+  Principe : On utilise le même principe que pour le brelan mais en cherchant 4
+  cartes au lieu de 3.
+
+  @return string : une carte.
+*/
+string Joueurs::getCarteCarre() {
+  string carteCarre;
+  int carre = 0;
+  int positionCarte = -1;
+
+  bool trouvee = false;
+  int i = 0;
+
+  while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && !trouvee) {
+    int j = i + 1;
+    int cpt = 0;
+    while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && !trouvee) {
+      if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j)) {
+        positionCarte = i;
+        cpt++;
+        if (cpt == 3)
+          trouvee = true;
+      }
+      j++;
+    }
+    i++;
+  }
+
+
+  /* convertion en chaîne de caractères */
+  carre = getCartesBoardEtMain(positionCarte)._hauteur;
+  carteCarre = to_string(carre);
+
+
+  /* on vérifie le résultat obtenu s'il est supérieur à 10 */
+  if (carteCarre == "14")
+    return(AS);
+  else if (carteCarre == "13")
+    return(ROI);
+  else if (carteCarre == "12")
+    return(DAME);
+  else if (carteCarre == "11")
+    return(VALET);
+  else
+    return(carteCarre);
 }
 
-string Joueurs::getCarteFull() {
+/*
+Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+l'afficher dans la console et rejoindre dans le niveau;
 
+Principe : On récupère la hauteur du brelan ainsi que les 2 paires (dont le
+brelan). On ne garde que la paire qui n'est pas le brelan et on retourne la
+hauteur du brelan et de la deuxième paire
+
+@return string : une carte + " par les " + une autre carte.
+*/
+string Joueurs::getCarteFull() {
+  string doublePaire;
+  string brelan;
+  string carteFull;
+
+  doublePaire = getCarteDoublePaire();
+  brelan = getCarteBrelan();
+
+  /* on cherche la paire qui est dans le brelan */
+  int pos = doublePaire.find(brelan);
+  /* on supprime la paire qui est dans le brelan */
+  doublePaire.erase(pos, brelan.length());
+
+  /* on cherche les mots qui séparaient les 2 paires */
+  pos = doublePaire.find(" et de ");
+  /* on supprime les mots */
+  doublePaire.erase(pos, 7);
+
+
+  carteFull = brelan + " par les " + doublePaire;
+
+  return(carteFull);
 }
 
 /*
@@ -606,13 +753,22 @@ string Joueurs::getCarteCouleur() {
   }
 }
 
-//TODO : marche pas quand il y a double paire
+/*
+Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
+l'afficher dans la console et rejoindre dans le niveau;
+
+Principe : On trie les hauteurs des cartes par ordre croissant et on les compares
+2 à 2 jusq'à arriver à la fin de la quinte. On renvoie la hauteur correspondante
+
+@return string : une carte.
+*/
 string Joueurs::getCarteQuinte() {
   int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
   string carteQuinte;
   int quinteHauteur = 0;
-  bool suivi = false;
+  bool suivi = true;
   int compteur = 0;
+  int j = 0;
 
   for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
     tab[i] = getCartesBoardEtMain(i)._hauteur;
@@ -620,24 +776,30 @@ string Joueurs::getCarteQuinte() {
 
   trierTableau(tab);
 
-  for (int i = 0; i < 5; i++) {
-    if (tab[i] == tab[i+1]) {
+  while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && suivi) {
+    if (tab[j] == tab[j + 1] - 1  || tab[j] == tab[j + 1])
       compteur++;
-      suivi = true;
-    } else {
-      compteur++;
-    }
+    else
+      suivi = false;
+    j++;
   }
 
-  if (!suivi)
-    quinteHauteur = tab[compteur-1];
-  else
-    quinteHauteur = tab[compteur];
+  quinteHauteur = tab[compteur];
 
   /* convertion en chaîne de caractères */
   carteQuinte = to_string(quinteHauteur);
 
-  return(carteQuinte);
+  /* on vérifie le résultat obtenu s'il est supérieur à 10 */
+  if (carteQuinte == "14")
+    return(AS);
+  else if (carteQuinte == "13")
+    return(ROI);
+  else if (carteQuinte == "12")
+    return(DAME);
+  else if (carteQuinte == "11")
+    return(VALET);
+  else
+    return(carteQuinte);
 }
 
 /*
@@ -645,27 +807,35 @@ string Joueurs::getCarteQuinte() {
   l'afficher dans la console et rejoindre dans le niveau;
 
   Principe : On compare directement les cartes dans le board entre elles et
-  dès qu'on trouve une paire, on recopie la position de cette carte. Ensuite,
+  dès qu'on trouve 3 cartes identiques, on recopie la position de cette carte. Ensuite,
   on convertir hauteur de cette carte (en utilisant la positon) en une chaîne
   de caractères.
-
-  Remarque : Nous n'avons pas fait des vérifications car cettefonction est
-  appelée si et seulement s'il y a un brelan.
 
   @return string : une carte.
 */
 string Joueurs::getCarteBrelan() {
   string carteBrelan;
   int brelan = 0;
-  int positionCarte = 0;
+  int positionCarte = -1;
 
-  /* recherche d'une paire */
-  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1; i++) {
-    for (int j = i + 1; j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; j++) {
-      if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j))
-        positionCarte = i; /* recopie de la position */
+  bool trouvee = false;
+  int i = 0;
+
+  while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && !trouvee) {
+    int j = i + 1;
+    int cpt = 0;
+    while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && !trouvee) {
+      if (getCartesBoardEtMain(i) == getCartesBoardEtMain(j)) {
+        positionCarte = i;
+        cpt++;
+        if (cpt == 2)
+          trouvee = true;
+      }
+      j++;
     }
+    i++;
   }
+
 
   /* convertion en chaîne de caractères */
   brelan = getCartesBoardEtMain(positionCarte)._hauteur;
@@ -685,6 +855,16 @@ string Joueurs::getCarteBrelan() {
     return(carteBrelan);
 }
 
+/*
+  Fonction renvoi deux cartes sous type de chaîne de caractères pour pouvoir
+  l'afficher dans la console et rejoindre dans le niveau;
+
+  Principe : On appelle getCartePaire() pour avoir la première paire puis on
+  applique le même principe que cette fonction et on ignore les cartes de la
+  première paire pour connaitre la deuxième paire
+
+  @return string : une carte + "et de " + une autre carte.
+*/
 string Joueurs::getCarteDoublePaire() {
   string premierePaire;
   string deuxiemePaire;
@@ -721,6 +901,7 @@ string Joueurs::getCarteDoublePaire() {
 
   return(doublePaire);
 }
+
 /*
   Fonction renvoi une carte sous type de chaîne de caractères pour pouvoir
   l'afficher dans la console et rejoindre dans le niveau;
