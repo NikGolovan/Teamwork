@@ -363,15 +363,15 @@ void Joueurs::setCartesBoardEtMain(Carte carte, int numCarte) {
 */
 void Joueurs::ajouterCarte(Carte carte) {
   if (_cartes[0].getHauteur() == "-1") {
-    _cartes[0].setHauteur(carte._hauteur);
-    _cartes[0].setCouleur(carte._couleur);
-    _boardEtMain[0].setHauteur(carte._hauteur);
-    _boardEtMain[0].setCouleur(carte._couleur);
+    _cartes[0].setHauteur(2);
+    _cartes[0].setCouleur(2);
+    _boardEtMain[0].setHauteur(2);
+    _boardEtMain[0].setCouleur(2);
   } else {
-    _cartes[1].setHauteur(carte._hauteur);
-    _cartes[1].setCouleur(carte._couleur);
-    _boardEtMain[1].setHauteur(carte._hauteur);
-    _boardEtMain[1].setCouleur(carte._couleur);
+    _cartes[1].setHauteur(3);
+    _cartes[1].setCouleur(4);
+    _boardEtMain[1].setHauteur(3);
+    _boardEtMain[1].setCouleur(3);
   }
 }
 
@@ -413,14 +413,15 @@ void Joueurs::calculerNiveau(int nombreTours) {
   else if (estCouleur(nombreTours)) {
     carte = getCarteCouleur();
      _niveau = COULEUR + carte;
-  } else if (estQuinte(nombreTours))
-    _niveau = QUINTE;
-  else if (estUnBrelan(nombreTours)) {
+  } else if (estQuinte(nombreTours)) {
+    carte = getCarteQuinte();
+    _niveau = QUINTE + carte;
+  } else if (estUnBrelan(nombreTours)) {
     carte = getCarteBrelan();
     _niveau = BRELAN + carte;
   } else if (estDoublePaire(nombreTours)) {
     carte = getCarteDoublePaire();
-    _niveau = DOUBLE_PAIR + carte; // TODO: ajouter + " et de " +
+    _niveau = DOUBLE_PAIR + carte;
   } else if (estUnePaire(nombreTours)) {
       carte = getCartePaire();
       _niveau = PAIRE + carte;
@@ -469,12 +470,16 @@ void distribuerCarte(Deck deck[], Joueurs *joueurs, int nombreJoueurs) {
 void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJoueurs, int nombreTours) {
   Carte test;
   Carte test2;
+  Carte test3;
 
-  test.setHauteur(1);
+  test.setHauteur(4);
   test.setCouleur(1);
 
   test2.setHauteur(5);
   test2.setCouleur(1);
+
+  test3.setHauteur(6);
+  test3.setCouleur(3);
 
   try {
     switch (nombreTours) {
@@ -489,14 +494,14 @@ void devoilerCarte(Plateau *plateau, Deck deck[], Joueurs *joueurs, int nombreJo
         break;
       case TURN:
         /* Rajoute d'une carte sur le plateau. Nombre total de carte vaut 4 */
-        plateau[3].setCartesPlateau(tirerCarte(deck));
+        plateau[3].setCartesPlateau(test);
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[3].getCartesPlateau(), 3);
         }
         break;
       case RIVER:
         /* Rajoute d'une carte sur le plateau. Nombre total de carte vaut 5 */
-        plateau[4].setCartesPlateau(tirerCarte(deck));
+        plateau[4].setCartesPlateau(test3);
         for (int j = 0; j < nombreJoueurs; j++) {
           joueurs[j].setCartesBoardEtMain(plateau[4].getCartesPlateau(), 4);
         }
