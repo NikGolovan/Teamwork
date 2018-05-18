@@ -606,8 +606,38 @@ string Joueurs::getCarteCouleur() {
   }
 }
 
+//TODO : marche pas quand il y a double paire
 string Joueurs::getCarteQuinte() {
+  int tab[DEUX_CARTES_INITIALES + TAILLE_PLATEAU] = {-1, -1, -1, -1, -1, -1, -1};
+  string carteQuinte;
+  int quinteHauteur = 0;
+  bool suivi = false;
+  int compteur = 0;
 
+  for (int i = 0; i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU; i++) {
+    tab[i] = getCartesBoardEtMain(i)._hauteur;
+  }
+
+  trierTableau(tab);
+
+  for (int i = 0; i < 5; i++) {
+    if (tab[i] == tab[i+1]) {
+      compteur++;
+      suivi = true;
+    } else {
+      compteur++;
+    }
+  }
+
+  if (!suivi)
+    quinteHauteur = tab[compteur-1];
+  else
+    quinteHauteur = tab[compteur];
+
+  /* convertion en chaîne de caractères */
+  carteQuinte = to_string(quinteHauteur);
+
+  return(carteQuinte);
 }
 
 /*
@@ -656,20 +686,20 @@ string Joueurs::getCarteBrelan() {
 }
 
 string Joueurs::getCarteDoublePaire() {
-  string test;
-  string test2;
+  string premierePaire;
+  string deuxiemePaire;
   string doublePaire;
   int i = 0;
   bool trouvee = false;
 
-  test = getCartePaire();
+  premierePaire = getCartePaire();
 
   while (i < DEUX_CARTES_INITIALES + TAILLE_PLATEAU - 1 && !trouvee) {
     int j = i + 1;
     while (j < DEUX_CARTES_INITIALES + TAILLE_PLATEAU && !trouvee) {
-      if (test != getCartesBoardEtMain(i).getHauteur()
+      if (premierePaire != getCartesBoardEtMain(i).getHauteur()
           && getCartesBoardEtMain(i)._hauteur == getCartesBoardEtMain(j)._hauteur) {
-        test2 = getCartesBoardEtMain(i).getHauteur();
+        deuxiemePaire = getCartesBoardEtMain(i).getHauteur();
         trouvee = true;
       }
       j++;
@@ -678,16 +708,16 @@ string Joueurs::getCarteDoublePaire() {
   }
 
   /* on vérifie le résultat obtenu s'il est supérieur à 10 */
-  if (test2 == "14")
-    test2 = AS;
-  else if (test2 == "13")
-    test2 = ROI;
-  else if (test2 == "12")
-    test2 = DAME;
-  else if (test2 == "11")
-    test2 = VALET;
+  if (deuxiemePaire == "14")
+    deuxiemePaire = AS;
+  else if (deuxiemePaire == "13")
+    deuxiemePaire = ROI;
+  else if (deuxiemePaire == "12")
+    deuxiemePaire = DAME;
+  else if (deuxiemePaire == "11")
+    deuxiemePaire = VALET;
 
-  doublePaire = test + " et de " + test2;
+  doublePaire = premierePaire + " et de " + deuxiemePaire;
 
   return(doublePaire);
 }
